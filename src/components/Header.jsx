@@ -10,6 +10,7 @@ const Header = () => {
     tokenTest();
   }, []);
 
+  //kiểm tra nếu có token sẽ ẩn logout và ngược lại
   const tokenTest = () => {
     const token = localStorage.getItem("jwt");
     if (token) {

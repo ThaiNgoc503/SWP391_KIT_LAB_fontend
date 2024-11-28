@@ -42,12 +42,6 @@ const BanList = () => {
                 status
               </th>
               <th scope="col" class="px-6 py-3">
-                isExternal
-              </th>
-              <th scope="col" class="px-6 py-3">
-                externalProvider
-              </th>
-              <th scope="col" class="px-6 py-3">
                 roles
               </th>
               <th scope="col" class="px-6 py-3">
@@ -80,8 +74,6 @@ const BanList = () => {
                     <td class="px-6 py-4">{user.fullName}</td>
                     <td class="px-6 py-4">{user.username}</td>
                     <td class="px-6 py-4">{user.status}</td>
-                    <td class="px-6 py-4">{user.isExternal}</td>
-                    <td class="px-6 py-4">{user.externalProvider}</td>
                     <td class="px-6 py-4">{user.roles}</td>
                     <td class="px-6 py-4">
                       <div className="flex gap-x-3">

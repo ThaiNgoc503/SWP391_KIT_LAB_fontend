@@ -9,10 +9,29 @@ const END_POINTS = {
 };
 
 export const loginAPI = async (credentials) => {
-  try {
-    const response = await AxiosClient.post(`${"Auth"}/${END_POINTS.LOGIN}`, credentials);
-    return response.data; 
-  } catch (error) {
-    console.error("Login failed:", error);
-  }
+  const response = await AxiosClient.post(
+    `${"Auth"}/${END_POINTS.LOGIN}`,
+    credentials
+  );
+  return response.data;
+};
+
+export const logoutAPI = async (refreshToken) => {
+  const response = await AxiosClient.post(
+    `${"Auth"}/${END_POINTS.LOGOUT}`,
+    { refreshToken },
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  return response;
+};
+export const registerAPI = async (data) => {
+  const response = await AxiosClient.post(
+    `${"Auth"}/${END_POINTS.REGISTER}`,
+    data
+  );
+  return response;
 };

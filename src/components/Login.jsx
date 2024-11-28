@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import { loginAPI } from "../axios/Auth";
 import { MdCancelPresentation } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import Register from "./Register";
 
 const Login = () => {
   const [popup, setPopup] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [showRegister, setShowRegister] = useState(false);
   const navigate = useNavigate();
   const getUsernameAndPassword = async (e) => {
     e.preventDefault();
@@ -18,7 +20,9 @@ const Login = () => {
         const data = {
           TOKEN: response.data.token,
           ROLE: response.data.roles[0].trim(),
+          REFRESH_TOKEN: response.data.refreshToken,
         };
+
         localStorage.setItem("jwt", JSON.stringify(data));
         console.log("Login success");
         if (data.ROLE === "Manager") {
@@ -37,6 +41,11 @@ const Login = () => {
     setPopup(false);
     setPassword("");
     setUsername("");
+  };
+
+  const handleRegister = () => {
+    setPopup(false);
+    setShowRegister(true);
   };
 
   return (
@@ -83,7 +92,15 @@ const Login = () => {
                 />
                 <div className="flex justify-between">
                   <a href="">forgot password</a>
-                  <a>Register</a>
+                  <a className="flex gap-1">
+                    <p>don't have account? </p>
+                    <button
+                      onClick={handleRegister}
+                      className="text-cyan-400 text-base hover:underline ease-in-out pr-2"
+                    >
+                      Sign up
+                    </button>
+                  </a>
                 </div>
                 <button
                   type="submit"
@@ -95,6 +112,9 @@ const Login = () => {
             </div>
           </div>
         </div>
+      )}
+      {showRegister && (
+        <Register closePopupRegister={() => setShowRegister(false)}/>
       )}
     </>
   );

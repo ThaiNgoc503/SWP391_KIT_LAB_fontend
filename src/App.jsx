@@ -29,6 +29,8 @@ function App() {
           <Route path="manager/user" element={<UserList />} />
           <Route path="manager/ban-list" element={<BanList />} />
         </Route>
+
+        
       </Routes>
     </BrowserRouter>
   );

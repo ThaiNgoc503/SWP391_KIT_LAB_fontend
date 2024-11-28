@@ -26,9 +26,6 @@ const AdminHeader = () => {
         <img src={logo} className="w-14 h-14" />
         <ul className="flex gap-5 font-bold text-2xl pt-2">
           <li>
-            <Link to="/admin">Dashboard</Link>
-          </li>
-          <li>
             <Link to="manager/user">User</Link>
           </li>
           <li>

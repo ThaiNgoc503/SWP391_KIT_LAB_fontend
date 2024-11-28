@@ -1,10 +1,21 @@
 import React from "react";
+import { logoutAPI } from "../axios/Auth";
+import { useNavigate } from "react-router-dom";
 
 const Logout = () => {
-  const handleLogout = () => {
-    localStorage.removeItem("jwt");
-    window.location.reload();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    const jwt = localStorage.getItem("jwt");
+    if (jwt) {
+      const token = JSON.parse(jwt);
+      const refreshToken = token.REFRESH_TOKEN;
+      await logoutAPI(refreshToken);
+      localStorage.removeItem("jwt");
+      navigate("/");
+    }
   };
+
   return (
     <ul className="flex gap-4 font-semibold text-xl pt-3">
       <li>
