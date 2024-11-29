@@ -1,6 +1,7 @@
 import React from "react";
 import { logoutAPI } from "../axios/Auth";
 import { useNavigate } from "react-router-dom";
+import { Cart } from "./CartIcon";
 
 const Logout = () => {
   const navigate = useNavigate();
@@ -10,9 +11,15 @@ const Logout = () => {
     if (jwt) {
       const token = JSON.parse(jwt);
       const refreshToken = token.REFRESH_TOKEN;
-      await logoutAPI(refreshToken);
-      localStorage.removeItem("jwt");
-      navigate("/");
+      try {
+        await logoutAPI(refreshToken);
+      } catch (error) {
+        console.log("error logout: " + error);
+      } finally {
+        localStorage.removeItem("jwt");
+        navigate("/");
+        window.location.reload();
+      }
     }
   };
 
@@ -21,6 +28,7 @@ const Logout = () => {
       <li>
         <button onClick={() => handleLogout()}>Logout</button>
       </li>
+      <Cart />
     </ul>
   );
 };

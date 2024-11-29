@@ -33,7 +33,7 @@ const Header = () => {
             <Link to="/">Contact</Link>
           </li>
           <li>
-            <Link to="/">Product</Link>
+            <Link to="/product-list">Product</Link>
           </li>
         </ul>
         {hasToken ? <Logout /> : <Login />}

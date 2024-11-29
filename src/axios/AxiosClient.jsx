@@ -1,9 +1,5 @@
 import axios from "axios";
 
-const jwt = localStorage.getItem("jwt");
-
-const token = JSON.parse(jwt);
-
 const instance = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
 });
