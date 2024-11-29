@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { MdCancelPresentation } from "react-icons/md";
-import { registerAPI } from "../axios/Auth";
+import { registerAPI } from "../api/Auth";
 
 const Register = ({ closePopupRegister }) => {
   const [username, setUsername] = useState("");

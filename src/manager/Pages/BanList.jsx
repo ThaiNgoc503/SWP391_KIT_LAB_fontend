@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { banUser, getAllUser } from "../../axios/Admin";
+import { getAllUser, unbanUser } from "../../api/Admin";
 
-const UserList = () => {
+const BanList = () => {
   const [user, setUser] = useState([]);
 
   useEffect(() => {
@@ -13,9 +13,8 @@ const UserList = () => {
     setUser(fetchedUsers);
   };
 
-  const handleBanUser = async (userId) => {
-    console.log("ban");
-    await banUser(userId);
+  const handleUnBanUser = async (userId) => {
+    await unbanUser(userId);
     fetchAPI();
   };
 
@@ -42,7 +41,6 @@ const UserList = () => {
               <th scope="col" class="px-6 py-3">
                 status
               </th>
-
               <th scope="col" class="px-6 py-3">
                 roles
               </th>
@@ -60,7 +58,7 @@ const UserList = () => {
               </tr>
             ) : (
               user
-                .filter((user) => user.status === "Active")
+                .filter((user) => user.status === "Banned")
                 .map((user, index) => (
                   <tr
                     key={user.id}
@@ -80,10 +78,10 @@ const UserList = () => {
                     <td class="px-6 py-4">
                       <div className="flex gap-x-3">
                         <button
-                          onClick={() => handleBanUser(user.userId)}
-                          className="bg-red-400 p-2 px-5 rounded-md text-white"
+                          onClick={() => handleUnBanUser(user.userId)}
+                          className="bg-green-400 p-2 px-3 rounded-md text-white"
                         >
-                          Ban
+                          Unban
                         </button>
                       </div>
                     </td>
@@ -97,4 +95,4 @@ const UserList = () => {
   );
 };
 
-export default UserList;
+export default BanList;

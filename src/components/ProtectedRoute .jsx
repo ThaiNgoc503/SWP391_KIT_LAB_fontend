@@ -1,23 +1,16 @@
 import { Navigate } from "react-router-dom";
 
 const getUserRole = () => {
-  const token = (localStorage.getItem("jwt"));
+  const token = localStorage.getItem("jwt");
   if (!token) return null;
-  try {
-    const user = JSON.parse(token);
-    return user.ROLE; 
-  } catch (error) {
-    console.error("Invalid JWT", error);
-    return null;
-  }
+  const user = JSON.parse(token);
+  return user.ROLE;
 };
 
-
-
-export const ProtectedRoute = ({roleRequired, children }) => {
+export const ProtectedRoute = ({ roleRequired, children }) => {
   const userRole = getUserRole();
   if (userRole !== roleRequired) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/" replace/>;
   }
   return children;
 };

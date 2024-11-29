@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import logo from "../../assets/kitlab_logo.webp";
 import { Link } from "react-router-dom";
 import Login from "../../components/Login";
@@ -26,10 +26,13 @@ const AdminHeader = () => {
         <img src={logo} className="w-14 h-14" />
         <ul className="flex gap-5 font-bold text-2xl pt-2">
           <li>
-            <Link to="manager/user">User</Link>
+            <Link to="user">User</Link>
           </li>
           <li>
-            <Link to="manager/ban-list">Ban User</Link>
+            <Link to="ban-list">Ban User</Link>
+          </li>
+          <li>
+            <Link to="product-manager">Product Manager</Link>
           </li>
          
         </ul>

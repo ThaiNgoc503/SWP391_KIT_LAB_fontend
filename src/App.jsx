@@ -3,13 +3,13 @@ import HomePage from "./Pages/HomePage";
 import Layout from "../Layout";
 import LayoutAdmin from "../LayoutAdmin";
 import { ProtectedRoute } from "./components/ProtectedRoute ";
-import DashBoard from "./Admin/Pages/DashBoard";
-import UserList from "./Admin/Pages/UserList";
-import BanList from "./Admin/Pages/BanList";
+import UserList from "./manager/Pages/UserList";
+import BanList from "./manager/Pages/BanList";
 import ProductPage from "./Pages/ProductPage";
 import ProductDetailsPage from "./Pages/ProductDetailsPage";
-import { Cart } from "./components/CartIcon";
 import CartPage from "./Pages/CartPage";
+import Profile from "./Pages/Profile";
+import ProductManager from "./manager/Pages/ProductManager";
 
 function App() {
   return (
@@ -20,6 +20,8 @@ function App() {
           <Route path="/product-list" element={<ProductPage />} />
           <Route path="/product-list/:id" element={<ProductDetailsPage />} />
           <Route path="/cart" element={<CartPage />} />
+          <Route path="/profile" element={<Profile />} />
+
         </Route>
 
         <Route
@@ -30,9 +32,10 @@ function App() {
             </ProtectedRoute>
           }
         >
-          <Route index element={<DashBoard />} />
-          <Route path="manager/user" element={<UserList />} />
-          <Route path="manager/ban-list" element={<BanList />} />
+          <Route index element={<UserList />} />
+          <Route path="user" element={<UserList />} />
+          <Route path="ban-list" element={<BanList />} />
+          <Route path="product-manager" element={<ProductManager />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Card from "../components/Card";
-import { getProductAPI, getProductPaginationAPI } from "../axios/Product";
+import { getProductAPI, getProductPaginationAPI } from "../api/Product";
 
 const ProductPage = () => {
   const [product, setProduct] = useState([]);
@@ -30,12 +30,13 @@ const ProductPage = () => {
   };
 
   return (
-    <div className="bg-slate-200">
+    <div  className="bg-slate-200">
       <h2 className="pt-5 text-center text-4xl font-bold">Stempede Shop</h2>
       <div className="pt-10 grid  grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-items-center">
         {product.map((product) => (
           <Card
             key={product.productId}
+            imagePath={product.imagePath}
             productName={product.productName}
             productPrice={product.price}
             productId={product.productId}

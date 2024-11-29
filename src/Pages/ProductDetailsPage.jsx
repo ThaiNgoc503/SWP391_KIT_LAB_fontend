@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { getProductByIdAPI } from "../axios/Product";
+import { getProductByIdAPI } from "../api/Product";
 
 const ProductDetailsPage = () => {
   const { id } = useParams();
@@ -14,7 +14,7 @@ const ProductDetailsPage = () => {
     setProduct(response);
   };
   return (
-    <div>
+    <div className="bg-slate-200">
       <div className="flex pl-3 bg-slate-200 border-solid border-2">
         <Link to="/product-list" className="text-base">
           &gt;Product
@@ -24,7 +24,7 @@ const ProductDetailsPage = () => {
 
       <div className="grid grid-col-1 justify-items-center md:grid-cols-2 p-5">
         <img
-          src="https://images.pexels.com/photos/28267108/pexels-photo-28267108/free-photo-of-cay-co-d-n-trong-phong-c-nh-mua-dong-tuy-t-r-i.jpeg?auto=compress&cs=tinysrgb&w=400"
+          src={product.imagePath}
           alt="hinh"
           className="w-[30rem] h-[25rem] m-5 rounded-xl md:w-[40rem] mx-5"
         />

@@ -4,13 +4,13 @@ import { Link } from "react-router-dom";
 
 export const Cart = () => {
   return (
-    <li className="pb-2 relative flex">
+    <li className="pb-2 pr-2 relative flex">
       <Link to="/cart">
         <div className="w-5 h-5 text-xs absolute left-5 bg-red-400 rounded-full">
           <p className="pt-[1px] pl-[3px]">20</p>
         </div>
         <button>
-          <FaShoppingCart />
+          <FaShoppingCart className="text-xl mt-2"/>
         </button>
       </Link>
     </li>

@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { loginAPI } from "../axios/Auth";
+import { loginAPI } from "../api/Auth";
 import { MdCancelPresentation } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import Register from "./Register";
 import { FaUser } from "react-icons/fa";
-
 
 const Login = () => {
   const [popup, setPopup] = useState(false);
@@ -12,6 +11,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [showRegister, setShowRegister] = useState(false);
   const navigate = useNavigate();
+
   const getUsernameAndPassword = async (e) => {
     e.preventDefault();
     try {
@@ -28,7 +28,7 @@ const Login = () => {
         localStorage.setItem("jwt", JSON.stringify(data));
         console.log("Login success");
         if (data.ROLE === "Manager") {
-          navigate("admin/manager/user");
+          navigate("admin/user");
         } else {
           navigate("/");
           window.location.reload();
@@ -54,7 +54,9 @@ const Login = () => {
     <>
       <ul className="flex gap-4 font-semibold text-base pt-3">
         <li>
-          <button onClick={() => setPopup(!popup)} className="flex"><FaUser className="mt-1 mr-2 text-xl"/> LOGIN/SIGN UP</button>
+          <button onClick={() => setPopup(!popup)} className="flex">
+            <FaUser className="mt-1 mr-2 text-xl" /> LOGIN/SIGN UP
+          </button>
         </li>
       </ul>
       {popup && (
@@ -116,7 +118,7 @@ const Login = () => {
         </div>
       )}
       {showRegister && (
-        <Register closePopupRegister={() => setShowRegister(false)}/>
+        <Register closePopupRegister={() => setShowRegister(false)} />
       )}
     </>
   );
