@@ -1,11 +1,12 @@
 import  { useEffect, useState } from "react";
-import { getUserProfile } from "../api/Users";
+import { getUserProfile } from "../../api/UsersAPI";
 
 const Profile = () => {
   const [profile, setProfile] = useState({});
   useEffect(() => {
     fetchAPI();
   }, []);
+  
   const fetchAPI = async () => {
     const token = localStorage.getItem("jwt");
     if (token) {

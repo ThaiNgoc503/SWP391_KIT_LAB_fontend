@@ -1,32 +1,31 @@
-import React, { useEffect, useState } from "react";
-import Card from "../components/Card";
-import { getProductAPI, getProductPaginationAPI } from "../api/Product";
+import { useEffect, useState } from "react";
+import Card from "../../customer/components/Card";
+import { getProductAPI, getProductPaginationAPI } from "../../api/ProductAPI";
 
 const ProductPage = () => {
   const [product, setProduct] = useState([]);
-  const [productAll, setProductAll] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
   const [productLength, setProductLength] = useState();
   useEffect(() => {
     fetchAPI();
   }, []);
+
   const fetchAPI = async () => {
-    const data = { PageNumber: pageNumber, PageSize: 12 };
-    const response = await getProductPaginationAPI(data);
-    const getAllData = await getProductAPI();
-    setProductAll(getAllData);
-    const length = Math.ceil(getAllData.length / 12);
-    setProductLength(length);
-    console.log(productLength);
+    const data = { PageNumber: pageNumber, PageSize: 12 }; //gồm số tang và độ dài của sản phẩm
+    const response = await getProductPaginationAPI(data); 
     setProduct(response);
+
+    const getAllProducts = await getProductAPI();                 //lấy độ dài mãng
+    const length = Math.ceil(getAllProducts.length / 12);        //lấy số trang
+    setProductLength(length);                                    
+    
   };
 
-  const loadData = async (pageNumber) => {
+  const loadData = async (pageNumber) => {               //load lại data khi ra trước hoặc ra sau
     const data = { PageNumber: pageNumber, PageSize: 12 };
-    console.log(data);
     const response = await getProductPaginationAPI(data);
-    setProduct(response);
-    setPageNumber(pageNumber);
+    setProduct(response);                             //lấy đc 12 sản phẩm để hiện
+    setPageNumber(pageNumber);                        //set lại số trang
   };
 
   return (

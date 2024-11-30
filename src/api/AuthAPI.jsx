@@ -11,7 +11,7 @@ const END_POINTS = {
 export const loginAPI = async (credentials) => {
   const response = await AxiosClient.post(
     `${"Auth"}/${END_POINTS.LOGIN}`,
-    credentials
+    credentials,
   );
   return response.data;
 };
@@ -24,14 +24,15 @@ export const logoutAPI = async (refreshToken) => {
       headers: {
         "Content-Type": "application/json",
       },
-    }
+    },
   );
   return response;
 };
+
 export const registerAPI = async (data) => {
   const response = await AxiosClient.post(
     `${"Auth"}/${END_POINTS.REGISTER}`,
-    data
+    data,
   );
   return response;
 };

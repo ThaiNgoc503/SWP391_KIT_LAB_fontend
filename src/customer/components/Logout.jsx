@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { logoutAPI } from "../api/Auth";
+import { logoutAPI } from "../../api/AuthAPI";
 import { Link, useNavigate } from "react-router-dom";
 import { Cart } from "./CartIcon";
 import { SlArrowDown } from "react-icons/sl";
@@ -16,7 +16,6 @@ const Logout = () => {
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
-   
   }, []);
 
   const handleLogout = async () => {
@@ -37,31 +36,31 @@ const Logout = () => {
   };
 
   return (
-    <ul className="flex gap-6 font-medium text-sm pt-3">
+    <ul className="flex gap-6 pt-3 text-sm font-medium">
       <li>
         <Cart />
       </li>
       <li ref={menuRef}>
         <button
-          className="bg-slate-200 p-2 pr-6 rounded-full flex"
+          className="flex rounded-full bg-slate-200 p-2 pr-6"
           onClick={() => setOpenMenu(!openMenu)}
         >
-          <p className="whitespace-nowrap text-ellipsis overflow-hidden w-[6rem] md:w-full">
+          <p className="w-[6rem] overflow-hidden text-ellipsis whitespace-nowrap md:w-full">
             Welcome, Thái Ngọc
           </p>
-          <SlArrowDown className="mt-2 ml-3" />
+          <SlArrowDown className="ml-3 mt-2" />
         </button>
         {openMenu && (
-          <div className="border-solid border-2 border-slate-600 mt-1 absolute z-50 bg-white w-[12rem] rounded-md">
+          <div className="absolute z-50 mt-1 w-[12rem] rounded-md border-2 border-solid border-slate-600 bg-white">
             <ul>
               <Link to="/profile">
-                <li className="p-2 border-solid border-b-2 border-slate-800 hover:bg-slate-300 hover:rounded-t-sm">
+                <li className="border-b-2 border-solid border-slate-800 p-2 hover:rounded-t-sm hover:bg-slate-300">
                   Profile
                 </li>
               </Link>
               <li
                 onClick={() => handleLogout()}
-                className=" hover:bg-slate-300 p-2 cursor-pointer hover:rounded-b-sm"
+                className="cursor-pointer p-2 hover:rounded-b-sm hover:bg-slate-300"
               >
                 <button>Logout</button>
               </li>

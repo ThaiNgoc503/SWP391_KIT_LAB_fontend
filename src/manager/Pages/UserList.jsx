@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { banUser, getAllUser } from "../../api/Admin";
+import { banUser, getAllUser } from "../../api/AdminAPI";
 
 const UserList = () => {
   const [user, setUser] = useState([]);
@@ -14,18 +14,17 @@ const UserList = () => {
   };
 
   const handleBanUser = async (userId) => {
-    console.log("ban");
-    await banUser(userId);
-    fetchAPI();
+    await banUser(userId); //ban user
+    fetchAPI(); //load lại dữ liệu
   };
 
   return (
     <div className="bg-slate-500">
-      <h1 className="text-center  text-3xl font-black pt-5 pb-5">User List</h1>
+      <h1 className="pb-5 pt-5 text-center text-3xl font-black">User List</h1>
 
       <div class="relative overflow-x-auto">
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-          <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <table class="w-full text-left text-sm text-gray-500 rtl:text-right dark:text-gray-400">
+          <thead class="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
             <tr>
               <th scope="col" class="px-6 py-3">
                 #
@@ -54,7 +53,7 @@ const UserList = () => {
           <tbody>
             {user.length === 0 ? (
               <tr>
-                <td colSpan="8" className="text-center px-6 py-4">
+                <td colSpan="8" className="px-6 py-4 text-center">
                   No users found.
                 </td>
               </tr>
@@ -64,11 +63,11 @@ const UserList = () => {
                 .map((user, index) => (
                   <tr
                     key={user.id}
-                    class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                    class="border-b bg-white dark:border-gray-700 dark:bg-gray-800"
                   >
                     <th
                       scope="row"
-                      class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                      class="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white"
                     >
                       {index + 1}
                     </th>
@@ -81,7 +80,7 @@ const UserList = () => {
                       <div className="flex gap-x-3">
                         <button
                           onClick={() => handleBanUser(user.userId)}
-                          className="bg-red-400 p-2 px-5 rounded-md text-white"
+                          className="rounded-md bg-red-400 p-2 px-5 text-white"
                         >
                           Ban
                         </button>

@@ -19,7 +19,7 @@ export const getProductByIdAPI = async (id) => {
 export const getProductPaginationAPI = async (data) => {
   const response = await AxiosClient.get(
     `${"Product"}/${END_POINTS.GET_ALL_PAGINATION}`,
-    { params: data }
+    { params: data },
   );
   return response.data.data.items;
 };

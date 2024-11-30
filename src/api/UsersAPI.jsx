@@ -7,5 +7,5 @@ const END_POINT = {
 
 export const getUserProfile = async () => {
   const response = await AxiosClient.get(`${"Users"}/${END_POINT.PROFILE}`);
-  return response.data.data ;
+  return response.data.data;
 };

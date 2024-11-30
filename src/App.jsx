@@ -1,15 +1,15 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import HomePage from "./Pages/HomePage";
-import Layout from "../Layout";
-import LayoutAdmin from "../LayoutAdmin";
-import { ProtectedRoute } from "./components/ProtectedRoute ";
+import { ProtectedRoute } from "./protected/ProtectedRoute ";
+import Layout from "./layout/CustomerLayout";
+import LayoutAdmin from "./layout/ManagerLayout";
+import ProductPage from "./customer/Pages/ProductPage";
+import ProductDetailsPage from "./customer/Pages/ProductDetailsPage";
+import CartPage from "./customer/Pages/CartPage";
+import Profile from "./customer/Pages/Profile";
+import ProductManager from "./manager/Pages/ProductManager";
 import UserList from "./manager/Pages/UserList";
 import BanList from "./manager/Pages/BanList";
-import ProductPage from "./Pages/ProductPage";
-import ProductDetailsPage from "./Pages/ProductDetailsPage";
-import CartPage from "./Pages/CartPage";
-import Profile from "./Pages/Profile";
-import ProductManager from "./manager/Pages/ProductManager";
+import HomePage from "./customer/Pages/HomePage";
 
 function App() {
   return (
@@ -21,11 +21,10 @@ function App() {
           <Route path="/product-list/:id" element={<ProductDetailsPage />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/profile" element={<Profile />} />
-
         </Route>
 
         <Route
-          path="/admin"
+          path="/manager"
           element={
             <ProtectedRoute roleRequired="Manager">
               <LayoutAdmin />

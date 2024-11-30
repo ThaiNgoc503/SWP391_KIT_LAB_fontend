@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getAllUser, unbanUser } from "../../api/Admin";
+import { getAllUser, unbanUser } from "../../api/AdminAPI";
 
 const BanList = () => {
   const [user, setUser] = useState([]);
@@ -20,11 +20,11 @@ const BanList = () => {
 
   return (
     <div className="bg-slate-500">
-      <h1 className="text-center  text-3xl font-black pt-5 pb-5">User List</h1>
+      <h1 className="pb-5 pt-5 text-center text-3xl font-black">User List</h1>
 
       <div class="relative overflow-x-auto">
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-          <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <table class="w-full text-left text-sm text-gray-500 rtl:text-right dark:text-gray-400">
+          <thead class="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
             <tr>
               <th scope="col" class="px-6 py-3">
                 #
@@ -52,7 +52,7 @@ const BanList = () => {
           <tbody>
             {user.length === 0 ? (
               <tr>
-                <td colSpan="8" className="text-center px-6 py-4">
+                <td colSpan="8" className="px-6 py-4 text-center">
                   No users found.
                 </td>
               </tr>
@@ -62,11 +62,11 @@ const BanList = () => {
                 .map((user, index) => (
                   <tr
                     key={user.id}
-                    class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                    class="border-b bg-white dark:border-gray-700 dark:bg-gray-800"
                   >
                     <th
                       scope="row"
-                      class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                      class="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white"
                     >
                       {index + 1}
                     </th>
@@ -79,7 +79,7 @@ const BanList = () => {
                       <div className="flex gap-x-3">
                         <button
                           onClick={() => handleUnBanUser(user.userId)}
-                          className="bg-green-400 p-2 px-3 rounded-md text-white"
+                          className="rounded-md bg-green-400 p-2 px-3 text-white"
                         >
                           Unban
                         </button>

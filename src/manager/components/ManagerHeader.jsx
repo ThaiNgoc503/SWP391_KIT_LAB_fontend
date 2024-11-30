@@ -1,16 +1,17 @@
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import logo from "../../assets/kitlab_logo.webp";
 import { Link } from "react-router-dom";
-import Login from "../../components/Login";
-import Logout from "../../components/Logout";
-const AdminHeader = () => {
+import Login from "../../customer/components/PopupLogin";
+import Logout from "../../customer/components/Logout";
+const ManagerHeader = () => {
   const [hasToken, setHasToken] = useState(false);
 
   useEffect(() => {
-    tokenTest();
+    isTest();
   }, []);
 
-  const tokenTest = () => {
+  const isTest = () => {
+    //liểm tra coi có token không hiểm thị login logout
     const token = localStorage.getItem("jwt");
     if (token) {
       setHasToken(true);
@@ -22,9 +23,9 @@ const AdminHeader = () => {
 
   return (
     <div className="relative">
-      <div className="flex justify-between pt-3 pb-3 pl-9 pr-24 bg-slate-400">
-        <img src={logo} className="w-14 h-14" />
-        <ul className="flex gap-5 font-bold text-2xl pt-2">
+      <div className="flex justify-between bg-slate-400 pb-3 pl-9 pr-24 pt-3">
+        <img src={logo} className="h-14 w-14" />
+        <ul className="flex gap-5 pt-2 text-2xl font-bold">
           <li>
             <Link to="user">User</Link>
           </li>
@@ -34,13 +35,12 @@ const AdminHeader = () => {
           <li>
             <Link to="product-manager">Product Manager</Link>
           </li>
-         
         </ul>
         {hasToken ? <Logout /> : <Login />}
       </div>
-      <div className="absolute w-full h-1 bg-black bottom-0"></div>
+      <div className="absolute bottom-0 h-1 w-full bg-black"></div>
     </div>
   );
 };
 
-export default AdminHeader;
+export default ManagerHeader;

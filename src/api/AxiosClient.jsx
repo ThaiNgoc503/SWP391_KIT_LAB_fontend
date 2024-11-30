@@ -7,19 +7,20 @@ const instance = axios.create({
 instance.interceptors.request.use(
   (config) => {
     const jwt = localStorage.getItem("jwt");
-    if (jwt === undefined) {
+    if (jwt === "") {
       localStorage.removeItem("jwt");
     }
-    const token = JSON.parse(jwt);
-    if (token) {
-      config.headers["Authorization"] = `Bearer ${token.TOKEN}`;
+    const tokenData = JSON.parse(jwt);
+
+    if (tokenData) {
+      config.headers["Authorization"] = `Bearer ${tokenData.TOKEN}`;
     }
     return config;
   },
   (error) => {
     console.log("Error request api");
     console.log(error);
-  }
+  },
 );
 
 instance.interceptors.response.use(
@@ -27,14 +28,9 @@ instance.interceptors.response.use(
     return response;
   },
   (error) => {
-    //   if (error.response?.status === 401) {
-    //     localStorage.removeItem("jwt");
-    //     window.location.href = "/login";
-    //   }
-    //   return Promise.reject(error);
     console.log("Error response api");
     console.log(error);
-  }
+  },
 );
 
 export default instance;
