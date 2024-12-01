@@ -6,11 +6,11 @@ export const Cart = () => {
   return (
     <li className="relative flex pb-2 pr-2">
       <Link to="/cart">
-        <div className="absolute left-5 h-5 w-5 rounded-full bg-red-400 text-xs">
-          <p className="pl-[3px] pt-[1px]">20</p>
+        <div className="absolute left-4 h-4 w-4 rounded-full bg-red-400 md:left-5 md:h-5 md:w-5">
+          <p className="pl-[2px] text-xs md:pl-[3px] md:pt-[1px]">20</p>
         </div>
         <button>
-          <FaShoppingCart className="mt-2 text-xl" />
+          <FaShoppingCart className="ml-1 mt-2 text-sm md:text-xl" />
         </button>
       </Link>
     </li>

@@ -36,16 +36,16 @@ const Logout = () => {
   };
 
   return (
-    <ul className="flex gap-6 pt-3 text-sm font-medium">
+    <ul className="flex gap-4 pt-1 font-medium md:gap-6 md:pt-3 md:text-sm">
       <li>
         <Cart />
       </li>
       <li ref={menuRef}>
         <button
-          className="flex rounded-full bg-slate-200 p-2 pr-6"
+          className="flex w-28 rounded-full bg-slate-200 p-1 pr-5 md:w-full md:p-2"
           onClick={() => setOpenMenu(!openMenu)}
         >
-          <p className="w-[6rem] overflow-hidden text-ellipsis whitespace-nowrap md:w-full">
+          <p className="w-[6rem] overflow-hidden text-ellipsis whitespace-nowrap pl-2 font-bold md:w-[7rem] lg:w-full">
             Welcome, Thái Ngọc
           </p>
           <SlArrowDown className="ml-3 mt-2" />

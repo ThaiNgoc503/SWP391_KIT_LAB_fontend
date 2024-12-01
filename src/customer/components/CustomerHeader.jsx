@@ -1,31 +1,79 @@
-import React, { useEffect, useState } from "react";
-import logo from "../../assets/kitlab_logo.webp";
-import { Link } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import Login from "./PopupLogin";
 import Logout from "./Logout";
+
+import { getAllSubcategories } from "../../api/SubcategoriesAPI";
 const CustomerHeader = () => {
   const [hasToken, setHasToken] = useState(false);
-
+  const menuRef = useRef();
   const token = localStorage.getItem("jwt");
+  const [openMenuCategory, setOpenMenuCategory] = useState(false);
+  const [subcategories, setSubcategories] = useState([]);
 
   useEffect(() => {
     tokenTest();
   }, [token]);
+
+  useEffect(() => {
+    fetchAPI();
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setOpenMenuCategory(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+  }, []);
 
   //kiểm tra nếu có token sẽ ẩn logout và ngược lại
   const tokenTest = () => {
     setHasToken(!!token);
   };
 
+  const fetchAPI = async () => {
+    const response = await getAllSubcategories();
+    setSubcategories(response);
+  };
+
   return (
-    <div className="mx-0 flex justify-between bg-slate-400 pb-3 pl-9 pr-24 pt-3">
-      <img src={logo} className="h-14 w-14" />
-      <ul className="flex gap-5 pt-2 text-2xl font-bold">
-        <li>
+    <div className="flex justify-between border-b-[1px] border-solid border-slate-100 bg-gradient-to-r from-green-300 via-green-200 to-cyan-200 py-3 pl-9 pr-24">
+      <ul className="text-md flex gap-3 pt-2 font-semibold text-slate-100 md:gap-5 md:text-lg">
+        <li className="ease-in-outs rounded-[50%_30%_50%_30%] transition-all hover:-translate-y-1 hover:bg-green-600 hover:px-2 hover:py-1">
           <Link to="/">Home</Link>
         </li>
-        <li>
-          <Link to="/">Contact</Link>
+        <li ref={menuRef}>
+          <button onClick={() => setOpenMenuCategory(!openMenuCategory)}>
+            <p
+              className={
+                openMenuCategory
+                  ? "ease-in-outs rounded-[50%_30%_50%_30%] bg-gradient-to-br from-cyan-500 via-green-400 to-green-300 px-2 py-1 transition-all hover:-translate-y-1"
+                  : "ease-in-outs rounded-[50%_30%_50%_30%] transition-all hover:bg-green-600 hover:px-2 hover:py-1"
+              }
+            >
+              Category
+            </p>
+          </button>
+          {openMenuCategory && (
+            <div className="absolute z-50 mt-1 w-[10rem] rounded-md bg-gradient-to-t from-green-400 via-green-300 to-cyan-300 transition-all ease-in-out md:w-[12rem]">
+              <ul className="h-52 overflow-x-scroll text-black [&::-webkit-scrollbar]:hidden">
+                {subcategories.map((subcategories, index) => (
+                  <Link
+                    to={`subcategories/${subcategories.subcategoryName}/${subcategories.subcategoryId}`}
+                  >
+                    <li
+                      key={index}
+                      className="bg-opacity-50 p-2 text-base font-semibold text-slate-100 hover:rounded-t-sm hover:bg-gradient-to-r hover:from-green-300 hover:via-green-200 hover:to-cyan-100 hover:text-white"
+                    >
+                      {subcategories.subcategoryName}
+                    </li>
+                  </Link>
+                ))}
+              </ul>
+            </div>
+          )}
         </li>
         <li>
           <Link to="/product-list">Product</Link>

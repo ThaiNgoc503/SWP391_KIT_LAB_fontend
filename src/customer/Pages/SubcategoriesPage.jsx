@@ -1,13 +1,17 @@
-import { useEffect, useState } from "react";
-import Card from "../../customer/components/Card";
+import React, { useEffect, useState } from "react";
+import { ShowCategories } from "../../protected/ShowCategories";
 import { getProductAPI, getProductPaginationAPI } from "../../api/ProductAPI";
+import { useParams } from "react-router-dom";
+import Card from "../components/Card";
 import { HiChevronDoubleRight } from "react-icons/hi";
 import { HiChevronDoubleLeft } from "react-icons/hi";
 
-const ProductPage = () => {
-  const [product, setProduct] = useState([]);
+const SubcategoriesPage = () => {
+  const [products, setProducts] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
   const [productLength, setProductLength] = useState();
+  const { subcategoryName } = useParams();
+
   useEffect(() => {
     fetchAPI();
   }, []);
@@ -15,33 +19,27 @@ const ProductPage = () => {
   const fetchAPI = async () => {
     const data = { PageNumber: pageNumber, PageSize: 12 }; //gồm số tang và độ dài của sản phẩm
     const response = await getProductPaginationAPI(data);
-    setProduct(response);
+    setProducts(response);
 
     const getAllProducts = await getProductAPI(); //lấy độ dài mãng
     const length = Math.ceil(getAllProducts.length / 12); //lấy số trang
     setProductLength(length);
   };
 
-  const loadData = async (pageNumber) => {
-    //load lại data khi ra trước hoặc ra sau
-    const data = { PageNumber: pageNumber, PageSize: 12 };
-    const response = await getProductPaginationAPI(data);
-    setProduct(response); //lấy đc 12 sản phẩm để hiện
-    setPageNumber(pageNumber); //set lại số trang
-  };
-
   return (
-    <div className="bg-slate-200">
-      <h2 className="pt-5 text-center text-4xl font-bold">Stempede Shop</h2>
+    <div>
+      <h2 className="pt-5 text-center text-4xl font-bold">{subcategoryName}</h2>
       <div className="grid grid-cols-1 justify-items-center pt-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {product.map((product) => (
-          <Card
-            key={product.productId}
-            imagePath={product.imagePath}
-            productName={product.productName}
-            productPrice={product.price}
-            productId={product.productId}
-          />
+        {products.map((product) => (
+          <ShowCategories currentSubCategoryId={product.subcategoryId}>
+            <Card
+              key={product.productId}
+              imagePath={product.imagePath}
+              productName={product.productName}
+              productPrice={product.price}
+              productId={product.productId}
+            />
+          </ShowCategories>
         ))}
       </div>
       <div className="flex justify-between p-10 px-10">
@@ -56,18 +54,20 @@ const ProductPage = () => {
           )}
         </div>
         <div>
-          {pageNumber < productLength && (
-            <button
-              className="text-2xl text-cyan-600"
-              onClick={() => loadData(pageNumber + 1)}
-            >
-              <HiChevronDoubleRight />
-            </button>
-          )}
+          {pageNumber < productLength ||
+            (!productLength == 1 && (
+              <button
+                className="text-2xl text-cyan-600"
+                onClick={() => loadData(pageNumber + 1)}
+              >
+                <HiChevronDoubleRight />
+              </button>
+            ))}
         </div>
+    
       </div>
     </div>
   );
 };
 
-export default ProductPage;
+export default SubcategoriesPage;

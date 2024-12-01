@@ -10,6 +10,7 @@ import ProductManager from "./manager/Pages/ProductManager";
 import UserList from "./manager/Pages/UserList";
 import BanList from "./manager/Pages/BanList";
 import HomePage from "./customer/Pages/HomePage";
+import SubcategoriesPage from "./customer/Pages/SubcategoriesPage";
 
 function App() {
   return (
@@ -21,6 +22,10 @@ function App() {
           <Route path="/product-list/:id" element={<ProductDetailsPage />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/profile" element={<Profile />} />
+          <Route
+            path="subcategories/:subcategoryName/:subcategoryId"
+            element={<SubcategoriesPage />}
+          />
         </Route>
 
         <Route
