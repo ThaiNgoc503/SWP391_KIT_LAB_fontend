@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { getProductAPI } from "../../api/ProductAPI";
-import AddNewProduct from "../components/PopupAddNewProduct";
+import PopupAddNewProduct from "../components/PopupAddNewProduct";
 
 const ProductManager = () => {
   const [product, setProduct] = useState([]);
+  const [openPopupAddNew, setOpenPopupAddNew] = useState(false);
 
   useEffect(() => {
     fetchData();
@@ -14,15 +15,26 @@ const ProductManager = () => {
     setProduct(response);
   };
 
+  const handleClosePopupAddNew = () => {
+    setOpenPopupAddNew(false);
+  };
+
   return (
     <div>
-      <h1 className="mt-10 text-center">Product Manager</h1>
+      {/* ADD NEW */}
+      {openPopupAddNew && (
+        <PopupAddNewProduct handleClosePopupAddNew={handleClosePopupAddNew} />
+      )}
+      {/* ------ */}
       <div className="flex justify-end">
-        <button className="m-3 rounded-md bg-green-400 p-2 px-3 text-white">
+        <button
+          onClick={() => setOpenPopupAddNew(!openPopupAddNew)}
+          className="m-3 rounded-md bg-green-400 p-2 px-3 text-white"
+        >
           Add new
         </button>
       </div>
-      <AddNewProduct />
+
       <div class="relative overflow-x-auto">
         <table class="w-full text-left text-sm text-gray-500 rtl:text-right dark:text-gray-400">
           <thead class="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">

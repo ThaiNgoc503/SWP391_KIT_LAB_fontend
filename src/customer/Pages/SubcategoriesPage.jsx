@@ -28,8 +28,10 @@ const SubcategoriesPage = () => {
 
   return (
     <div>
-      <h2 className="pt-5 text-center text-4xl font-bold">{subcategoryName}</h2>
-      <div className="grid grid-cols-1 justify-items-center pt-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <h2 className="inline-block bg-gradient-to-br from-purple-900 via-green-400 to-red-500 bg-clip-text pl-5 pt-5 text-2xl font-semibold text-transparent">
+        {subcategoryName}
+      </h2>
+      <div className="grid grid-cols-2 justify-items-center pt-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {products.map((product) => (
           <ShowCategories currentSubCategoryId={product.subcategoryId}>
             <Card
@@ -64,7 +66,6 @@ const SubcategoriesPage = () => {
               </button>
             ))}
         </div>
-    
       </div>
     </div>
   );

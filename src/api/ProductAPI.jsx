@@ -23,3 +23,10 @@ export const getProductPaginationAPI = async (data) => {
   );
   return response.data.data.items;
 };
+export const updateProductAPI = async (id, data) => {
+  const response = await AxiosClient.put(
+    `${"Product"}/${END_POINTS.UPDATE}/${id}`,
+    data,
+  );
+  return response.data.data.items;
+};

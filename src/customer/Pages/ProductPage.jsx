@@ -31,9 +31,11 @@ const ProductPage = () => {
   };
 
   return (
-    <div className="bg-slate-200">
-      <h2 className="pt-5 text-center text-4xl font-bold">Stempede Shop</h2>
-      <div className="grid grid-cols-1 justify-items-center pt-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+    <div>
+      <h2 className="inline-block bg-gradient-to-br from-purple-900 via-green-300 to-red-900 bg-clip-text pl-7 pt-5 text-2xl font-semibold text-transparent">
+        Stempede Shop All Product
+      </h2>
+      <div className="grid grid-cols-2 justify-items-center pt-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {product.map((product) => (
           <Card
             key={product.productId}

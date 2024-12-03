@@ -51,16 +51,16 @@ const Logout = () => {
           <SlArrowDown className="ml-3 mt-2" />
         </button>
         {openMenu && (
-          <div className="absolute z-50 mt-1 w-[12rem] rounded-md border-2 border-solid border-slate-600 bg-white">
+          <div className="absolute z-50 mt-1 w-[12rem] rounded-md bg-gradient-to-tl from-pink-300 via-cyan-400 to-green-300">
             <ul>
               <Link to="/profile">
-                <li className="border-b-2 border-solid border-slate-800 p-2 hover:rounded-t-sm hover:bg-slate-300">
+                <li className="from-green-300 to-green-200 p-2 hover:rounded-t-sm hover:bg-gradient-to-l">
                   Profile
                 </li>
               </Link>
               <li
                 onClick={() => handleLogout()}
-                className="cursor-pointer p-2 hover:rounded-b-sm hover:bg-slate-300"
+                className="to-green-200s from-green-300 p-2 hover:rounded-t-sm hover:bg-gradient-to-l"
               >
                 <button>Logout</button>
               </li>

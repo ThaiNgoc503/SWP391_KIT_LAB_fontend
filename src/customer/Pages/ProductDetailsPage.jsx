@@ -8,6 +8,7 @@ const ProductDetailsPage = () => {
   const [product, setProduct] = useState({});
   const [quantity, setQuantity] = useState(1);
   const [openAddToCart, setOpenAddToCart] = useState(false);
+  const [noitification, setNoitification] = useState(false);
   const menuRef = useRef(null);
 
   useEffect(() => {
@@ -36,45 +37,47 @@ const ProductDetailsPage = () => {
     };
     await AddItemsAPI(data);
     setQuantity(1);
+    setNoitification(true);
+    setTimeout(() => {
+      setNoitification(false);
+    }, 1000);
   };
 
   return (
-    <div className="bg-slate-200">
-      <div className="flex pl-3 bg-slate-200 border-solid border-2">
-        <Link to="/product-list" className="text-base">
-          &gt;Product
-        </Link>
-        <p className="text-base">&gt;Product details</p>
-      </div>
-
-      <div className="grid grid-col-1 justify-items-center md:grid-cols-2 p-5">
+    <div>
+      <div className="grid grid-cols-2 p-5 md:px-20">
         <img
           src={product.imagePath}
           alt="anh"
-          className="w-[30rem] h-[25rem] m-5 rounded-xl md:w-[40rem] mx-5"
+          className="m-5 mx-5 h-[12rem] w-[15rem] rounded-xl md:h-[20rem] md:w-[25rem]"
         />
-        <div className="pt-4 space-y-3">
-          <h2 className="text-center text-xl font-bold p-5 pb-3">
-            {product.productName}
-          </h2>
-          <div className="flex  justify-center">
+        <div className="space-y-3 pt-4">
+          <h2 className="pb-1 text-xl font-bold">{product.productName}</h2>
+          <div>
+            <Link
+              to={`/subcategories/${product.subcategoryName}/${product.subcategoryId}`}
+            >
+              <p className="inline-block rounded-md bg-gradient-to-r from-yellow-200 via-orange-300 to-red-300 px-2 py-1 text-slate-100">
+                {product.subcategoryName}
+              </p>
+            </Link>
+          </div>
+          <div className="flex">
             <p className="text-base font-semibold">age: {product.ages}</p>
           </div>
-          <p className="md:pt-6 px-5 text-red-500 text-xl font-extrabold text-center">
+          <p className="text-xl font-extrabold text-red-500 md:pt-4">
             ${product.price}
           </p>
 
-          <div className="w-[36rem] mx-5 h-[2px] rounded-full bg-slate-500"></div>
-          <p className="px-5">{product.description}</p>
-          <div className="w-[36rem] mx-5 h-[2px] rounded-full bg-slate-500"></div>
-          <div className="text-center space-x-6 space-y-4 ">
+          <p className="">{product.description}</p>
+          <div className="space-x-6 space-y-4">
             <button
               onClick={() => setOpenAddToCart(!openAddToCart)}
-              className="bg-cyan-300 rounded-full px-5 py-3 shadow-lg shadow-slate-500"
+              className="rounded-lg bg-cyan-300 px-2 py-2 font-semibold text-slate-100 shadow-md shadow-green-200"
             >
-              Add to Cart
+              Add To Cart
             </button>
-            <button className="bg-green-400 rounded-full px-7 py-3 shadow-lg shadow-slate-500">
+            <button className="rounded-lg bg-green-400 px-2 py-2 font-semibold text-slate-100 shadow-md shadow-cyan-200">
               Buy now
             </button>
           </div>
@@ -84,14 +87,14 @@ const ProductDetailsPage = () => {
       {openAddToCart && (
         <div
           ref={menuRef}
-          className=" gap-4 fixed bottom-0 right-0 bg-white h-[25rem] w-[25rem] z-50 p-5 rounded-ss-2xl shadow-xl bg-opacity-100"
+          className="fixed bottom-0 right-0 z-50 h-[25rem] w-[25rem] gap-4 rounded-ss-2xl bg-opacity-100 bg-gradient-to-tr from-cyan-300 via-green-300 to-purple-200 p-5 shadow-xl"
         >
-          <form onSubmit={handleAddToCart} className="text-center space-y-5">
+          <form onSubmit={handleAddToCart} className="space-y-5 text-center">
             <div className="flex items-center justify-center">
-              <img src={product.imagePath} alt="" className="w-32 h-32" />
+              <img src={product.imagePath} alt="" className="h-32 w-32" />
             </div>
             <div>
-              <p className="font-semibold text-xl">{product.productName}</p>
+              <p className="text-xl font-semibold">{product.productName}</p>
               <p>Stock Quantity: {product.stockQuantity}</p>
             </div>
 
@@ -99,7 +102,7 @@ const ProductDetailsPage = () => {
               <p>Quantity:</p>
               <input
                 type="number"
-                className="text-white p-1 px-2 w-[10rem] border-solid border-2 border-slate-300 rounded-lg bg-slate-400"
+                className="w-[10rem] rounded-lg border-2 border-solid bg-slate-100 p-1 px-2"
                 min={0}
                 max={100}
                 value={quantity}
@@ -108,11 +111,35 @@ const ProductDetailsPage = () => {
             </div>
             <button
               type="submit"
-              className="bg-cyan-300 rounded-full px-5 py-3 shadow-lg shadow-slate-500"
+              className="rounded-lg bg-gradient-to-br from-cyan-100 via-blue-300 to-blue-200 px-5 py-3 shadow-lg shadow-slate-500"
             >
               Add to Cart
             </button>
           </form>
+        </div>
+      )}
+      {noitification && (
+        <div
+          id="toast-simple"
+          class="absolute right-3 top-4 flex w-full max-w-xs items-center space-x-4 divide-x divide-gray-200 rounded-lg bg-green-300 p-4 font-semibold text-white shadow transition-all ease-in-out rtl:space-x-reverse rtl:divide-x-reverse"
+          role="alert"
+        >
+          <svg
+            class="h-5 w-5 rotate-45 text-white"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 18 20"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="m9 17 8 2L9 1 1 19l8-2Zm0 0V9"
+            />
+          </svg>
+          <div class="ps-4 text-sm font-normal">Add to cart successfully.</div>
         </div>
       )}
     </div>

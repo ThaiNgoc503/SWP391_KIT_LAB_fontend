@@ -26,6 +26,10 @@ function App() {
             path="subcategories/:subcategoryName/:subcategoryId"
             element={<SubcategoriesPage />}
           />
+          <Route
+            path="/subcategories/:subcategoryName/:subcategoryId"
+            element={<SubcategoriesPage />}
+          />
         </Route>
 
         <Route

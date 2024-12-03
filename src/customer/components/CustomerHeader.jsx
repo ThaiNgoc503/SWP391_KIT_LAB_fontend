@@ -41,8 +41,13 @@ const CustomerHeader = () => {
   return (
     <div className="flex justify-between border-b-[1px] border-solid border-slate-100 bg-gradient-to-r from-green-300 via-green-200 to-cyan-200 py-3 pl-9 pr-24">
       <ul className="text-md flex gap-3 pt-2 font-semibold text-slate-100 md:gap-5 md:text-lg">
-        <li className="ease-in-outs rounded-[50%_30%_50%_30%] transition-all hover:-translate-y-1 hover:bg-green-600 hover:px-2 hover:py-1">
-          <Link to="/">Home</Link>
+        <li>
+          {" "}
+          <Link to="/">
+            <p className="ease-in-outs rounded-[50%_30%_50%_30%] from-cyan-500 via-green-400 to-green-300 px-2 py-1 transition-all hover:-translate-y-1 hover:bg-gradient-to-br">
+              Home
+            </p>
+          </Link>
         </li>
         <li ref={menuRef}>
           <button onClick={() => setOpenMenuCategory(!openMenuCategory)}>
@@ -50,7 +55,7 @@ const CustomerHeader = () => {
               className={
                 openMenuCategory
                   ? "ease-in-outs rounded-[50%_30%_50%_30%] bg-gradient-to-br from-cyan-500 via-green-400 to-green-300 px-2 py-1 transition-all hover:-translate-y-1"
-                  : "ease-in-outs rounded-[50%_30%_50%_30%] transition-all hover:bg-green-600 hover:px-2 hover:py-1"
+                  : "ease-in-outs rounded-[50%_30%_50%_30%] from-cyan-500 via-green-400 to-green-300 px-2 py-1 transition-all hover:-translate-y-1 hover:bg-gradient-to-br"
               }
             >
               Category
@@ -76,7 +81,11 @@ const CustomerHeader = () => {
           )}
         </li>
         <li>
-          <Link to="/product-list">Product</Link>
+          <Link to="/product-list">
+            <p className="ease-in-outs rounded-[50%_30%_50%_30%] from-cyan-500 via-green-400 to-green-300 px-2 py-1 transition-all hover:-translate-y-1 hover:bg-gradient-to-br">
+              Product
+            </p>
+          </Link>
         </li>
       </ul>
       {hasToken ? <Logout /> : <Login />}

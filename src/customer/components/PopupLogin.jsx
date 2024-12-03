@@ -58,15 +58,16 @@ const PopupLogin = () => {
     <div>
       <ul className="flex gap-4 pt-3 text-base font-semibold">
         <li>
-          <button onClick={() => setPopup(!popup)} className="flex">
-            <FaUser className="mr-2 mt-1 text-xl" /> LOGIN/SIGN UP
+          <button onClick={() => setPopup(!popup)} className="flex text-white">
+            <FaUser className="mr-2 mt-1 text-base" />
+            <p className="text-sm font-bold">LOGIN/SIGN UP</p>
           </button>
         </li>
       </ul>
       {popup && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 align-middle">
           <div className="flex min-h-screen items-center justify-center">
-            <div className="w-[30rem] rounded-md bg-red-200">
+            <div className="w-[30rem] rounded-md bg-gradient-to-br from-purple-400 via-green-200 to-cyan-200">
               <div className="relative flex justify-center">
                 <button
                   onClick={() => closePopup()}

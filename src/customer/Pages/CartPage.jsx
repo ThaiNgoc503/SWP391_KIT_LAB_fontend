@@ -16,19 +16,20 @@ const CartPage = () => {
     setCartItems(response.items); //lấy giá trị như price, description ...
   };
 
- 
-
   const handleFetchAPI = () => {
     fetchAPI();
   };
 
   return (
     <div>
-      <h2 className="text-center">My Cart</h2>
-      <div className="grid grid-cols-3">
-        <div className="col-span-2">
+      <h2 className="inline-block bg-gradient-to-t from-red-300 via-green-400 to-purple-300 bg-clip-text p-2 pl-7 pt-2 text-left text-2xl text-transparent">
+        Shopping Cart
+      </h2>
+      <div className="grid grid-cols-7">
+        <div className="col-span-5">
           {cartItem.map((items) => (
             <CartItems
+              productId={items.productId}
               cartItemId={items.cartItemId}
               productName={items.productName}
               initQuantity={items.quantity}
@@ -38,15 +39,17 @@ const CartPage = () => {
             />
           ))}
         </div>
-        <div className="text-center  p-5">
-          <div className="w-[full] mx-5 h-[2px] rounded-full bg-slate-500 mb-5"></div>
-          <p className="font-bold text-xl">Total Amount</p>
-          <p className="text-lg font-semibold text-red-500">{cartTotal}</p>
-          <div className="w-[full] mx-5 h-[2px] mt-5 rounded-full bg-slate-500"></div>
-          <button className="hover:bg-slate-800  hover:text-white mt-5 bg-slate-400 w-full py-3 text-center rounded-full">
+        <div className="col-span-2 mr-3 h-[20rem] rounded-md bg-gradient-to-tr from-pink-300 via-orange-200 to-red-300 p-5 text-center">
+          <div className="mx-5 mb-5 h-[2px] w-[full] rounded-full bg-slate-500"></div>
+          <h2 className="bg-gradient-to-r from-green-700 via-purple-400 to-cyan-900 bg-clip-text text-xl font-bold text-transparent">
+            Total Amount
+          </h2>
+          <p className="text-lg font-bold text-red-400">{cartTotal}</p>
+          <div className="mx-5 mt-5 h-[2px] w-[full] rounded-full bg-slate-500"></div>
+          <button className="mt-5 w-full rounded-full bg-gradient-to-tr from-green-700 via-purple-400 to-cyan-900 py-3 text-center font-bold text-white">
             Checkout
           </button>
-          <button className="hover:bg-red-600 hover:text-white mt-5 bg-red-400 w-full py-3 text-center rounded-full">
+          <button className="mt-5 w-full rounded-full bg-gradient-to-tr from-red-700 via-purple-200 to-orange-900 py-3 text-center font-bold text-white">
             Delete All
           </button>
         </div>
