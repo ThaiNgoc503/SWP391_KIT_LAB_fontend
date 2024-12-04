@@ -19,6 +19,18 @@ export const getCurrentUserAddItemsAPI = async () => {
 export const AddItemsAPI = async (data) => {
   await AxiosClient.post(`${"Cart"}/${END_POINTS.ADD_ITEMS}`, data);
 };
+export const DeleteItemsAPI = async (id) => {
+  const response = await AxiosClient.delete(
+    `${"Cart"}/${END_POINTS.REMOVE_ITEMS}/${id}`,
+  );
+  return response.data;
+};
+export const DeleteAllItemsAPI = async () => {
+  const response = await AxiosClient.delete(
+    `${"Cart"}/${END_POINTS.CLEAR_ALL_ITEMS}`,
+  );
+  return response.data;
+};
 
 export const UpQuantity = async (quantity, cartItemId) => {
   await AxiosClient.put(

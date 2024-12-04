@@ -20,8 +20,8 @@ const Card = ({ productName, productPrice, productId, imagePath }) => {
           {productName}
         </h2>
         <div className="absolute right-28 top-[265px] flex text-red-400">
-          <p className="pt-[2px] font-semibold">$</p>
           <p className="text-lg">{productPrice}</p>
+          <p className="pt-[2px] font-semibold">&#8363;</p>
         </div>
       </Link>
     </div>

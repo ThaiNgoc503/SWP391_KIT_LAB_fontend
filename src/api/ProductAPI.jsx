@@ -28,5 +28,17 @@ export const updateProductAPI = async (id, data) => {
     `${"Product"}/${END_POINTS.UPDATE}/${id}`,
     data,
   );
-  return response.data.data.items;
+  return response.data;
+};
+export const createProductAPI = async (data) => {
+  const response = await AxiosClient.post(
+    `${"Product"}/${END_POINTS.CREATE}`,
+    data,
+  );
+  return response.data;
+};
+
+export const deleteProductAPI = async (id) => {
+  const response = await AxiosClient.delete(`${"Product"}/${id}`);
+  return response.data;
 };

@@ -5,7 +5,7 @@ import robotics from "../../assets/robotics_v2.svg";
 const HomePage = () => {
   return (
     <div>
-      <div className="h-[22rem] w-full bg-gradient-to-r from-green-300 via-green-200 to-cyan-200 p-10 text-left md:h-[24rem]">
+      <div className="h-[22rem] w-full bg-gradient-to-r from-green-300 via-teal-300 to-cyan-200 p-10 text-left md:h-[24rem]">
         <div className="space-y-4 lg:pl-10">
           <div className="space-y-2">
             <p className="text-4xl font-semibold md:text-6xl">WELCOM TO </p>

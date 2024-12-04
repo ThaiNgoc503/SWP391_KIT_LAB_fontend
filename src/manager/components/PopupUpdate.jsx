@@ -4,24 +4,29 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { getAllLabs } from "../../api/LabAPI";
 import { getAllSubcategories } from "../../api/SubcategoriesAPI";
-import { createProductAPI, getProductAPI } from "../../api/ProductAPI";
+import { updateProductAPI } from "../../api/ProductAPI";
 import Notification from "../../customer/components/Notification";
 
-const PopupAddNewProduct = ({ handleClosePopupAddNew, fetchProduct }) => {
+const PopupUpdateProduct = ({
+  handleClosePopupUpdate,
+  product,
+  fetchProduct,
+}) => {
   const [labs, setLabs] = useState([]);
   const [subCategories, setSubCategories] = useState([]);
-  const [noitification, setNoitification] = useState(false);
+  const [notification, setNotification] = useState(false);
+
   const formik = useFormik({
     initialValues: {
-      productName: "",
-      description: "",
-      price: "",
-      stockQuantity: "",
-      ages: "",
-      supportInstances: "",
-      labId: 0,
-      subcategoryId: 0,
-      imagePath: "",
+      productName: product.productName,
+      description: product.description,
+      price: product.price,
+      stockQuantity: product.stockQuantity,
+      ages: product.ages.trim(),
+      supportInstances: product.supportInstances,
+      labId: product.labId,
+      subcategoryId: product.subcategoryId,
+      imagePath: product.imagePath,
     },
     validationSchema: yup.object({
       productName: yup.string().required("Product name is required"),
@@ -64,6 +69,7 @@ const PopupAddNewProduct = ({ handleClosePopupAddNew, fetchProduct }) => {
         .matches(/^https?:\/\/[^\s]+$/, "Enter correct http or https url"),
     }),
     onSubmit: async (values) => {
+      const id = product.productId;
       const productData = {
         ...values,
         price: Number.parseFloat(values.price),
@@ -72,14 +78,14 @@ const PopupAddNewProduct = ({ handleClosePopupAddNew, fetchProduct }) => {
         labId: Number.parseInt(values.labId),
         subcategoryId: Number.parseInt(values.subcategoryId),
       };
-      const response = await createProductAPI(productData);
+      const response = await updateProductAPI(id, productData);
       if (response.success === true) {
-        setNoitification(true);
+        setNotification(true);
         setTimeout(() => {
-          setNoitification(false);
+          setNotification(false);
         }, 1000);
         setTimeout(async () => {
-          handleClosePopupAddNew();
+          handleClosePopupUpdate();
           fetchProduct();
         }, 500);
       }
@@ -98,14 +104,14 @@ const PopupAddNewProduct = ({ handleClosePopupAddNew, fetchProduct }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-400 bg-opacity-45">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-400 bg-opacity-55">
       <div className="rounded-2xl bg-gradient-to-tr from-cyan-200 via-green-200 to-purple-300 p-5 md:w-[38rem]">
         <div className="relative flex justify-center">
-          <button onClick={handleClosePopupAddNew} className="absolute left-0">
+          <button onClick={handleClosePopupUpdate} className="absolute left-0">
             <MdOutlineCancel className="text-2xl" />
           </button>
           <h1 className="inline-block bg-gradient-to-bl from-black via-yellow-500 to-blue-600 bg-clip-text pb-1 text-xl font-semibold text-transparent">
-            Add new product
+            Update product
           </h1>
         </div>
         <form className="grid grid-cols-2 gap-3" onSubmit={formik.handleSubmit}>
@@ -265,15 +271,17 @@ const PopupAddNewProduct = ({ handleClosePopupAddNew, fetchProduct }) => {
             type="submit"
             className="col-span-2 mt-1 rounded-full bg-green-300 p-1"
           >
-            Add new
+            Update
           </button>
         </form>
-        {noitification && (
-          <Notification notificationMessage={"Add new product successfully"} />
+        {notification && (
+          <Notification
+            notificationMessage={"update new product successfully"}
+          />
         )}
       </div>
     </div>
   );
 };
 
-export default PopupAddNewProduct;
+export default PopupUpdateProduct;

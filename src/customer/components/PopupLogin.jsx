@@ -5,43 +5,62 @@ import { useNavigate } from "react-router-dom";
 import Register from "./PopupSignUp";
 import { FaUser } from "react-icons/fa";
 import Loader from "./Loader";
+import { GiArchiveRegister } from "react-icons/gi";
+import { useFormik } from "formik";
+import * as yup from "yup";
 
 const PopupLogin = () => {
   const [popup, setPopup] = useState(false);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [setUsername] = useState("");
+  const [setPassword] = useState("");
   const [showRegister, setShowRegister] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const getUsernameAndPassword = async (e) => {
-    e.preventDefault();
-    setIsLoading(true);
-    try {
-      const credentials = { emailOrUsername: username, password: password };
-      const response = await loginAPI(credentials);
-      if (response.data.message === "Login successful.") {
+  const Formik = useFormik({
+    initialValues: {
+      username: "",
+      password: "",
+    },
+    validationSchema: yup.object({
+      username: yup
+        .string()
+        .required("Username is required, please enter data"),
+      password: yup
+        .string()
+        .required("Password is required, please enter data"),
+    }),
+    onSubmit: async (values) => {
+      setIsLoading(true);
+      try {
         const data = {
-          TOKEN: response.data.token,
-          ROLE: response.data.roles[0].trim(),
-          REFRESH_TOKEN: response.data.refreshToken,
+          emailOrUsername: values.username,
+          password: values.password,
         };
+        const response = await loginAPI(data);
+        if (response.data.message === "Login successful.") {
+          console.log(response.data.message);
+          const data = {
+            TOKEN: response.data.token,
+            ROLE: response.data.roles[0].trim(),
+            REFRESH_TOKEN: response.data.refreshToken,
+          };
 
-        localStorage.setItem("jwt", JSON.stringify(data));
-        console.log("Login success");
-        if (data.ROLE === "Manager") {
-          navigate("manager/user");
-        } else {
-          navigate("/");
-          window.location.reload();
+          localStorage.setItem("jwt", JSON.stringify(data));
+          console.log("Login success");
+          if (data.ROLE === "Manager") {
+            navigate("manager/user");
+          } else {
+            navigate("/");
+            window.location.reload();
+          }
         }
+      } finally {
+        setIsLoading(false);
       }
-    } catch (error) {
-      console.error("Login failed:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+    },
+  });
 
   const closePopup = () => {
     setPopup(false);
@@ -50,8 +69,13 @@ const PopupLogin = () => {
   };
 
   const handleRegister = () => {
-    setPopup(false);
     setShowRegister(true);
+    setPopup(false);
+  };
+
+  const handleLoginOpen = () => {
+    setShowRegister(false);
+    setPopup(true);
   };
 
   return (
@@ -60,7 +84,16 @@ const PopupLogin = () => {
         <li>
           <button onClick={() => setPopup(!popup)} className="flex text-white">
             <FaUser className="mr-2 mt-1 text-base" />
-            <p className="text-sm font-bold">LOGIN/SIGN UP</p>
+            <p className="text-sm font-bold">SIGN IN</p>
+          </button>
+        </li>
+        <li>
+          <button
+            onClick={() => setShowRegister(!showRegister)}
+            className="flex text-white"
+          >
+            <GiArchiveRegister className="mr-2 mt-1 text-base" />
+            <p className="text-sm font-bold">SIGN UP</p>
           </button>
         </li>
       </ul>
@@ -75,55 +108,71 @@ const PopupLogin = () => {
                 >
                   <MdCancelPresentation />
                 </button>
-                <h2 className="pt-2 text-center text-3xl font-bold">Login</h2>
+                <h2 className="bg-gradient-to-tr from-yellow-400 via-orange-300 to-red-400 bg-clip-text pb-2 pt-2 text-center text-3xl font-semibold text-transparent">
+                  Login
+                </h2>
               </div>
               <form
-                onSubmit={getUsernameAndPassword}
-                className="flex flex-col gap-y-3 p-5"
+                onSubmit={Formik.handleSubmit}
+                className="flex flex-col gap-y-3 p-5 text-slate-100"
               >
                 <p>User Name</p>
                 <input
                   type="text"
                   name="username"
                   id="username"
-                  className="rounded-md p-2 pl-5"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  className="rounded-md p-2 pl-5 text-black"
+                  value={Formik.values.username}
+                  onChange={Formik.handleChange}
                 />
+                {Formik.errors.username && (
+                  <p className="text-red-400">{Formik.errors.username}</p>
+                )}
                 <p>Password</p>
                 <input
                   type="password"
                   name="password"
                   id="password"
-                  className="rounded-md p-2 pl-5"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  className="rounded-md p-2 pl-5 text-black"
+                  value={Formik.values.password}
+                  onChange={Formik.handleChange}
                 />
-                <div className="flex justify-between">
-                  <a href="">forgot password</a>
-                  <a className="flex gap-1">
+                {Formik.errors.password && (
+                  <p className="text-red-400">{Formik.errors.password}</p>
+                )}
+
+                <ul className="flex justify-between">
+                  <li>
+                    <a href="">forgot password</a>
+                  </li>
+                  <li className="flex gap-1">
                     <p>don't have account? </p>
                     <button
+                      type="button"
                       onClick={handleRegister}
-                      className="pr-2 text-base text-cyan-400 ease-in-out hover:underline"
+                      className="pr-2 text-base text-blue-600 ease-in-out hover:underline"
                     >
                       Sign up
                     </button>
-                  </a>
-                </div>
+                  </li>
+                </ul>
                 <button
                   type="submit"
-                  className="rounded-md bg-white p-2 hover:bg-orange-100"
+                  className="rounded-md bg-gradient-to-r from-green-400 to-green-300 p-2"
                 >
                   Login
                 </button>
+                <p className="text-red-500">{errorMessage}</p>
               </form>
             </div>
           </div>
         </div>
       )}
       {showRegister && (
-        <Register closePopupRegister={() => setShowRegister(false)} />
+        <Register
+          closePopupRegister={() => setShowRegister(false)}
+          handleLoginOpen={handleLoginOpen}
+        />
       )}
       {isLoading && <Loader />}
     </div>

@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Login from "./PopupLogin";
 import Logout from "./Logout";
+import logo from "../../assets/logo.svg";
 
 import { getAllSubcategories } from "../../api/SubcategoriesAPI";
 const CustomerHeader = () => {
@@ -39,7 +40,11 @@ const CustomerHeader = () => {
   };
 
   return (
-    <div className="flex justify-between border-b-[1px] border-solid border-slate-100 bg-gradient-to-r from-green-300 via-green-200 to-cyan-200 py-3 pl-9 pr-24">
+    <div className="flex justify-between border-b-[1px] border-solid border-slate-100 bg-gradient-to-r from-green-300 via-teal-300 to-cyan-200 py-3 pl-9 pr-24">
+      <img
+        src={logo}
+        className="mt-2 inline-block h-14 w-14 bg-gradient-to-br from-purple-500 via-green-500 to-cyan-400"
+      />
       <ul className="text-md flex gap-3 pt-2 font-semibold text-slate-100 md:gap-5 md:text-lg">
         <li>
           {" "}

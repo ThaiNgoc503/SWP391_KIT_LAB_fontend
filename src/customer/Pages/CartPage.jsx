@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
-import { getCurrentUserAddItemsAPI } from "../../api/CartAPI";
+import {
+  DeleteAllItemsAPI,
+  getCurrentUserAddItemsAPI,
+} from "../../api/CartAPI";
 import CartItems from "../components/CartItems";
 
 const CartPage = () => {
@@ -18,6 +21,13 @@ const CartPage = () => {
 
   const handleFetchAPI = () => {
     fetchAPI();
+  };
+
+  const handleClearAll = async () => {
+    const response = await DeleteAllItemsAPI();
+    if (response.success == true) {
+      fetchAPI();
+    }
   };
 
   return (
@@ -49,7 +59,10 @@ const CartPage = () => {
           <button className="mt-5 w-full rounded-full bg-gradient-to-tr from-green-700 via-purple-400 to-cyan-900 py-3 text-center font-bold text-white">
             Checkout
           </button>
-          <button className="mt-5 w-full rounded-full bg-gradient-to-tr from-red-700 via-purple-200 to-orange-900 py-3 text-center font-bold text-white">
+          <button
+            onClick={() => handleClearAll()}
+            className="mt-5 w-full rounded-full bg-gradient-to-tr from-red-700 via-purple-200 to-orange-900 py-3 text-center font-bold text-white"
+          >
             Delete All
           </button>
         </div>

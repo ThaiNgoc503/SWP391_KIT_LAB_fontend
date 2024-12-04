@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { UpQuantity } from "../../api/CartAPI";
+import { DeleteItemsAPI, UpQuantity } from "../../api/CartAPI";
 import { Link } from "react-router-dom";
 
 const CartItems = ({
@@ -22,6 +22,13 @@ const CartItems = ({
   const updateData = async (newQuantity) => {
     await UpQuantity(newQuantity, cartItemId); // Gọi API
     onFetchApi(); // Cập nhật dữ liệu toàn bộ giỏ hàng
+  };
+
+  const handleDelete = async (cartItemId) => {
+    const response = await DeleteItemsAPI(cartItemId);
+    if (response.success == true) {
+      onFetchApi();
+    }
   };
 
   return (
@@ -64,6 +71,7 @@ const CartItems = ({
         </div>
         <div className="flex h-20 justify-center pb-12 md:w-20">
           <button
+            onClick={() => handleDelete(cartItemId)}
             type="submit"
             className="rounded-full bg-red-400 bg-gradient-to-br from-purple-300 via-red-300 px-2 text-center font-semibold ring-offset-red-500 hover:bg-gradient-to-t"
           >

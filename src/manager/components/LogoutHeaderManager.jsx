@@ -1,12 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { logoutAPI } from "../../api/AuthAPI";
 import { Link, useNavigate } from "react-router-dom";
-import { Cart } from "./CartIcon";
 import { SlArrowDown } from "react-icons/sl";
-import { ProtectedRoute } from "../../protected/ProtectedRoute ";
-import { ShowComponent } from "../../protected/ShowComponent";
 
-const Logout = () => {
+const LogoutAdmin = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const navigate = useNavigate();
   const menuRef = useRef(null);
@@ -39,9 +36,6 @@ const Logout = () => {
 
   return (
     <ul className="flex gap-4 pt-1 font-medium md:gap-6 md:pt-3 md:text-sm">
-      <li>
-        <Cart />
-      </li>
       <li ref={menuRef}>
         <button
           className="flex w-28 rounded-full bg-slate-200 p-1 pr-5 md:w-full md:p-2"
@@ -50,21 +44,14 @@ const Logout = () => {
           <p className="w-[6rem] overflow-hidden text-ellipsis whitespace-nowrap pl-2 font-bold md:w-[7rem] lg:w-full">
             Welcome, Thái Ngọc
           </p>
-          <SlArrowDown className="ml-2 mt-1 pr-1" />
+          <SlArrowDown className="ml-3 mt-2" />
         </button>
         {openMenu && (
           <div className="absolute z-50 mt-1 w-[12rem] rounded-md bg-gradient-to-tl from-pink-300 via-cyan-400 to-green-300">
             <ul>
-              <Link to="/manager">
-                <ShowComponent roleRequired="Manager">
-                  <li className="from-green-300 to-green-200 p-2 hover:rounded-t-sm hover:bg-gradient-to-l">
-                    Manager Page
-                  </li>
-                </ShowComponent>
-              </Link>
-              <Link to="/profile">
+              <Link to="/">
                 <li className="from-green-300 to-green-200 p-2 hover:rounded-t-sm hover:bg-gradient-to-l">
-                  Profile
+                  Customer Page
                 </li>
               </Link>
               <li
@@ -81,4 +68,4 @@ const Logout = () => {
   );
 };
 
-export default Logout;
+export default LogoutAdmin;
