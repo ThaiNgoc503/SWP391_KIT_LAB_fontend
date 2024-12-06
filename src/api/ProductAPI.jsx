@@ -11,6 +11,7 @@ export const getProductAPI = async () => {
   const response = await AxiosClient.get(`${"Product"}/${END_POINTS.GET_ALL}`);
   return response.data.data;
 };
+
 export const getProductByIdAPI = async (id) => {
   const response = await AxiosClient.get(`${"Product"}/${id}`);
   return response.data.data;

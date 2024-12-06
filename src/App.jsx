@@ -11,6 +11,8 @@ import UserList from "./manager/Pages/UserList";
 import BanList from "./manager/Pages/BanList";
 import HomePage from "./customer/Pages/HomePage";
 import SubcategoriesPage from "./customer/Pages/SubcategoriesPage";
+import ContactPage from "./customer/Pages/ContactPage";
+import SearchPage from "./customer/Pages/SearchPage";
 
 function App() {
   return (
@@ -19,9 +21,11 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
           <Route path="/product-list" element={<ProductPage />} />
+          <Route path="/contact" element={<ContactPage />} />
           <Route path="/product-list/:id" element={<ProductDetailsPage />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/search-page" element={<SearchPage />} />
           <Route
             path="subcategories/:subcategoryName/:subcategoryId"
             element={<SubcategoriesPage />}

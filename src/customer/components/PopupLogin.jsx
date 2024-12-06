@@ -80,20 +80,11 @@ const PopupLogin = () => {
 
   return (
     <div>
-      <ul className="flex gap-4 pt-3 text-base font-semibold">
+      <ul className="flex gap-4 pt-3 text-base font-medium">
         <li>
-          <button onClick={() => setPopup(!popup)} className="flex text-white">
-            <FaUser className="mr-2 mt-1 text-base" />
-            <p className="text-sm font-bold">SIGN IN</p>
-          </button>
-        </li>
-        <li>
-          <button
-            onClick={() => setShowRegister(!showRegister)}
-            className="flex text-white"
-          >
-            <GiArchiveRegister className="mr-2 mt-1 text-base" />
-            <p className="text-sm font-bold">SIGN UP</p>
+          <button onClick={() => setPopup(!popup)} className="flex text-base">
+            <FaUser className="mr-2 text-base" />
+            <p className="text-sm">SIGN IN</p>
           </button>
         </li>
       </ul>

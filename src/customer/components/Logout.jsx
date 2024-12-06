@@ -1,9 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { logoutAPI } from "../../api/AuthAPI";
 import { Link, useNavigate } from "react-router-dom";
-import { Cart } from "./CartIcon";
 import { SlArrowDown } from "react-icons/sl";
-import { ProtectedRoute } from "../../protected/ProtectedRoute ";
 import { ShowComponent } from "../../protected/ShowComponent";
 
 const Logout = () => {
@@ -39,9 +37,6 @@ const Logout = () => {
 
   return (
     <ul className="flex gap-4 pt-1 font-medium md:gap-6 md:pt-3 md:text-sm">
-      <li>
-        <Cart />
-      </li>
       <li ref={menuRef}>
         <button
           className="flex w-28 rounded-full bg-slate-200 p-1 pr-5 md:w-full md:p-2"
