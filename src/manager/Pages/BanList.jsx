@@ -19,14 +19,14 @@ const BanList = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-green-200 to-cyan-300 backdrop-blur-3xl">
-      <h1 className="inline-block bg-gradient-to-br from-red-500 via-yellow-500 to-purple-300 bg-clip-text pb-5 pl-5 pt-5 text-2xl font-semibold text-transparent">
+    <div className="min-h-screen bg-slate-100">
+      <h1 className="inline-block bg-gradient-to-br pb-5 pl-5 pt-5 text-2xl font-semibold">
         Ban User List
       </h1>
 
       <div class="relative overflow-x-auto [&::-webkit-scrollbar]:hidden">
-        <table class="w-full text-left text-sm text-white">
-          <thead class="border-t-[1px] border-white bg-gray-50 bg-gradient-to-br from-red-200 to-cyan-300 text-xs uppercase text-gray-700 shadow-xl backdrop-blur-2xl">
+        <table class="w-full text-left text-sm text-black">
+          <thead className="border-t-[1px] border-white bg-slate-200 text-xs uppercase text-gray-700">
             <tr>
               <th scope="col" class="px-6 py-3">
                 #
@@ -40,9 +40,7 @@ const BanList = () => {
               <th scope="col" class="px-6 py-3">
                 Username
               </th>
-              <th scope="col" class="px-6 py-3">
-                status
-              </th>
+
               <th scope="col" class="px-6 py-3">
                 roles
               </th>
@@ -52,10 +50,10 @@ const BanList = () => {
             </tr>
           </thead>
           <tbody>
-            {user.length === 0 ? (
+            {user.filter((user) => user.status === "Banned").length === 0 ? (
               <tr>
-                <td colSpan="8" className="px-6 py-4 text-center">
-                  No users found.
+                <td colSpan={6} className="px-6 py-4 text-center">
+                  No users banded
                 </td>
               </tr>
             ) : (
@@ -64,7 +62,7 @@ const BanList = () => {
                 .map((user, index) => (
                   <tr
                     key={user.id}
-                    class="border-b-[2px] bg-gradient-to-r from-rose-300 via-sky-400 to-violet-300 shadow-2xl backdrop-blur-3xl"
+                    className="border-b-[2px] bg-gradient-to-r from-slate-300 via-slate-400 to-violet-300"
                   >
                     <th
                       scope="row"
@@ -75,7 +73,6 @@ const BanList = () => {
                     <td class="border-r-[1px] px-6 py-4">{user.userId}</td>
                     <td class="border-r-[1px] px-6 py-4">{user.fullName}</td>
                     <td class="border-r-[1px] px-6 py-4">{user.username}</td>
-                    <td class="border-r-[1px] px-6 py-4">{user.status}</td>
                     <td class="border-r-[1px] px-6 py-4">{user.roles}</td>
                     <td class="border-r-[1px] px-6 py-4">
                       <div className="flex gap-x-3">

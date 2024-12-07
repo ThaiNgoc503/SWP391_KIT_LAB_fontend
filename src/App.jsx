@@ -13,6 +13,7 @@ import HomePage from "./customer/Pages/HomePage";
 import SubcategoriesPage from "./customer/Pages/SubcategoriesPage";
 import ContactPage from "./customer/Pages/ContactPage";
 import SearchPage from "./customer/Pages/SearchPage";
+import LabManager from "./manager/Pages/LabManager";
 
 function App() {
   return (
@@ -21,7 +22,6 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
           <Route path="/product-list" element={<ProductPage />} />
-          <Route path="/contact" element={<ContactPage />} />
           <Route path="/product-list/:id" element={<ProductDetailsPage />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/profile" element={<Profile />} />
@@ -48,6 +48,7 @@ function App() {
           <Route path="user" element={<UserList />} />
           <Route path="ban-list" element={<BanList />} />
           <Route path="product-manager" element={<ProductManager />} />
+          <Route path="labs-manager" element={<LabManager />} />
         </Route>
       </Routes>
     </BrowserRouter>

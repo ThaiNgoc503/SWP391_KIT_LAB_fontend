@@ -19,14 +19,14 @@ const UserList = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-green-200 to-cyan-300 backdrop-blur-3xl">
-      <h1 className="inline-block bg-gradient-to-br from-red-500 via-yellow-500 to-purple-300 bg-clip-text pb-5 pl-5 pt-5 text-2xl font-semibold text-transparent">
+    <div className="min-h-screen bg-slate-100">
+      <h1 className="inline-block bg-gradient-to-br pb-5 pl-5 pt-5 text-2xl font-semibold">
         User List
       </h1>
 
       <div className="relative overflow-x-auto [&::-webkit-scrollbar]:hidden">
-        <table className="w-full text-left text-sm text-white">
-          <thead className="border-t-[1px] border-white bg-gray-50 bg-gradient-to-br from-red-200 to-cyan-300 text-xs uppercase text-gray-700 shadow-xl backdrop-blur-2xl">
+        <table className="w-full text-left text-sm text-black">
+          <thead className="border-t-[1px] border-white bg-slate-200 text-xs uppercase text-gray-700">
             <tr>
               <th scope="col" className="px-6 py-3">
                 #
@@ -39,9 +39,6 @@ const UserList = () => {
               </th>
               <th scope="col" className="px-6 py-3">
                 Username
-              </th>
-              <th scope="col" className="px-6 py-3">
-                status
               </th>
 
               <th scope="col" className="px-6 py-3">
@@ -65,7 +62,7 @@ const UserList = () => {
                 .map((user, index) => (
                   <tr
                     key={user.id}
-                    className="border-b-[2px] bg-gradient-to-r from-rose-300 via-sky-400 to-violet-300 shadow-2xl backdrop-blur-3xl"
+                    className="border-b-[2px] bg-gradient-to-r from-slate-200 via-slate-100 to-violet-100 shadow-2xl backdrop-blur-3xl"
                   >
                     <th
                       scope="row"
@@ -80,7 +77,6 @@ const UserList = () => {
                     <td className="border-r-[1px] px-6 py-4">
                       {user.username}
                     </td>
-                    <td className="border-r-[1px] px-6 py-4">{user.status}</td>
                     <td className="border-r-[1px] px-6 py-4">{user.roles}</td>
                     <td className="border-r-[1px] px-6 py-4">
                       <div className="flex gap-x-3">

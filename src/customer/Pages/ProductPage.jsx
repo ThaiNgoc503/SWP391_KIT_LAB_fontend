@@ -32,7 +32,7 @@ const ProductPage = () => {
 
   return (
     <div>
-      <h2 className="inline-block bg-gradient-to-br from-purple-900 via-green-300 to-red-900 bg-clip-text pl-7 pt-5 text-2xl font-semibold text-transparent">
+      <h2 className="b inline-block pl-7 pt-5 text-2xl font-semibold text-black">
         Stempede Shop All Product
       </h2>
       <div className="grid grid-cols-2 justify-items-center pt-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">

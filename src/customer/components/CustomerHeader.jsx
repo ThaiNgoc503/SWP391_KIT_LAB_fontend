@@ -69,7 +69,9 @@ const CustomerHeader = () => {
         </div>
       </div>
       <div className="] flex items-center justify-around border-b-[1px] border-solid border-slate-100 bg-slate-50 py-2">
-        <img src={logo} className="mr-36 mt-2 h-14 w-14" />
+        <Link to={"/"}>
+          <img src={logo} className="mr-36 mt-2 h-14 w-14" />
+        </Link>
         <ul className="text-md flex gap-3 pt-2 font-semibold md:gap-5 md:text-lg">
           <li>
             <Link to="/">
@@ -102,11 +104,6 @@ const CustomerHeader = () => {
           <li>
             <Link to="/product-list">
               <p>Product</p>
-            </Link>
-          </li>
-          <li>
-            <Link to="/contact">
-              <p>Contact</p>
             </Link>
           </li>
         </ul>

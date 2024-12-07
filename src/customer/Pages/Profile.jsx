@@ -1,4 +1,4 @@
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { getUserProfile } from "../../api/UsersAPI";
 
 const Profile = () => {
@@ -6,7 +6,7 @@ const Profile = () => {
   useEffect(() => {
     fetchAPI();
   }, []);
-  
+
   const fetchAPI = async () => {
     const token = localStorage.getItem("jwt");
     if (token) {
@@ -16,16 +16,16 @@ const Profile = () => {
   };
 
   return (
-    <div className="p-5 md:px-[15rem] bg-slate-100 h-screen">
-      <div className=" w-[full] mt-9 bg-white p-10 bg-white-200">
-        <h2 className="text-left font-bold text-xl">My Profile</h2>
-        <form className="pt-5 grid grid-cols-2 gap-5">
+    <div className="h-screen bg-slate-100 p-5 md:px-[15rem]">
+      <div className="bg-white-200 mt-9 w-[full] bg-white p-10">
+        <h2 className="text-left text-xl font-bold">My Profile</h2>
+        <form className="grid grid-cols-2 gap-5 pt-5">
           <div>
             <p>FullName:</p>
             <input
               type="text"
               value={profile.fullName}
-              className="border-solid border-slate-500-200 border-2 rounded-md px-3 py-1  w-full"
+              className="border-slate-500-200 w-full rounded-md border-2 border-solid px-3 py-1"
             />
           </div>
           <div>
@@ -33,7 +33,7 @@ const Profile = () => {
             <input
               type="text"
               value={profile.email}
-              className="border-solid border-slate-500-200 border-2 rounded-md px-3 py-1  w-full"
+              className="border-slate-500-200 w-full rounded-md border-2 border-solid px-3 py-1"
             />
           </div>
           <div>
@@ -41,7 +41,7 @@ const Profile = () => {
             <input
               type="text"
               value={profile.phone}
-              className="border-solid border-slate-500-200 border-2 rounded-md px-3 py-1  w-full"
+              className="border-slate-500-200 w-full rounded-md border-2 border-solid px-3 py-1"
             />
           </div>
           <div>
@@ -49,11 +49,13 @@ const Profile = () => {
             <input
               type="text"
               value={profile.address}
-              className="border-solid border-slate-500-200 border-2 rounded-md px-3 py-1  w-full"
+              className="border-slate-500-200 w-full rounded-md border-2 border-solid px-3 py-1"
             />
           </div>
           <div className="col-span-2">
-          <button className="bg-green-400 p-2 rounded-full">Save Change</button>
+            <button className="rounded-full bg-slate-200 p-2 hover:bg-cyan-700 hover:text-white">
+              Save Change
+            </button>
           </div>
         </form>
       </div>

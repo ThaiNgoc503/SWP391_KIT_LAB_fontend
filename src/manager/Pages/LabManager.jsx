@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from "react";
 import {
-  deleteProductAPI,
-  getProductAPI,
-  getProductPaginationAPI,
-} from "../../api/ProductAPI";
-import PopupAddNewProduct from "../components/PopupAddNewProduct";
-import PopupUpdateProduct from "../components/PopupUpdate";
+  deleteLabAPI,
+  getAllLabs,
+  getLabsPaginationAPI,
+} from "../../api/LabAPI";
+import PopupAddNewLab from "../components/PopupAddNewLab";
 import { HiChevronDoubleLeft, HiChevronDoubleRight } from "react-icons/hi";
+import PopupUpdateLabs from "../components/PopupUpdateLabs";
 
-const ProductManager = () => {
-  const [product, setProduct] = useState([]);
+const LabManager = () => {
+  const [labs, setLab] = useState([]);
   const [openPopupAddNew, setOpenPopupAddNew] = useState(false);
   const [openPopupUpdate, setOpenPopupUpdate] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [selectedLab, setSelectedLab] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
-  const [productLength, setProductLength] = useState();
+  const [LabLength, setLabLength] = useState();
 
   useEffect(() => {
     fetchData();
@@ -22,18 +22,18 @@ const ProductManager = () => {
 
   const fetchData = async () => {
     const data = { PageNumber: pageNumber, PageSize: 10 }; //gồm số tang và độ dài của sản phẩm
-    const response = await getProductPaginationAPI(data);
-    setProduct(response);
-
-    const getAllProducts = await getProductAPI(); //lấy độ dài mãng
-    const length = Math.ceil(getAllProducts.length / 10); //lấy số trang
-    setProductLength(length);
+    const response = await getLabsPaginationAPI(data);
+    setLab(response);
+    console.log(response);
+    const getLabs = await getAllLabs(); //lấy độ dài mãng
+    const length = Math.ceil(getLabs.length / 10); //lấy số trang
+    setLabLength(length);
   };
 
   const loadData = async (pageNumber) => {
     const data = { PageNumber: pageNumber, PageSize: 10 };
-    const response = await getProductPaginationAPI(data);
-    setProduct(response); //lấy đc 12 sản phẩm để hiện
+    const response = await getLabsPaginationAPI(data);
+    setLab(response); //lấy đc 12 sản phẩm để hiện
     setPageNumber(pageNumber); //set lại số trang
   };
 
@@ -45,17 +45,17 @@ const ProductManager = () => {
   };
 
   const handleUpdate = (currentId) => {
-    const productToUpdate = product.find((p) => p.productId === currentId);
-    if (productToUpdate) {
-      setSelectedProduct(productToUpdate); // Lưu thông tin sản phẩm được chọn
+    const labToUpdate = labs.find((lab) => lab.labId === currentId);
+    if (labToUpdate) {
+      setSelectedLab(labToUpdate); // Lưu thông tin sản phẩm được chọn
       setOpenPopupUpdate(true); // Hiển thị popup
     }
   };
 
-  const deleteProduct = async (currentId) => {
-    const productFind = product.find((p) => currentId === p.productId);
-    if (productFind) {
-      const response = await deleteProductAPI(productFind.productId);
+  const deleteLabs = async (currentId) => {
+    const labFind = labs.find((lab) => currentId === lab.labId);
+    if (labFind) {
+      const response = await deleteLabAPI(labFind.labId);
       if (response.success == true) {
         fetchData();
       }
@@ -65,9 +65,9 @@ const ProductManager = () => {
     <div className="bg-gradient-to-r from-slate-200 via-slate-200 to-slate-400">
       {/* ADD NEW */}
       {openPopupAddNew && (
-        <PopupAddNewProduct
+        <PopupAddNewLab
           handleClosePopupAddNew={handleClosePopupAddNew}
-          fetchProduct={fetchData()}
+          fetchLab={fetchData}
         />
       )}
       {/* ------ */}
@@ -88,28 +88,13 @@ const ProductManager = () => {
                 #
               </th>
               <th scope="col" class="px-6 py-3">
-                ProductName
+                LabName
               </th>
               <th scope="col" class="px-6 py-3">
                 Description
               </th>
               <th scope="col" class="px-6 py-3">
-                Price
-              </th>
-              <th scope="col" class="px-6 py-3">
-                StockQuantity
-              </th>
-              <th scope="col" class="px-6 py-3">
-                Ages
-              </th>
-              <th scope="col" class="px-6 py-3">
-                Support Instances
-              </th>
-              <th scope="col" class="px-6 py-3">
-                Lab ID
-              </th>
-              <th scope="col" class="px-6 py-3">
-                Subcategory ID
+                labFileUrl
               </th>
               <th scope="col" class="px-6 py-3">
                 Action
@@ -117,16 +102,16 @@ const ProductManager = () => {
             </tr>
           </thead>
           <tbody>
-            {product.length === 0 ? (
+            {labs.length === 0 ? (
               <tr>
                 <td colSpan="8" className="px-6 py-4 text-center">
-                  No Product found.
+                  No Lab found.
                 </td>
               </tr>
             ) : (
-              product.map((product, index) => (
+              labs.map((labs, index) => (
                 <tr
-                  key={product.productId}
+                  key={labs.LabId}
                   className="border-b-[2px] bg-gradient-to-r from-slate-300 via-slate-400 to-violet-300"
                 >
                   <th
@@ -135,35 +120,19 @@ const ProductManager = () => {
                   >
                     {index + 1}
                   </th>
-                  <td class="border-r-[1px] px-6 py-4">
-                    {product.productName}
-                  </td>
-                  <td class="border-r-[1px] px-6 py-4">
-                    {product.description}
-                  </td>
-                  <td class="border-r-[1px] px-6 py-4">{product.price}</td>
-                  <td class="border-r-[1px] px-6 py-4">
-                    {product.stockQuantity}
-                  </td>
-                  <td class="border-r-[1px] px-6 py-4">{product.ages}</td>
-                  <td class="border-r-[1px] px-6 py-4">
-                    {product.supportInstances}
-                  </td>
-                  <td class="border-r-[1px] px-6 py-4">{product.labId}</td>
-                  <td class="border-r-[1px] px-6 py-4">
-                    {product.subcategoryId}
-                  </td>
-
+                  <td class="border-r-[1px] px-6 py-4">{labs.labName}</td>
+                  <td class="border-r-[1px] px-6 py-4">{labs.description}</td>
+                  <td class="border-r-[1px] px-6 py-4">{labs.labFileUrl}</td>
                   <td class="border-r-[1px] px-6 py-4">
                     <div className="flex gap-x-3">
                       <button
-                        onClick={() => handleUpdate(product.productId)}
+                        onClick={() => handleUpdate(labs.labId)}
                         className="rounded-md bg-green-400 p-2 px-3 text-white"
                       >
                         Update
                       </button>
                       <button
-                        onClick={() => deleteProduct(product.productId)}
+                        onClick={() => deleteLabs(labs.labId)}
                         className="rounded-md bg-red-400 p-2 px-3 text-white"
                       >
                         Remove
@@ -175,11 +144,11 @@ const ProductManager = () => {
             )}
           </tbody>
         </table>
-        {openPopupUpdate && setSelectedProduct && (
-          <PopupUpdateProduct
+        {openPopupUpdate && selectedLab && (
+          <PopupUpdateLabs
             handleClosePopupUpdate={handleClosePopupUpdate}
-            product={selectedProduct}
-            fetchProduct={fetchData}
+            Lab={selectedLab}
+            fetchLab={fetchData}
           />
         )}
       </div>
@@ -196,7 +165,7 @@ const ProductManager = () => {
           )}
         </div>
         <div>
-          {pageNumber < productLength && (
+          {pageNumber < LabLength && (
             <button
               className="text-2xl text-cyan-600"
               onClick={() => loadData(pageNumber + 1)}
@@ -210,4 +179,4 @@ const ProductManager = () => {
   );
 };
 
-export default ProductManager;
+export default LabManager;

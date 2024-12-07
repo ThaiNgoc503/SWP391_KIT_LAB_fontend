@@ -69,6 +69,9 @@ const PopupUpdateProduct = ({
         .matches(/^https?:\/\/[^\s]+$/, "Enter correct http or https url"),
     }),
     onSubmit: async (values) => {
+/* The line `const id = product.productId;` is extracting the `productId` property from the `product`
+object and assigning it to the variable `id`. This variable `id` is then used to identify the
+specific product that needs to be updated in the `updateProductAPI` function call. */
       const id = product.productId;
       const productData = {
         ...values,

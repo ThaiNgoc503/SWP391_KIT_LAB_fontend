@@ -3,25 +3,21 @@ import { Link } from "react-router-dom";
 
 const Card = ({ productName, productPrice, productId, imagePath }) => {
   return (
-    <div className="relative m-2 inline-block h-[20rem] min-h-[20rem] w-[15rem] space-y-4 overflow-hidden rounded-xl shadow-2xl">
-      <Link
-        to={`/product-list/${productId}`}
-        className="space-y-2 rounded-full text-base font-bold text-cyan-600"
-      >
-        <div className="absolute -right-[75px] top-[240px] h-[30rem] w-[30rem] rounded-xl bg-gradient-to-tl from-slate-500 via-cyan-700 shadow-xl transition-all ease-in-out hover:top-[235px]"></div>
-
+    <div className="m-1 inline-block h-[7rem] w-[5rem] space-y-4 overflow-hidden rounded-md bg-slate-50 hover:border-[1px] hover:border-solid hover:border-cyan-700 md:h-[12rem] md:w-[6.5rem] lg:h-[15rem] lg:w-[10rem] xl:h-[18rem] xl:w-[12.5rem]">
+      <Link to={`/product-list/${productId}`}>
         <img
           src={imagePath}
           alt="anh"
-          className="h-[15rem] w-full rounded-t-xl pt-[0px]"
+          className="h-[5rem] w-full rounded-t-md md:h-[9rem] lg:h-[12rem] xl:h-[14.5rem]"
         />
 
-        <h2 className="absolute right-7 top-[15rem] w-[170px] overflow-hidden text-ellipsis whitespace-nowrap text-slate-100">
+        <h2 className="w-[10] overflow-hidden text-ellipsis whitespace-nowrap px-2 text-xs text-cyan-700 md:text-sm lg:text-base xl:text-lg">
           {productName}
         </h2>
-        <div className="absolute right-28 top-[265px] flex text-red-400">
-          <p className="text-lg">{productPrice}</p>
-          <p className="pt-[2px] font-semibold">&#8363;</p>
+        <div className="pl-2 text-red-400">
+          <p className="text-xs md:text-sm lg:text-base xl:text-lg">
+            {productPrice}&#8363;
+          </p>
         </div>
       </Link>
     </div>

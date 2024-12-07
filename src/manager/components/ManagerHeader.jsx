@@ -23,20 +23,43 @@ const ManagerHeader = () => {
 
   return (
     <div className="relative">
-      <div className="flex justify-between border-b-[1px] border-white bg-gradient-to-br from-purple-500 via-green-300 to-cyan-300 pb-3 pl-9 pr-24 pt-3">
+      <div className="flex justify-between border-b-[1px] border-white bg-gradient-to-br from-slate-400 via-slate-200 to-slate-300 pb-3 pl-9 pr-24 pt-3">
         <img
           src={logo}
           className="mt-2 inline-block h-14 w-14 bg-gradient-to-br from-purple-500 via-green-500 to-cyan-400"
         />
-        <ul className="font-base flex gap-4 pt-2 text-lg text-slate-100 md:text-xl">
+        <ul className="font-base flex gap-4 pt-2 text-lg text-black md:text-xl">
           <li className="">
-            <Link to="user">User</Link>
+            <Link
+              to="user"
+              className="px-3 py-5 hover:bg-slate-50 hover:bg-opacity-25"
+            >
+              User
+            </Link>
           </li>
-          <li>
-            <Link to="ban-list">Ban User</Link>
+          <li className="text-nowrap">
+            <Link
+              to="ban-list"
+              className="px-3 py-5 hover:bg-slate-50 hover:bg-opacity-25"
+            >
+              Ban User
+            </Link>
           </li>
-          <li>
-            <Link to="product-manager">Product Manager</Link>
+          <li className="text-nowrap">
+            <Link
+              to="product-manager"
+              className="px-3 py-5 hover:bg-slate-50 hover:bg-opacity-25"
+            >
+              Product Manager
+            </Link>
+          </li>
+          <li className="text-nowrap">
+            <Link
+              to="labs-manager"
+              className="px-3 py-5 hover:bg-slate-50 hover:bg-opacity-25"
+            >
+              labs Manager
+            </Link>
           </li>
         </ul>
         {hasToken ? <LogoutAdmin /> : <Login />}

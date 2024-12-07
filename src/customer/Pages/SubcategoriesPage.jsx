@@ -15,7 +15,7 @@ const SubcategoriesPage = () => {
   }, []);
 
   const fetchAPI = async () => {
-    const getAllProducts = await getProductAPI(); 
+    const getAllProducts = await getProductAPI();
     setProducts(getAllProducts);
   };
 
@@ -75,8 +75,8 @@ const SubcategoriesPage = () => {
       <h2 className="ml-16 pl-5 pt-5 text-2xl font-semibold">
         {subcategoryName}
       </h2>
-      <div className="ml-20 mr-24 grid grid-cols-4">
-        <form className="h-[850px] rounded-lg bg-slate-100 p-3 md:h-[590px] md:w-[250px]">
+      <div className="ml-10 mr-24 flex">
+        <form className="h-[900px] rounded-lg bg-slate-100 p-3 md:h-[700px] md:w-[250px]">
           <ul>
             <li>
               <p className="text-lg font-medium">Age</p>
@@ -314,8 +314,8 @@ const SubcategoriesPage = () => {
             </button>
           </div>
         </form>
-        <div className="col-span-3">
-          <div className="grid grid-cols-3">
+        <div className="pl-20">
+          <div className="flex flex-wrap gap-y-8">
             {filteredProducts.map((product) => (
               <ShowCategories currentSubCategoryId={product.subcategoryId}>
                 <Card
