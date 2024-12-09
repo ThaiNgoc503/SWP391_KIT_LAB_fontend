@@ -5,15 +5,10 @@ const CardHome = ({ categoryName, link, id }) => {
   return (
     <Link
       to={`/subcategories/${categoryName}/${id}`}
-      className="my-3 flex h-[9.5rem] w-[9.5rem] rounded-lg bg-white p-10 md:ml-14 md:h-[10rem] md:w-[10rem] lg:ml-12 xl:h-[14rem] xl:w-[13rem]"
+      className="my-2 ml-4 flex h-[9.5rem] w-[9.5rem] rounded-lg bg-white p-5 pb-6 md:h-[10rem] md:w-[10rem] lg:w-[12rem] xl:h-[14rem] xl:w-[15.5rem]"
     >
-      <div className="space-y-2 rounded-full text-base font-bold text-cyan-600">
-        <img
-          src={link}
-          alt="anh"
-          className="h-full w-full rounded-t-xl pt-[0px]"
-        />
-
+      <div className="ml-3.5 flex flex-col items-center justify-center rounded-full align-middle text-base font-semibold text-cyan-600">
+        <img src={link} alt="anh" className="h-full w-full rounded-t-xl" />
         <h2 className="text-center">{categoryName}</h2>
       </div>
     </Link>

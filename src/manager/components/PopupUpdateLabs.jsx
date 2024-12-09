@@ -36,15 +36,15 @@ const PopupUpdateLabs = ({ handleClosePopupUpdate, fetchLab, Lab }) => {
         }, 1000);
         setTimeout(() => {
           handleClosePopupUpdate();
-          fetchLab();
         }, 500);
+        fetchLab();
       }
     },
   });
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-400 bg-opacity-55">
-      <div className="rounded-2xl bg-gradient-to-tr from-cyan-200 via-green-200 to-purple-300 p-5 md:w-[38rem]">
+      <div className="rounded-2xl bg-gradient-to-tr from-cyan-100 via-slate-200 to-slate-300 p-5 md:w-[38rem]">
         <div className="relative flex justify-center">
           <button onClick={handleClosePopupUpdate} className="absolute left-0">
             <MdOutlineCancel className="text-2xl" />

@@ -24,10 +24,12 @@ const ManagerHeader = () => {
   return (
     <div className="relative">
       <div className="flex justify-between border-b-[1px] border-white bg-gradient-to-br from-slate-400 via-slate-200 to-slate-300 pb-3 pl-9 pr-24 pt-3">
-        <img
-          src={logo}
-          className="mt-2 inline-block h-14 w-14 bg-gradient-to-br from-purple-500 via-green-500 to-cyan-400"
-        />
+        <Link to="/manager">
+          <img
+            src={logo}
+            className="mt-2 inline-block h-14 w-14 bg-gradient-to-br from-purple-200 via-green-500 to-cyan-400"
+          />
+        </Link>
         <ul className="font-base flex gap-4 pt-2 text-lg text-black md:text-xl">
           <li className="">
             <Link

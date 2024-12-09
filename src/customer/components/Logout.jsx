@@ -3,6 +3,7 @@ import { logoutAPI } from "../../api/AuthAPI";
 import { Link, useNavigate } from "react-router-dom";
 import { SlArrowDown } from "react-icons/sl";
 import { ShowComponent } from "../../protected/ShowComponent";
+import { FaUserAstronaut } from "react-icons/fa";
 
 const Logout = () => {
   const [openMenu, setOpenMenu] = useState(false);
@@ -36,19 +37,18 @@ const Logout = () => {
   };
 
   return (
-    <ul className="flex gap-4 pt-1 font-medium md:gap-6 md:pt-3 md:text-sm">
+    <ul className="flex gap-4 pt-1 font-medium text-black md:pt-3 md:text-sm">
       <li ref={menuRef}>
         <button
-          className="flex w-28 rounded-full bg-slate-200 p-1 pr-5 md:w-full md:p-2"
+          className="flex h-10 w-10 rounded-full bg-slate-200"
           onClick={() => setOpenMenu(!openMenu)}
         >
-          <p className="w-[6rem] overflow-hidden text-ellipsis whitespace-nowrap pl-2 font-bold md:w-[7rem] lg:w-full">
-            Welcome, Thái Ngọc
-          </p>
-          <SlArrowDown className="ml-2 mt-1 pr-1" />
+          <FaUserAstronaut className="ml-2 mt-1.5 text-2xl text-cyan-700" />
+
+          {/* <SlArrowDown className="ml-2 mt-1 pr-1" /> */}
         </button>
         {openMenu && (
-          <div className="absolute z-50 mt-1 w-[12rem] rounded-md bg-slate-200 to-green-300">
+          <div className="absolute right-0 z-50 mt-1 w-[8rem] rounded-md bg-slate-200 to-green-300 md:right-3 lg:right-16">
             <ul>
               <Link to="/manager">
                 <ShowComponent roleRequired="Manager">

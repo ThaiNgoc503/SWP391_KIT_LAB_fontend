@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { MdCancelPresentation } from "react-icons/md";
 import { registerAPI } from "../../api/AuthAPI";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import Loader from "./Loader";
+import Notification from "./Notification";
 
 const PopupSignUp = ({ closePopupRegister, handleLoginOpen }) => {
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [notification, setNotification] = useState(false);
+  useState(false);
+
   const formik = useFormik({
     initialValues: {
       username: "",
@@ -37,9 +44,26 @@ const PopupSignUp = ({ closePopupRegister, handleLoginOpen }) => {
       address: yup.string().required("Address is required"),
     }),
     onSubmit: async (values) => {
-      console.log(values);
-      await registerAPI(values);
-      closePopupRegister(); // Đóng popup sau khi đăng ký thành công
+      setIsLoading(true);
+      try {
+        const response = await registerAPI(values);
+        if (response.data.message == "Registration successful.") {
+          console.log(response.data.message);
+          closePopupRegister();
+        } else {
+          throw new Error(response.data.message || "Something went wrong");
+        }
+      } catch (error) {
+        if (error) {
+          console.log(error);
+          setNotification(true);
+          setTimeout(() => {
+            setNotification(false);
+          }, 3000);
+        }
+      } finally {
+        setIsLoading(false);
+      }
     },
   });
 
@@ -200,8 +224,15 @@ const PopupSignUp = ({ closePopupRegister, handleLoginOpen }) => {
             >
               Submit
             </button>
+            <p className="pb-5 pl-5 text-red-500">{errorMessage}</p>
           </form>
         </div>
+        {isLoading && <Loader />}
+        {notification && (
+          <Notification
+            notificationMessage={"UserName or email already exits"}
+          />
+        )}
       </div>
     </div>
   );

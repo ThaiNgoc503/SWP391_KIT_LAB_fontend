@@ -69,7 +69,7 @@ const PopupUpdateProduct = ({
         .matches(/^https?:\/\/[^\s]+$/, "Enter correct http or https url"),
     }),
     onSubmit: async (values) => {
-/* The line `const id = product.productId;` is extracting the `productId` property from the `product`
+      /* The line `const id = product.productId;` is extracting the `productId` property from the `product`
 object and assigning it to the variable `id`. This variable `id` is then used to identify the
 specific product that needs to be updated in the `updateProductAPI` function call. */
       const id = product.productId;
@@ -108,7 +108,7 @@ specific product that needs to be updated in the `updateProductAPI` function cal
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-400 bg-opacity-55">
-      <div className="rounded-2xl bg-gradient-to-tr from-cyan-200 via-green-200 to-purple-300 p-5 md:w-[38rem]">
+      <div className="rounded-2xl bg-gradient-to-tr from-cyan-100 via-slate-200 to-slate-300 p-5 md:w-[38rem]">
         <div className="relative flex justify-center">
           <button onClick={handleClosePopupUpdate} className="absolute left-0">
             <MdOutlineCancel className="text-2xl" />

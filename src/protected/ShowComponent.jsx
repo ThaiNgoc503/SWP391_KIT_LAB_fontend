@@ -9,7 +9,6 @@ const getUserRole = () => {
 
 export const ShowComponent = ({ roleRequired, children }) => {
   const userRole = getUserRole();
-  console.log(userRole);
   if (!roleRequired.includes(userRole)) {
     return null;
   }

@@ -71,16 +71,16 @@ const SubcategoriesPage = () => {
   };
 
   return (
-    <div>
-      <h2 className="ml-16 pl-5 pt-5 text-2xl font-semibold">
+    <div className="bg-white pb-10">
+      <h2 className="ml-10 py-5 text-start text-2xl font-semibold">
         {subcategoryName}
       </h2>
       <div className="ml-10 mr-24 flex">
-        <form className="h-[900px] rounded-lg bg-slate-100 p-3 md:h-[700px] md:w-[250px]">
+        <form className="h-[900px] rounded-lg bg-white p-3 md:h-[900px] md:w-[260px]">
+          <p className="text-lg font-medium text-cyan-600">Age</p>
           <ul>
             <li>
-              <p className="text-lg font-medium">Age</p>
-              <ul className="ml-2 pt-2">
+              <ul className="ml-2 space-y-2 pt-2">
                 <li className="flex items-center">
                   <input
                     type="radio"
@@ -216,8 +216,9 @@ const SubcategoriesPage = () => {
               </ul>
             </li>
             <li>
-              <p className="text-lg font-medium">Money</p>
-              <ul className="ml-2 pt-2">
+              <hr />
+              <p className="pt-2 text-lg font-medium text-cyan-600">Money</p>
+              <ul className="ml-2 space-y-2 pt-2">
                 <li className="flex items-center">
                   <input
                     type="radio"
@@ -308,7 +309,7 @@ const SubcategoriesPage = () => {
           <div className="flex items-center text-center">
             <button
               onClick={ResetFilter}
-              className="mt-2 rounded-lg bg-slate-300 p-1 px-2 hover:bg-cyan-700 hover:text-white"
+              className="mt-2 w-full rounded-lg bg-slate-300 p-1 px-2 hover:bg-cyan-600 hover:text-white"
             >
               Reset
             </button>

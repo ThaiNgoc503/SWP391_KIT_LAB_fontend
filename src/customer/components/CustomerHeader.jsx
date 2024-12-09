@@ -49,19 +49,19 @@ const CustomerHeader = () => {
 
   return (
     <div>
-      <div className="flex items-center justify-around bg-slate-100 py-2">
+      <div className="flex items-center justify-around bg-cyan-600 py-2 text-white">
         <div>
           <p className="text-base">stempedeshop@gmail.com</p>
         </div>
         <div className="flex items-center space-x-4 md:ml-[30rem]">
           <div className="flex space-x-1 pt-2">
-            <a href="">
+            <a href="https://www.linkedin.com/in/kit-and-lab-stempede-39b0a9340?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app">
               <FaLinkedin className="text-lg" />
             </a>
-            <a href="">
+            <a href="https://www.facebook.com/profile.php?id=61570075288398">
               <FaFacebookSquare className="text-lg" />
             </a>
-            <a href="">
+            <a href="https://www.instagram.com/stem.pedeshop/?igsh=MTh2cGpqdzR2aGN1MQ%3D%3D">
               <FaInstagramSquare className="text-lg" />
             </a>
           </div>
@@ -107,11 +107,11 @@ const CustomerHeader = () => {
             </Link>
           </li>
         </ul>
-        <ul>
-          <li className="pr-10">
+        {/* <ul>
+          <li className="pr-10 ">
             <CartIcon />
           </li>
-        </ul>
+        </ul> */}
       </div>
     </div>
   );

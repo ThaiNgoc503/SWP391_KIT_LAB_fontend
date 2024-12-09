@@ -42,21 +42,21 @@ const LogoutAdmin = () => {
           onClick={() => setOpenMenu(!openMenu)}
         >
           <p className="w-[6rem] overflow-hidden text-ellipsis whitespace-nowrap pl-2 font-bold md:w-[7rem] lg:w-full">
-            Welcome, Thái Ngọc
+            Welcome, Manager
           </p>
           <SlArrowDown className="ml-3 mt-2" />
         </button>
         {openMenu && (
-          <div className="absolute z-50 mt-1 w-[12rem] rounded-md bg-gradient-to-tl from-pink-300 via-cyan-400 to-green-300">
+          <div className="absolute z-50 mt-1 w-[12rem] rounded-md bg-slate-200">
             <ul>
               <Link to="/">
-                <li className="from-green-300 to-green-200 p-2 hover:rounded-t-sm hover:bg-gradient-to-l">
+                <li className="from-slate-300 to-slate-200 p-2 hover:rounded-t-sm hover:bg-gradient-to-r">
                   Customer Page
                 </li>
               </Link>
               <li
                 onClick={() => handleLogout()}
-                className="to-green-200s from-green-300 p-2 hover:rounded-t-sm hover:bg-gradient-to-l"
+                className="from-slate-300 to-slate-200 p-2 hover:rounded-t-sm hover:bg-gradient-to-r"
               >
                 <button>Logout</button>
               </li>

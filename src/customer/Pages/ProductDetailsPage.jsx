@@ -10,8 +10,8 @@ const ProductDetailsPage = () => {
   const [product, setProduct] = useState({});
   const [quantity, setQuantity] = useState(1);
   const [openAddToCart, setOpenAddToCart] = useState(false);
-  const [noitification, setNoitification] = useState(false);
-  const [noitificationForGuest, setNoitificationForGuest] = useState(false);
+  const [notification, setNotification] = useState(false);
+  const [notificationForGuest, setNotificationForGuest] = useState(false);
   const menuRef = useRef(null);
 
   useEffect(() => {
@@ -39,55 +39,57 @@ const ProductDetailsPage = () => {
     setProduct(response);
   };
 
-  const handleAddToCart = async (e) => {
-    e.preventDefault();
-    const data = {
-      productId: product.productId,
-      quantity: quantity,
-    };
-    await AddItemsAPI(data);
-    setQuantity(1);
-    setNoitification(true);
-    setTimeout(() => {
-      setNoitification(false);
-    }, 1000);
-  };
+  // const handleAddToCart = async (e) => {
+  //   e.preventDefault();
+  //   const data = {
+  //     productId: product.productId,
+  //     quantity: quantity,
+  //   };
+  //   await AddItemsAPI(data);
+  //   setQuantity(1);
+  // setNotification(true);
+  //   setTimeout(() => {
+  //     setNotification(false);
+  //   }, 4000);
+  // };
 
   const handleOpenAddToCart = () => {
-    setOpenAddToCart(!openAddToCart);
-    const role = getUserRole();
-    if (!["Manager", "Customer"].includes(role)) {
-      setNoitificationForGuest(true);
-    }
+    //   setOpenAddToCart(!openAddToCart);
+    //   const role = getUserRole();
+    //   if (!["Manager", "Customer"].includes(role)) {
+    setNotificationForGuest(true);
+    //   }
     setTimeout(() => {
-      setNoitificationForGuest(false);
-    }, 1000);
+      setNotificationForGuest(false);
+    }, 4000);
   };
   const handleBuy = () => {
-    const role = getUserRole();
-    if (!["Manager", "Customer"].includes(role)) {
-      setNoitificationForGuest(true);
-    }
+    //   const role = getUserRole();
+    //   if (!["Manager", "Customer"].includes(role)) {
+    setNotificationForGuest(true);
+    // }
     setTimeout(() => {
-      setNoitificationForGuest(false);
-    }, 1000);
+      setNotificationForGuest(false);
+    }, 4000);
   };
 
   return (
-    <div>
-      <div className="grid grid-cols-2 p-5 md:px-20">
+    <div className="w-full bg-slate-100 px-20 pb-10 pt-10">
+      <div className="py-19 flex bg-white p-20">
         <img
           src={product.imagePath}
           alt="anh"
-          className="m-5 mx-5 h-[12rem] w-[15rem] rounded-xl md:h-[20rem] md:w-[25rem]"
+          className="m-5 mx-5 h-[10rem] w-[12rem] rounded-xl md:h-[15rem] md:w-[20rem]"
         />
         <div className="space-y-3 pt-4">
-          <h2 className="pb-1 text-xl font-bold">{product.productName}</h2>
+          <h2 className="pb-1 text-3xl font-extrabold">
+            {product.productName}
+          </h2>
           <div>
             <Link
               to={`/subcategories/${product.subcategoryName}/${product.subcategoryId}`}
             >
-              <p className="inline-block rounded-md bg-gradient-to-r from-yellow-200 via-orange-300 to-red-300 px-2 py-1 text-slate-100">
+              <p className="inline-block rounded-md bg-orange-300 px-2 py-1 text-white hover:bg-orange-400">
                 {product.subcategoryName}
               </p>
             </Link>
@@ -95,21 +97,21 @@ const ProductDetailsPage = () => {
           <div className="flex">
             <p className="text-base font-semibold">age: {product.ages}</p>
           </div>
-          <p className="text-xl font-extrabold text-red-500 md:pt-4">
+          <p className="text-xl font-bold text-red-500 md:pt-4">
             {product.price}&#8363;
           </p>
 
           <p className="">{product.description}</p>
-          <div className="space-x-6 space-y-4">
+          <div className="space-x-2 space-y-2">
             <button
               onClick={() => handleOpenAddToCart()}
-              className="rounded-lg bg-cyan-300 px-2 py-2 font-semibold text-slate-100 shadow-md shadow-green-200"
+              className="rounded-lg bg-cyan-300 px-2 py-2 font-semibold text-slate-100"
             >
               Add To Cart
             </button>
             <button
               onClick={() => handleBuy()}
-              className="rounded-lg bg-green-400 px-2 py-2 font-semibold text-slate-100 shadow-md shadow-cyan-200"
+              className="rounded-lg bg-green-400 px-2 py-2 font-semibold text-slate-100"
             >
               Buy now
             </button>
@@ -151,12 +153,16 @@ const ProductDetailsPage = () => {
             </form>
           </div>
         )}
-        {noitification && (
+        {notification && (
           <Notification notificationMessage={"Add to cart successfully"} />
         )}
       </ShowComponent>
-      {noitificationForGuest && (
-        <Notification notificationMessage={"You Need To Login To Buy"} />
+      {notificationForGuest && (
+        <Notification
+          notificationMessage={
+            "You Need To download mobile app to Buy and Add To Cart, Thank You!"
+          }
+        />
       )}
     </div>
   );

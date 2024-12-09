@@ -18,8 +18,8 @@ instance.interceptors.request.use(
     return config;
   },
   (error) => {
-    console.log("Error request api");
-    console.log(error);
+    // console.log("Error request api");
+    // console.log(error);
   },
 );
 
@@ -28,8 +28,8 @@ instance.interceptors.response.use(
     return response;
   },
   (error) => {
-    console.log("Error response api");
-    console.log(error);
+    // console.log("Error response api");
+    // console.log(error);
   },
 );
 

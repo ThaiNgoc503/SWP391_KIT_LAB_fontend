@@ -30,29 +30,33 @@ const HomePage = () => {
     }
   };
   return (
-    <div className="bg-slate-100 p-2 sm:px-4 md:px-8 lg:px-10 xl:px-14">
+    <div className="bg-slate-100 p-2 pb-20 sm:px-4 md:px-8 lg:px-10 xl:px-14">
       {/* BANNER SEARCH ADN CATEGORY */}
       <div className="flex justify-start">
         {/* Category list */}
         <div>
-          <div className="mx-4 my-4 h-[10rem] w-[10rem] overflow-auto rounded-md bg-white px-2 py-1 text-xs sm:h-[13rem] sm:w-[10rem] md:h-[15rem] md:w-[13.4rem] md:text-base lg:h-[22rem] lg:w-[16.5] lg:font-medium xl:h-[25rem] xl:w-[16.5rem] [&::-webkit-scrollbar]:hidden">
-            <h2 className="w-full rounded-sm bg-cyan-700 pl-2 text-sm md:text-base lg:text-lg xl:text-xl">
-              Categories
-            </h2>
-            <ul className="p-2">
-              {subcategories.map((subcategories, index) => (
-                <Link
-                  to={`subcategories/${subcategories.subcategoryName}/${subcategories.subcategoryId}`}
-                >
-                  <li
-                    key={index}
-                    className="from-slate-300 to-slate-200 p-1 hover:bg-gradient-to-r"
+          <div className="mb-2">
+            <div className="mx-4">
+              <h2 className="rounded-t-sm bg-cyan-600 py-2 pl-2 text-sm md:text-base lg:text-lg xl:text-xl">
+                Categories
+              </h2>
+            </div>
+            <div className="mx-4 h-[10rem] w-[10rem] overflow-auto rounded-b-sm bg-white px-2 py-1 text-xs sm:h-[13rem] sm:w-[10rem] md:h-[15rem] md:w-[13.4rem] md:text-base lg:h-[19rem] lg:w-[12.1rem] lg:font-medium xl:h-[22.9rem] xl:w-[15.4rem] [&::-webkit-scrollbar]:hidden">
+              <ul className="p-2">
+                {subcategories.map((subcategories, index) => (
+                  <Link
+                    to={`subcategories/${subcategories.subcategoryName}/${subcategories.subcategoryId}`}
                   >
-                    {subcategories.subcategoryName}
-                  </li>
-                </Link>
-              ))}
-            </ul>
+                    <li
+                      key={index}
+                      className="from-slate-300 to-slate-200 p-1 hover:bg-gradient-to-r"
+                    >
+                      {subcategories.subcategoryName}
+                    </li>
+                  </Link>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
         {/* End Category */}
@@ -71,7 +75,7 @@ const HomePage = () => {
               />
               <button
                 onClick={handleSearch}
-                className="bg-primary absolute right-1 top-1 rounded-md bg-cyan-700 p-1 text-white sm:right-2 sm:top-2 md:right-2 md:top-1.5 md:p-2.5 xl:top-[8px] xl:p-3"
+                className="bg-primary absolute right-1 top-1 rounded-md bg-cyan-600 p-1 text-white sm:right-2 sm:top-2 md:right-2 md:top-1.5 md:p-2.5 xl:top-[8px] xl:p-3"
               >
                 <IoIosSearch />
               </button>
@@ -111,32 +115,34 @@ const HomePage = () => {
             />
           </div>
           {/* END BANNER DOC */}
-          <div className="">
-            <CardHome
-              categoryName="Chemistry"
-              id={4}
-              link="https://i5.walmartimages.com/seo/Dr-STEM-Toys-Kids-First-Chemistry-Set-Science-Kit-28-Pieces-Includes-Ten-Experiments-Goggles-Test-Tubes-All-in-a-Storage-Bucket_31ff2e67-3f27-45e2-94b0-d1d01ea27ad1.ca1ea5c89b0cb71f40ca992336a213c3.jpeg"
-            />
-            <CardHome
-              categoryName="Physics"
-              id={6}
-              link="https://images-na.ssl-images-amazon.com/images/I/81Yeb65r3vL.jpg"
-            />
-            <CardHome
-              categoryName="Subscription"
-              id={7}
-              link="https://www.subscriptionboxes.ca/wp-content/uploads/2016/02/all-inside-tinker2.jpg"
-            />
-            <CardHome
-              categoryName="Engineering"
-              id={8}
-              link="https://upload.digoodcms.com/913/image_1667548255_Makerspace-Kit-(3).jpg"
-            />
-            <CardHome
-              categoryName="Subscription"
-              id={9}
-              link="https://the3doodler.com/cdn/shop/files/3doodler-start_-box-2024.jpg?v=1732022233"
-            />
+          <div>
+            <div className="">
+              <CardHome
+                categoryName="Chemistry"
+                id={4}
+                link="https://i5.walmartimages.com/seo/Dr-STEM-Toys-Kids-First-Chemistry-Set-Science-Kit-28-Pieces-Includes-Ten-Experiments-Goggles-Test-Tubes-All-in-a-Storage-Bucket_31ff2e67-3f27-45e2-94b0-d1d01ea27ad1.ca1ea5c89b0cb71f40ca992336a213c3.jpeg"
+              />
+              <CardHome
+                categoryName="Physics"
+                id={6}
+                link="https://images-na.ssl-images-amazon.com/images/I/81Yeb65r3vL.jpg"
+              />
+              <CardHome
+                categoryName="Subscription"
+                id={7}
+                link="https://www.subscriptionboxes.ca/wp-content/uploads/2016/02/all-inside-tinker2.jpg"
+              />
+              <CardHome
+                categoryName="Engineering"
+                id={8}
+                link="https://upload.digoodcms.com/913/image_1667548255_Makerspace-Kit-(3).jpg"
+              />
+              <CardHome
+                categoryName="Subscription"
+                id={9}
+                link="https://the3doodler.com/cdn/shop/files/3doodler-start_-box-2024.jpg?v=1732022233"
+              />
+            </div>
           </div>
         </div>
         {/* PRODUCT CATEGORY AND BANNER  */}

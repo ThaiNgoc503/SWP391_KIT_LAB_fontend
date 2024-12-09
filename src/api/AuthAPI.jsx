@@ -8,10 +8,10 @@ const END_POINTS = {
   REFRESH: "refresh",
 };
 
-export const loginAPI = async (credentials) => {
+export const loginAPI = async (data) => {
   const response = await AxiosClient.post(
     `${"Auth"}/${END_POINTS.LOGIN}`,
-    credentials,
+    data,
   );
   return response.data;
 };
@@ -29,10 +29,15 @@ export const logoutAPI = async (refreshToken) => {
   return response;
 };
 
-export const registerAPI = async (data) => {
-  const response = await AxiosClient.post(
-    `${"Auth"}/${END_POINTS.REGISTER}`,
-    data,
-  );
-  return response;
+export const registerAPI = async (value) => {
+  try {
+    const response = await AxiosClient.post(
+      `${"Auth"}/${END_POINTS.REGISTER}`,
+      value,
+    );
+    return response; // Trả về toàn bộ phản hồi
+  } catch (error) {
+    console.error("Error in registerAPI:", error.response || error);
+    throw error; // Ném lỗi để xử lý ở nơi gọi
+  }
 };

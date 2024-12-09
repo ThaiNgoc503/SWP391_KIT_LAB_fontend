@@ -15,7 +15,6 @@ const LabManager = () => {
   const [selectedLab, setSelectedLab] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
   const [LabLength, setLabLength] = useState();
-
   useEffect(() => {
     fetchData();
   }, []);
@@ -24,7 +23,6 @@ const LabManager = () => {
     const data = { PageNumber: pageNumber, PageSize: 10 }; //gồm số tang và độ dài của sản phẩm
     const response = await getLabsPaginationAPI(data);
     setLab(response);
-    console.log(response);
     const getLabs = await getAllLabs(); //lấy độ dài mãng
     const length = Math.ceil(getLabs.length / 10); //lấy số trang
     setLabLength(length);
@@ -55,12 +53,33 @@ const LabManager = () => {
   const deleteLabs = async (currentId) => {
     const labFind = labs.find((lab) => currentId === lab.labId);
     if (labFind) {
-      const response = await deleteLabAPI(labFind.labId);
-      if (response.success == true) {
-        fetchData();
+      const isConfirmed = confirm("Do you want to delete the labs?");
+      if (isConfirmed) {
+        const response = await deleteLabAPI(labFind.labId);
+        if (response.success == true) {
+          fetchData();
+        }
       }
     }
   };
+
+  const renderPagination = () => {
+    const pages = Array.from({ length: LabLength }, (_, index) => index + 1);
+    return pages.map((page) => (
+      <button
+        key={page}
+        className={`mx-1 rounded px-2 py-1 ${
+          pageNumber === page
+            ? "bg-cyan-600 text-white"
+            : "bg-gray-200 text-cyan-600"
+        }`}
+        onClick={() => loadData(page)}
+      >
+        {page}
+      </button>
+    ));
+  };
+
   return (
     <div className="bg-gradient-to-r from-slate-200 via-slate-200 to-slate-400">
       {/* ADD NEW */}
@@ -118,7 +137,7 @@ const LabManager = () => {
                     scope="row"
                     className="whitespace-nowrap border-r-[1px] px-6 py-4 font-medium text-gray-900 dark:text-white"
                   >
-                    {index + 1}
+                    {(pageNumber - 1) * 10 + index + 1}
                   </th>
                   <td class="border-r-[1px] px-6 py-4">{labs.labName}</td>
                   <td class="border-r-[1px] px-6 py-4">{labs.description}</td>
@@ -148,33 +167,12 @@ const LabManager = () => {
           <PopupUpdateLabs
             handleClosePopupUpdate={handleClosePopupUpdate}
             Lab={selectedLab}
-            fetchLab={fetchData}
+            fetchLab={fetchData()}
           />
         )}
       </div>
 
-      <div className="flex justify-between p-10 px-10">
-        <div>
-          {pageNumber !== 1 && (
-            <button
-              className="text-2xl text-cyan-600"
-              onClick={() => loadData(pageNumber - 1)}
-            >
-              <HiChevronDoubleLeft />
-            </button>
-          )}
-        </div>
-        <div>
-          {pageNumber < LabLength && (
-            <button
-              className="text-2xl text-cyan-600"
-              onClick={() => loadData(pageNumber + 1)}
-            >
-              <HiChevronDoubleRight />
-            </button>
-          )}
-        </div>
-      </div>
+      <div className="flex justify-center p-10">{renderPagination()}</div>
     </div>
   );
 };

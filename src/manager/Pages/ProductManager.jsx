@@ -6,7 +6,6 @@ import {
 } from "../../api/ProductAPI";
 import PopupAddNewProduct from "../components/PopupAddNewProduct";
 import PopupUpdateProduct from "../components/PopupUpdate";
-import { HiChevronDoubleLeft, HiChevronDoubleRight } from "react-icons/hi";
 
 const ProductManager = () => {
   const [product, setProduct] = useState([]);
@@ -55,11 +54,36 @@ const ProductManager = () => {
   const deleteProduct = async (currentId) => {
     const productFind = product.find((p) => currentId === p.productId);
     if (productFind) {
-      const response = await deleteProductAPI(productFind.productId);
-      if (response.success == true) {
-        fetchData();
+      const isConfirmed = confirm("Do you want to delete the product?");
+      if (isConfirmed) {
+        const response = await deleteProductAPI(productFind.productId);
+        if (response.success == true) {
+          fetchData();
+        } else {
+          alert("Fail to Delete");
+        }
       }
     }
+  };
+
+  const renderPagination = () => {
+    const pages = Array.from(
+      { length: productLength },
+      (_, index) => index + 1,
+    );
+    return pages.map((page) => (
+      <button
+        key={page}
+        className={`mx-1 rounded px-2 py-1 ${
+          pageNumber === page
+            ? "bg-cyan-600 text-white"
+            : "bg-gray-200 text-cyan-600"
+        }`}
+        onClick={() => loadData(page)}
+      >
+        {page}
+      </button>
+    ));
   };
   return (
     <div className="bg-gradient-to-r from-slate-200 via-slate-200 to-slate-400">
@@ -67,7 +91,7 @@ const ProductManager = () => {
       {openPopupAddNew && (
         <PopupAddNewProduct
           handleClosePopupAddNew={handleClosePopupAddNew}
-          fetchProduct={fetchData()}
+          fetchProduct={fetchData}
         />
       )}
       {/* ------ */}
@@ -133,7 +157,7 @@ const ProductManager = () => {
                     scope="row"
                     className="whitespace-nowrap border-r-[1px] px-6 py-4 font-medium text-gray-900 dark:text-white"
                   >
-                    {index + 1}
+                    {(pageNumber - 1) * 10 + index + 1}
                   </th>
                   <td class="border-r-[1px] px-6 py-4">
                     {product.productName}
@@ -184,28 +208,7 @@ const ProductManager = () => {
         )}
       </div>
 
-      <div className="flex justify-between p-10 px-10">
-        <div>
-          {pageNumber !== 1 && (
-            <button
-              className="text-2xl text-cyan-600"
-              onClick={() => loadData(pageNumber - 1)}
-            >
-              <HiChevronDoubleLeft />
-            </button>
-          )}
-        </div>
-        <div>
-          {pageNumber < productLength && (
-            <button
-              className="text-2xl text-cyan-600"
-              onClick={() => loadData(pageNumber + 1)}
-            >
-              <HiChevronDoubleRight />
-            </button>
-          )}
-        </div>
-      </div>
+      <div className="flex justify-center p-10">{renderPagination()}</div>
     </div>
   );
 };

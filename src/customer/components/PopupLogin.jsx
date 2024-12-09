@@ -5,9 +5,9 @@ import { useNavigate } from "react-router-dom";
 import Register from "./PopupSignUp";
 import { FaUser } from "react-icons/fa";
 import Loader from "./Loader";
-import { GiArchiveRegister } from "react-icons/gi";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import Notification from "./Notification";
 
 const PopupLogin = () => {
   const [popup, setPopup] = useState(false);
@@ -16,7 +16,8 @@ const PopupLogin = () => {
   const [showRegister, setShowRegister] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const [errorMessage, setErrorMessage] = useState("");
+  const [notification, setNotification] = useState(false);
+  const [notification2, setNotification2] = useState(false);
 
   const Formik = useFormik({
     initialValues: {
@@ -38,24 +39,36 @@ const PopupLogin = () => {
           emailOrUsername: values.username,
           password: values.password,
         };
+
         const response = await loginAPI(data);
+
         if (response.data.message === "Login successful.") {
-          console.log(response.data.message);
-          const data = {
+          const tokenData = {
             TOKEN: response.data.token,
             ROLE: response.data.roles[0].trim(),
             REFRESH_TOKEN: response.data.refreshToken,
           };
 
-          localStorage.setItem("jwt", JSON.stringify(data));
-          console.log("Login success");
-          if (data.ROLE === "Manager") {
+          localStorage.setItem("jwt", JSON.stringify(tokenData));
+          if (tokenData.ROLE === "Manager") {
             navigate("manager/user");
           } else {
             navigate("/");
             window.location.reload();
           }
+        } else {
+          throw new Error(response.data.message || "Something went wrong");
         }
+      } catch (error) {
+        if (error.message) {
+          setNotification(true);
+        } else {
+          setNotification2(true);
+        }
+        setTimeout(() => {
+          setNotification(false);
+          setNotification2(false);
+        }, 3000);
       } finally {
         setIsLoading(false);
       }
@@ -89,9 +102,9 @@ const PopupLogin = () => {
         </li>
       </ul>
       {popup && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 align-middle">
+        <div className="fixed inset-0 z-40 flex items-center justify-center bg-black bg-opacity-40 align-middle">
           <div className="flex min-h-screen items-center justify-center">
-            <div className="w-[30rem] rounded-md bg-gradient-to-br from-purple-400 via-green-200 to-cyan-200">
+            <div className="w-[30rem] rounded-md bg-gradient-to-br from-purple-100 via-slate-200 to-slate-300">
               <div className="relative flex justify-center">
                 <button
                   onClick={() => closePopup()}
@@ -99,13 +112,13 @@ const PopupLogin = () => {
                 >
                   <MdCancelPresentation />
                 </button>
-                <h2 className="bg-gradient-to-tr from-yellow-400 via-orange-300 to-red-400 bg-clip-text pb-2 pt-2 text-center text-3xl font-semibold text-transparent">
+                <h2 className="pb-2 pt-2 text-center text-3xl font-semibold">
                   Login
                 </h2>
               </div>
               <form
                 onSubmit={Formik.handleSubmit}
-                className="flex flex-col gap-y-3 p-5 text-slate-100"
+                className="flex flex-col gap-y-3 p-5 text-black"
               >
                 <p>User Name</p>
                 <input
@@ -133,9 +146,6 @@ const PopupLogin = () => {
                 )}
 
                 <ul className="flex justify-between">
-                  <li>
-                    <a href="">forgot password</a>
-                  </li>
                   <li className="flex gap-1">
                     <p>don't have account? </p>
                     <button
@@ -153,7 +163,6 @@ const PopupLogin = () => {
                 >
                   Login
                 </button>
-                <p className="text-red-500">{errorMessage}</p>
               </form>
             </div>
           </div>
@@ -166,6 +175,16 @@ const PopupLogin = () => {
         />
       )}
       {isLoading && <Loader />}
+      {notification2 && (
+        <Notification notificationMessage={"An unexpected error occurred."} />
+      )}
+      {notification && (
+        <Notification
+          notificationMessage={
+            "Invalid credentials or user is banned please enter again."
+          }
+        />
+      )}
     </div>
   );
 };

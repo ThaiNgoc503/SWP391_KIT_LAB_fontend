@@ -20,7 +20,7 @@ const CategoryHome = ({ currentSubCategoryId, subcategoryName }) => {
     .slice(0, 4);
 
   return (
-    <div className="mx-2 ml-5 mt-10 w-[24rem] space-y-2 rounded-lg bg-white px-2 py-5 sm:w-[28rem] md:ml-10 md:w-[30rem] lg:w-[45rem] xl:ml-10 xl:w-[55rem]">
+    <div className="mx-2 ml-4 mt-4 w-[24rem] space-y-2 rounded-md bg-white px-2 py-5 sm:w-[28rem] md:w-[30rem] lg:w-[45.5rem] xl:w-[55rem]">
       <h2 className="text-xl font-semibold">{subcategoryName}</h2>
       <hr />
       <div className="ml-5 flex w-full">

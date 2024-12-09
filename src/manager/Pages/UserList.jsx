@@ -14,8 +14,11 @@ const UserList = () => {
   };
 
   const handleBanUser = async (userId) => {
-    await banUser(userId); //ban user
-    fetchAPI(); //load lại dữ liệu
+    const isConfirmed = confirm("Do you want ban user?");
+    if (isConfirmed) {
+      await banUser(userId); //ban user
+      fetchAPI(); //load lại dữ liệu
+    }
   };
 
   return (
@@ -62,11 +65,11 @@ const UserList = () => {
                 .map((user, index) => (
                   <tr
                     key={user.id}
-                    className="border-b-[2px] bg-gradient-to-r from-slate-200 via-slate-100 to-violet-100 shadow-2xl backdrop-blur-3xl"
+                    className="border-b-[2px] bg-gradient-to-r from-slate-200 via-slate-100 to-violet-100"
                   >
                     <th
                       scope="row"
-                      className="whitespace-nowrap border-r-[1px] px-6 py-4 font-medium text-gray-900 dark:text-white"
+                      className="whitespace-nowrap border-r-[1px] px-6 py-4 font-medium text-gray-900"
                     >
                       {index + 1}
                     </th>
