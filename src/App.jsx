@@ -14,6 +14,7 @@ import SubcategoriesPage from "./customer/Pages/SubcategoriesPage";
 import ContactPage from "./customer/Pages/ContactPage";
 import SearchPage from "./customer/Pages/SearchPage";
 import LabManager from "./manager/Pages/LabManager";
+import DashBoard from "./manager/Pages/DashBoard";
 
 function App() {
   return (
@@ -49,6 +50,7 @@ function App() {
           <Route path="ban-list" element={<BanList />} />
           <Route path="product-manager" element={<ProductManager />} />
           <Route path="labs-manager" element={<LabManager />} />
+          <Route path="dashboard" element={<DashBoard />} />
         </Route>
       </Routes>
     </BrowserRouter>

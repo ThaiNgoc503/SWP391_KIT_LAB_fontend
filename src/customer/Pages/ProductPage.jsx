@@ -43,7 +43,7 @@ const ProductPage = () => {
       const ages = Number.parseInt(product.ages);
 
       if (age !== 0) {
-        ageMatch = ages <= age;
+        ageMatch = ages >= age;
       }
 
       if (money !== 0) {
@@ -108,7 +108,7 @@ const ProductPage = () => {
   return (
     <div>
       <h2 className="b inline-block pl-7 pt-5 text-2xl font-semibold text-black">
-        Stempede Shop All Product
+        All Product
       </h2>
       <div className="ml-10 mr-24 flex">
         <form className="h-[900px] rounded-lg bg-white p-3 md:h-[700px] md:w-[250px]">
@@ -362,7 +362,11 @@ const ProductPage = () => {
               />
             ))}
           </div>
-          <div className="flex justify-center p-10">{renderPagination()}</div>
+          <div
+            className={`flex justify-center p-10 ${filteredProducts.length == 0 ? "hidden" : "inline-block"}`}
+          >
+            {renderPagination()}
+          </div>
         </div>
       </div>
     </div>

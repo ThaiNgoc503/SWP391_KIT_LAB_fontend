@@ -34,12 +34,12 @@ const PopupUpdateProduct = ({
       price: yup
         .number()
         .required("Price is required")
-        .min(1, "the price is more than or equal 1")
+        .min(10000, "the price is more than or equal 10000")
         .typeError("Price must be a number"),
       stockQuantity: yup
         .number()
         .required("Stock quantity is required")
-        .min(1, "the price is more than or equal 1")
+        .min(0, "the price is more than or equal 0")
         .typeError("stockQuantity must be a number"),
       ages: yup
         .string()
@@ -66,12 +66,9 @@ const PopupUpdateProduct = ({
       imagePath: yup
         .string()
         .required("image path is required")
-        .matches(/^https?:\/\/[^\s]+$/, "Enter correct http or https url"),
+        .matches(/^https?:\/\/[\s]*$/, "Enter correct http or https url"),
     }),
     onSubmit: async (values) => {
-      /* The line `const id = product.productId;` is extracting the `productId` property from the `product`
-object and assigning it to the variable `id`. This variable `id` is then used to identify the
-specific product that needs to be updated in the `updateProductAPI` function call. */
       const id = product.productId;
       const productData = {
         ...values,
@@ -86,11 +83,11 @@ specific product that needs to be updated in the `updateProductAPI` function cal
         setNotification(true);
         setTimeout(() => {
           setNotification(false);
-        }, 1000);
+        }, 3000);
         setTimeout(async () => {
           handleClosePopupUpdate();
           fetchProduct();
-        }, 500);
+        }, 2000);
       }
     },
   });

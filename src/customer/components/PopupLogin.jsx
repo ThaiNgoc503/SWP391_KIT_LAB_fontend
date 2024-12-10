@@ -108,11 +108,11 @@ const PopupLogin = () => {
               <div className="relative flex justify-center">
                 <button
                   onClick={() => closePopup()}
-                  className="absolute left-0 pl-3 pt-3 text-3xl"
+                  className="absolute left-0 pl-3 pt-3 text-3xl text-black"
                 >
                   <MdCancelPresentation />
                 </button>
-                <h2 className="pb-2 pt-2 text-center text-3xl font-semibold">
+                <h2 className="pb-2 pt-2 text-center text-3xl font-semibold text-black">
                   Login
                 </h2>
               </div>
@@ -181,7 +181,7 @@ const PopupLogin = () => {
       {notification && (
         <Notification
           notificationMessage={
-            "Invalid credentials or user is banned please enter again."
+            "user name or password is wrong or user is banned please enter again."
           }
         />
       )}

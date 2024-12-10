@@ -73,6 +73,14 @@ const ProductDetailsPage = () => {
     }, 4000);
   };
 
+  const MoneyFormatter = (amount) => {
+    const formattedMoney = new Intl.NumberFormat("vi-VN", {
+      style: "currency",
+      currency: "VND",
+    }).format(amount);
+
+    return <span>{formattedMoney}</span>;
+  };
   return (
     <div className="w-full bg-slate-100 px-20 pb-10 pt-10">
       <div className="py-19 flex bg-white p-20">
@@ -98,7 +106,8 @@ const ProductDetailsPage = () => {
             <p className="text-base font-semibold">age: {product.ages}</p>
           </div>
           <p className="text-xl font-bold text-red-500 md:pt-4">
-            {product.price}&#8363;
+            {MoneyFormatter(product.price)}
+            {/* &#8363; */}
           </p>
 
           <p className="">{product.description}</p>

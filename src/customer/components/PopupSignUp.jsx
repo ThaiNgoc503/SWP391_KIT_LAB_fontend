@@ -70,22 +70,22 @@ const PopupSignUp = ({ closePopupRegister, handleLoginOpen }) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 align-middle">
       <div className="flex min-h-screen items-center justify-center">
-        <div className="w-[30rem] rounded-md bg-gradient-to-br from-violet-300 via-cyan-300 to-green-200">
+        <div className="w-[30rem] rounded-md bg-gradient-to-br from-violet-100 via-slate-300 to-slate-200">
           <div className="relative flex justify-center">
             <button
               onClick={closePopupRegister}
-              className="absolute left-0 pl-3 pt-3 text-3xl"
+              className="absolute left-0 pl-3 pt-3 text-3xl text-black"
             >
               <MdCancelPresentation />
             </button>
-            <h2 className="inline-block bg-gradient-to-tr from-yellow-400 via-orange-300 to-red-400 bg-clip-text pb-2 pt-2 text-center text-3xl font-semibold text-transparent">
+            <h2 className="inline-block pb-2 pt-2 text-center text-3xl font-semibold text-black">
               Sign up
             </h2>
           </div>
           <form onSubmit={formik.handleSubmit} className="text-slate-100">
             <div className="grid grid-cols-2 gap-2 p-5">
               <div className="space-y-2">
-                <label htmlFor="username" className="text-base">
+                <label htmlFor="username" className="text-base text-black">
                   Username:
                 </label>
                 <input
@@ -106,7 +106,7 @@ const PopupSignUp = ({ closePopupRegister, handleLoginOpen }) => {
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="password" className="text-base">
+                <label htmlFor="password" className="text-base text-black">
                   Password:
                 </label>
                 <input
@@ -127,7 +127,7 @@ const PopupSignUp = ({ closePopupRegister, handleLoginOpen }) => {
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="email" className="text-base">
+                <label htmlFor="email" className="text-base text-black">
                   Email:
                 </label>
                 <input
@@ -146,7 +146,7 @@ const PopupSignUp = ({ closePopupRegister, handleLoginOpen }) => {
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="fullName" className="text-base">
+                <label htmlFor="fullName" className="text-base text-black">
                   Full Name:
                 </label>
                 <input
@@ -167,7 +167,7 @@ const PopupSignUp = ({ closePopupRegister, handleLoginOpen }) => {
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="phone" className="text-base">
+                <label htmlFor="phone" className="text-base text-black">
                   Phone:
                 </label>
                 <input
@@ -186,7 +186,7 @@ const PopupSignUp = ({ closePopupRegister, handleLoginOpen }) => {
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="address" className="text-base">
+                <label htmlFor="address" className="text-base text-black">
                   Address:
                 </label>
                 <input

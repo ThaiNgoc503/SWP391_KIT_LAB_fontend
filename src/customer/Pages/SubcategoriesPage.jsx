@@ -28,7 +28,7 @@ const SubcategoriesPage = () => {
       const ages = Number.parseInt(product.ages);
 
       if (age !== null) {
-        ageMatch = ages <= age;
+        ageMatch = ages >= age;
       }
 
       if (money !== null) {

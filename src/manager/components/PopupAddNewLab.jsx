@@ -13,6 +13,7 @@ const PopupAddNewLab = ({ handleClosePopupAddNew, fetchLab }) => {
       labName: "",
       description: "",
       labFileUrl: "",
+      labVideoUrl: "",
     },
     validationSchema: yup.object({
       labName: yup.string().required("Lab name is required"),
@@ -20,6 +21,10 @@ const PopupAddNewLab = ({ handleClosePopupAddNew, fetchLab }) => {
       labFileUrl: yup
         .string()
         .required("Lab file URL is required")
+        .matches(/^https?:\/\/[^\s]+$/, "Enter a valid HTTP or HTTPS URL"),
+      labVideoUrl: yup
+        .string()
+        .required("Lab video URL is required")
         .matches(/^https?:\/\/[^\s]+$/, "Enter a valid HTTP or HTTPS URL"),
     }),
     onSubmit: async (values) => {
@@ -89,6 +94,20 @@ const PopupAddNewLab = ({ handleClosePopupAddNew, fetchLab }) => {
               className="h-[30px] w-full rounded-md border-2 border-solid border-slate-300 py-1 pl-2"
             />
             {formik.errors.labFileUrl && (
+              <p className="text-sm text-red-400">{formik.errors.labFileUrl}</p>
+            )}
+          </div>
+          <div className="space-y-1 text-base">
+            <p className="font-medium">Lab File URL:</p>
+            <input
+              id="labVideoUrl"
+              name="labVideoUrl"
+              type="text"
+              value={formik.values.labVideoUrl}
+              onChange={formik.handleChange}
+              className="h-[30px] w-full rounded-md border-2 border-solid border-slate-300 py-1 pl-2"
+            />
+            {formik.errors.labVideoUrl && (
               <p className="text-sm text-red-400">{formik.errors.labFileUrl}</p>
             )}
           </div>

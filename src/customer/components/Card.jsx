@@ -3,6 +3,14 @@ import { Link } from "react-router-dom";
 
 const Card = React.memo(
   ({ productName, productPrice, productId, imagePath }) => {
+    const MoneyFormatter = (amount) => {
+      const formattedMoney = new Intl.NumberFormat("vi-VN", {
+        style: "currency",
+        currency: "VND",
+      }).format(amount);
+
+      return <span>{formattedMoney}</span>;
+    };
     return (
       <div className="m-1 inline-block h-[7rem] w-[5rem] space-y-4 overflow-hidden rounded-md border-[0.25px] border-solid border-slate-50 bg-slate-50 transition-all ease-in-out hover:text-cyan-700 md:h-[12rem] md:w-[6.5rem] lg:h-[15rem] lg:w-[10rem] xl:h-[18rem] xl:w-[12.5rem]">
         <Link to={`/product-list/${productId}`}>
@@ -17,7 +25,8 @@ const Card = React.memo(
           </h2>
           <div className="pl-2 font-semibold text-red-400">
             <p className="text-xs md:text-sm lg:text-base xl:text-lg">
-              {productPrice}&#8363;
+              {MoneyFormatter(productPrice)}
+              {/* &#8363; */}
             </p>
           </div>
         </Link>

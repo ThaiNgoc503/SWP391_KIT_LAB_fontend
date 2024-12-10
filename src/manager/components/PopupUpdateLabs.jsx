@@ -13,6 +13,7 @@ const PopupUpdateLabs = ({ handleClosePopupUpdate, fetchLab, Lab }) => {
       labName: Lab.labName,
       description: Lab.description,
       labFileUrl: Lab.labFileUrl,
+      labVideoUrl: Lab.videoURL,
     },
     validationSchema: yup.object({
       labName: yup.string().required("Lab name is required"),
@@ -24,20 +25,34 @@ const PopupUpdateLabs = ({ handleClosePopupUpdate, fetchLab, Lab }) => {
           /^https?:\/\/[^\s]+$/,
           "Please enter a valid URL (http or https)",
         ),
+      labVideoUrl: yup
+        .string()
+        .required("Lab video URL is required")
+        .matches(
+          /^https?:\/\/[^\s]+$/,
+          "Please enter a valid URL (http or https)",
+        ),
     }),
     onSubmit: async (values) => {
       const id = Lab.labId;
-      const response = await updateLabsAPI(id, values);
+      const value = {
+        ...values,
+        labName: values.labName,
+        description: values.description,
+        labFileUrl: values.labFileUrl,
+        videoURL: values.labVideoUrl,
+      };
+      const response = await updateLabsAPI(id, value);
 
-      if (response.success == true) {
+      if (response.success === true) {
         setNotification(true);
         setTimeout(() => {
           setNotification(false);
-        }, 1000);
+        }, 3000);
         setTimeout(() => {
           handleClosePopupUpdate();
-        }, 500);
-        fetchLab();
+          fetchLab();
+        }, 1000);
       }
     },
   });
@@ -94,6 +109,20 @@ const PopupUpdateLabs = ({ handleClosePopupUpdate, fetchLab, Lab }) => {
               className="w-full rounded-md border border-slate-300 p-2"
             />
             {formik.errors.labFileUrl && (
+              <p className="text-sm text-red-500">{formik.errors.labFileUrl}</p>
+            )}
+          </div>
+          <div>
+            <label className="block font-medium">Lab Video URL:</label>
+            <input
+              id="labVideoUrl"
+              name="labVideoUrl"
+              type="text"
+              value={formik.values.labVideoUrl}
+              onChange={formik.handleChange}
+              className="w-full rounded-md border border-slate-300 p-2"
+            />
+            {formik.errors.labVideoUrl && (
               <p className="text-sm text-red-500">{formik.errors.labFileUrl}</p>
             )}
           </div>

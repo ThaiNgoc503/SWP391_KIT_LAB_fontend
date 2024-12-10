@@ -4,7 +4,7 @@ const Notification = ({ notificationMessage }) => {
   return (
     <div
       id="toast-simple"
-      class="absolute right-3 top-4 z-50 flex w-full max-w-xs items-center space-x-4 divide-x divide-gray-200 rounded-lg bg-green-300 p-4 font-semibold text-white shadow transition-all ease-in-out rtl:space-x-reverse rtl:divide-x-reverse"
+      class="fixed right-3 top-5 z-50 flex w-full max-w-xs items-center space-x-4 divide-x divide-gray-200 rounded-lg bg-green-300 p-4 font-semibold text-white shadow transition-all ease-in-out rtl:space-x-reverse rtl:divide-x-reverse"
       role="alert"
     >
       <svg

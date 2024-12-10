@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { logoutAPI } from "../../api/AuthAPI";
 import { Link, useNavigate } from "react-router-dom";
-import { SlArrowDown } from "react-icons/sl";
+import { FaUserAstronaut } from "react-icons/fa";
 
 const LogoutAdmin = () => {
   const [openMenu, setOpenMenu] = useState(false);
@@ -35,19 +35,18 @@ const LogoutAdmin = () => {
   };
 
   return (
-    <ul className="flex gap-4 pt-1 font-medium md:gap-6 md:pt-3 md:text-sm">
+    <ul className="flex gap-4 pt-1 font-medium text-black md:pt-3 md:text-sm">
       <li ref={menuRef}>
         <button
-          className="flex w-28 rounded-full bg-slate-200 p-1 pr-5 md:w-full md:p-2"
+          className="flex h-10 w-10 rounded-full bg-slate-200"
           onClick={() => setOpenMenu(!openMenu)}
         >
-          <p className="w-[6rem] overflow-hidden text-ellipsis whitespace-nowrap pl-2 font-bold md:w-[7rem] lg:w-full">
-            Welcome, Manager
-          </p>
-          <SlArrowDown className="ml-3 mt-2" />
+          <FaUserAstronaut className="ml-2 mt-1.5 text-2xl text-cyan-700" />
+
+          {/* <SlArrowDown className="ml-2 mt-1 pr-1" /> */}
         </button>
         {openMenu && (
-          <div className="absolute z-50 mt-1 w-[12rem] rounded-md bg-slate-200">
+          <div className="absolute right-1 z-50 mt-1 w-[8rem] rounded-md bg-slate-200">
             <ul>
               <Link to="/">
                 <li className="from-slate-300 to-slate-200 p-2 hover:rounded-t-sm hover:bg-gradient-to-r">

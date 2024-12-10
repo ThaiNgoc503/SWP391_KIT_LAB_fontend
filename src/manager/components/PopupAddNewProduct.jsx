@@ -29,12 +29,12 @@ const PopupAddNewProduct = ({ handleClosePopupAddNew, fetchProduct }) => {
       price: yup
         .number()
         .required("Price is required")
-        .min(1, "the price is more than or equal 1")
+        .min(10000, "the price is more than or equal 10000")
         .typeError("Price must be a number"),
       stockQuantity: yup
         .number()
         .required("Stock quantity is required")
-        .min(1, "the price is more than or equal 1")
+        .min(0, "the price is more than or equal 0")
         .typeError("stockQuantity must be a number"),
       ages: yup
         .string()

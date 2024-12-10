@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { logoutAPI } from "../../api/AuthAPI";
 import { Link, useNavigate } from "react-router-dom";
-import { SlArrowDown } from "react-icons/sl";
 import { ShowComponent } from "../../protected/ShowComponent";
 import { FaUserAstronaut } from "react-icons/fa";
 
