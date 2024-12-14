@@ -8,7 +8,7 @@ import { getProductAPI } from "../../api/ProductAPI";
 import { getAllLabs } from "../../api/LabAPI";
 import { FaMoneyCheckAlt } from "react-icons/fa";
 import { LuContainer } from "react-icons/lu";
-import { object } from "yup";
+import { object } from "yup"
 
 const DashBoard = () => {
   const [orders, setOrder] = useState([]);
