@@ -8,6 +8,7 @@ import { getProductAPI } from "../../api/ProductAPI";
 import { getAllLabs } from "../../api/LabAPI";
 import { FaMoneyCheckAlt } from "react-icons/fa";
 import { LuContainer } from "react-icons/lu";
+import { object } from "yup";
 
 const DashBoard = () => {
   const [orders, setOrder] = useState([]);
@@ -16,8 +17,8 @@ const DashBoard = () => {
   const [labs, setLabs] = useState([]);
 
   useEffect(() => {
-    fetch();
-    fetchAll();
+    fetch(); //lấy order list
+    fetchAll(); //lấy tất cả sản phẩm
   }, []);
 
   const fetch = async () => {
@@ -25,6 +26,7 @@ const DashBoard = () => {
     const rs = await getOrder(data);
     setOrder(rs);
   };
+
   const fetchAll = async () => {
     const rs = (await getAllUser()).data.data;
     const rs2 = await getProductAPI();
@@ -33,8 +35,8 @@ const DashBoard = () => {
     setProduct(rs2);
     setLabs(rs3);
   };
-  // orderDate
-  // totalAmount
+
+  //gộp ngày và tiền lại chở thành đới tượng kiểu "2024-11-1": 3000000
   const sum = orders.reduce((value, order) => {
     if (value[order.orderDate]) {
       value[order.orderDate] += order.totalAmount;
@@ -42,47 +44,47 @@ const DashBoard = () => {
       value[order.orderDate] = order.totalAmount;
     }
     return value;
-  }, {}); //gộp ngày và tiền lại chở thành đới tượng kiểu "2024-11-1": 3000000
+  }, {});
 
+  //Object.entries chuyển đổi object thành mãng [{}, {}]....
   const sumArray = Object.entries(sum).map(([orderDate, totalAmount]) => {
-    const [yearTmp, monthTmp, dayTmp] = orderDate.split("-");
+    //tinh tong so tien khach hang mua trong 1 ngay
+    const [yearTmp, monthTmp, dayTmp] = orderDate.split("-"); //lay nam thanh ngay string
     const year = Number.parseInt(yearTmp);
     const month = Number.parseInt(monthTmp);
     const day = Number.parseInt(dayTmp);
 
     return { orderDate: orderDate, totalAmount: totalAmount, year, month, day };
-  }); //Object.entries chuyển đổi object thành mãng [{}, {}]....
+  });
 
+  //sap xep ngay thang từ thấp đến cao
   sumArray.sort((a, b) => {
     if (a.year !== b.year) return a.year - b.year;
     if (a.month !== b.month) return a.month - b.month;
     return a.day - b.day;
   });
 
-  // const generalDate = (startDay, endDay) => {
-  //   const dates = [];
-  //   const currentDay = new Date(startDay);
-  //   while (currentDay <= new Date(endDay)) {
-  //     const formattedDate = currentDay.toISOString().split("T")[0];
-  //     dates.push(formattedDate);
-  //     currentDay.setDate(currentDay.getDate() + 1);
-  //   }
+  const sumOfProductInDay = orders.reduce((value, order1) => {
+    if (!value[order1.orderDate]) {
+      value[order1.orderDate] = {};
+    }
+    order1.orderDetails.forEach((order2) => {
+      if (value[order1.orderDate][order2.productName]) {
+        value[order1.orderDate][order2.productName] += order2.quantity;
+      } else {
+        value[order1.orderDate][order2.productName] = order2.quantity;
+      }
+    });
+    return value;
+  }, {});
 
-  //   return dates;
-  // };
+  const arraySumOfProductInDay = Object.entries(sumOfProductInDay).map(
+    ([orderDate, product]) => {
+      return { orderDate: orderDate, product: product };
+    },
+  );
 
-  // const startDate = sumArray.length > 0 ? sumArray[0].orderDate : null;
-  // const today = new Date();
-  // const endDate =
-  //   today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
-  // const allDates = generalDate(startDate, endDate);
-
-  // const processedData = allDates.map((date) => {
-  //   const found = sumArray.find((order) => order.orderDate === date);
-  //   return found ? found : { orderDate: date, totalAmount: 0 };
-  // });
-
-  // console.log(processedData);
+  console.log(arraySumOfProductInDay);
 
   const sumQuantityProduct = orders.reduce((result, order) => {
     order.orderDetails.forEach((detail) => {
@@ -123,8 +125,6 @@ const DashBoard = () => {
 
     return result;
   }, 0);
-
-  console.log(totalQuantityProduct);
 
   return (
     <div className="flex h-screen flex-wrap bg-slate-100">

@@ -66,7 +66,7 @@ const PopupUpdateProduct = ({
       imagePath: yup
         .string()
         .required("image path is required")
-        .matches(/^https?:\/\/[\s]*$/, "Enter correct http or https url"),
+        .matches(/^https?:\/\/[\S\s]*$/, "Enter correct http or https url"),
     }),
     onSubmit: async (values) => {
       const id = product.productId;
@@ -78,16 +78,19 @@ const PopupUpdateProduct = ({
         labId: Number.parseInt(values.labId),
         subcategoryId: Number.parseInt(values.subcategoryId),
       };
+
       const response = await updateProductAPI(id, productData);
+
       if (response.success === true) {
         setNotification(true);
         setTimeout(() => {
           setNotification(false);
         }, 3000);
+
         setTimeout(async () => {
           handleClosePopupUpdate();
           fetchProduct();
-        }, 2000);
+        }, 1000);
       }
     },
   });
@@ -105,12 +108,12 @@ const PopupUpdateProduct = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-400 bg-opacity-55">
-      <div className="rounded-2xl bg-gradient-to-tr from-cyan-100 via-slate-200 to-slate-300 p-5 md:w-[38rem]">
+      <div className="rounded-2xl bg-white p-5 md:w-[38rem]">
         <div className="relative flex justify-center">
           <button onClick={handleClosePopupUpdate} className="absolute left-0">
             <MdOutlineCancel className="text-2xl" />
           </button>
-          <h1 className="inline-block bg-gradient-to-bl from-black via-yellow-500 to-blue-600 bg-clip-text pb-1 text-xl font-semibold text-transparent">
+          <h1 className="pb-1 text-xl font-semibold text-black">
             Update product
           </h1>
         </div>

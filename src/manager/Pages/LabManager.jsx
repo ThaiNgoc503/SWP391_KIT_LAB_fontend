@@ -6,6 +6,9 @@ import {
 } from "../../api/LabAPI";
 import PopupAddNewLab from "../components/PopupAddNewLab";
 import PopupUpdateLabs from "../components/PopupUpdateLabs";
+import { FaPlus } from "react-icons/fa6";
+import { RiExchange2Line } from "react-icons/ri";
+import { IoIosRemoveCircleOutline } from "react-icons/io";
 
 const LabManager = () => {
   const [labs, setLab] = useState([]);
@@ -14,6 +17,8 @@ const LabManager = () => {
   const [selectedLab, setSelectedLab] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
   const [LabLength, setLabLength] = useState();
+  const [currentPage, setCurrentPage] = useState(1);
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -55,8 +60,9 @@ const LabManager = () => {
       const isConfirmed = confirm("Do you want to delete the labs?");
       if (isConfirmed) {
         const response = await deleteLabAPI(labFind.labId);
-        if (response.success == true) {
-          fetchData();
+        if (response.success === true) {
+          const updatedLabs = labs.filter((lab) => lab.labId !== currentId);
+          setLab(updatedLabs);
         }
       }
     }
@@ -72,7 +78,10 @@ const LabManager = () => {
             ? "bg-cyan-600 text-white"
             : "bg-gray-200 text-cyan-600"
         }`}
-        onClick={() => loadData(page)}
+        onClick={() => {
+          loadData(page);
+          setCurrentPage(page);
+        }}
       >
         {page}
       </button>
@@ -85,39 +94,40 @@ const LabManager = () => {
       {openPopupAddNew && (
         <PopupAddNewLab
           handleClosePopupAddNew={handleClosePopupAddNew}
-          fetchLab={fetchData}
+          fetchLab={() => loadData(currentPage)}
         />
       )}
       {/* ------ */}
       <div className="flex justify-end pb-5">
         <button
           onClick={() => setOpenPopupAddNew(!openPopupAddNew)}
-          className="m-3 rounded-md bg-green-400 p-2 px-3 text-white"
+          className="m-3 flex items-center gap-2 rounded-md bg-green-400 p-2 px-3 text-white"
         >
+          <FaPlus />
           Add new
         </button>
       </div>
 
-      <div class="relative overflow-x-auto [&::-webkit-scrollbar]:hidden">
+      <div className="relative overflow-x-auto [&::-webkit-scrollbar]:hidden">
         <table className="max-w-screen mx-3 text-left text-base text-black">
           <thead className="border-b-[5px] border-slate-100 bg-white text-sm uppercase text-gray-700">
             <tr>
-              <th scope="col" class="px-6 py-3">
+              <th scope="col" className="px-6 py-3">
                 #
               </th>
-              <th scope="col" class="px-6 py-3">
+              <th scope="col" className="px-6 py-3">
                 LabName
               </th>
-              <th scope="col" class="px-6 py-3">
+              <th scope="col" className="px-6 py-3">
                 Description
               </th>
-              <th scope="col" class="w-20 px-6 py-3">
+              <th scope="col" className="w-20 px-6 py-3">
                 labFileUrl
               </th>
-              <th scope="col" class="px-6 py-3">
+              <th scope="col" className="px-6 py-3">
                 labVideoUrl
               </th>
-              <th scope="col" class="px-6 py-3">
+              <th scope="col" className="px-6 py-3">
                 Action
               </th>
             </tr>
@@ -125,43 +135,47 @@ const LabManager = () => {
           <tbody>
             {labs.length === 0 ? (
               <tr>
-                <td colSpan="8" className="px-6 py-4 text-center">
+                <td colSpan="4" className="px-6 py-4 text-center">
                   No Lab found.
                 </td>
               </tr>
             ) : (
               labs.map((labs, index) => (
-                <tr key={labs.LabId} className="border-b-[2px] bg-white">
+                <tr key={index} className="border-b-[2px] bg-white">
                   <th
                     scope="row"
                     className="whitespace-nowrap border-r-[1px] px-6 py-4 text-xl font-medium text-cyan-600"
                   >
                     {(pageNumber - 1) * 10 + index + 1}
                   </th>
-                  <td class="border-r-[1px] px-3 py-4">{labs.labName}</td>
-                  <td class="border-r-[1px] px-3 py-4">{labs.description}</td>
-                  <td class="w-[200px] break-all border-r-[1px] px-3 py-4">
+                  <td className="border-r-[1px] px-3 py-4">{labs.labName}</td>
+                  <td className="border-r-[1px] px-3 py-4">
+                    {labs.description}
+                  </td>
+                  <td className="w-[200px] break-all border-r-[1px] px-3 py-4">
                     <a href={labs.labFileUrl} target="_blank">
                       {labs.labFileUrl}
                     </a>
                   </td>
-                  <td class="w-[200px] break-all border-r-[1px] px-3 py-4">
+                  <td className="w-[200px] break-all border-r-[1px] px-3 py-4">
                     <a href={labs.videoURL} target="_blank">
                       {labs.videoURL}
                     </a>
                   </td>
-                  <td class="border-r-[1px] px-3 py-4">
+                  <td className="border-r-[1px] px-3 py-4">
                     <div className="flex flex-col gap-y-3">
                       <button
                         onClick={() => handleUpdate(labs.labId)}
-                        className="rounded-md bg-green-400 p-2 px-3 text-white"
+                        className="flex items-center gap-2 rounded-md bg-green-400 p-2 px-3 text-white"
                       >
+                        <RiExchange2Line />
                         Update
                       </button>
                       <button
                         onClick={() => deleteLabs(labs.labId)}
-                        className="rounded-md bg-red-400 p-2 px-3 text-white"
+                        className="flex items-center gap-2 rounded-md bg-red-400 p-2 px-3 text-white"
                       >
+                        <IoIosRemoveCircleOutline />
                         Remove
                       </button>
                     </div>
@@ -175,7 +189,7 @@ const LabManager = () => {
           <PopupUpdateLabs
             handleClosePopupUpdate={handleClosePopupUpdate}
             Lab={selectedLab}
-            fetchLab={fetchData}
+            fetchLab={() => loadData(currentPage)}
           />
         )}
       </div>

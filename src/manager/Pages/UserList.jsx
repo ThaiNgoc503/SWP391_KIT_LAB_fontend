@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { banUser, getAllUser } from "../../api/AdminAPI";
 import Notification from "../../customer/components/Notification";
 import { IoIosSearch } from "react-icons/io";
+import { FaBan } from "react-icons/fa6";
+import { GrUserManager } from "react-icons/gr";
 
 const UserList = () => {
   const [user, setUser] = useState([]);
@@ -77,27 +79,27 @@ const UserList = () => {
             setSearchValue("");
           }}
         >
-          Reset All
+          Reset Search
         </button>
       </div>
-      <div class="relative overflow-auto">
+      <div className="relative overflow-auto">
         <table className="max-w-screen mx-5 text-left text-sm text-black">
-          <thead className="border-b-[4px] border-slate-100 bg-white text-xs uppercase text-gray-700">
+          <thead className="border-b-[5px] border-slate-100 bg-white text-sm uppercase text-gray-700">
             <tr>
-              <th scope="col" class="w-20 px-3 py-2">
+              <th scope="col" className="w-20 px-3 py-3">
                 #
               </th>
-              <th scope="col" class="w-[200px] px-3 py-2">
+              <th scope="col" className="w-[200px] px-3 py-3">
                 FullName
               </th>
-              <th scope="col" class="w-[300px] px-3 py-2">
+              <th scope="col" className="w-[300px] px-3 py-3">
                 Username
               </th>
 
-              <th scope="col" class="w-[300px] px-3 py-2">
+              <th scope="col" className="w-[300px] px-3 py-3">
                 roles
               </th>
-              <th scope="col" class="w-[200px] px-3 py-2">
+              <th scope="col" className="w-[200px] px-3 py-3">
                 Action
               </th>
             </tr>
@@ -105,7 +107,7 @@ const UserList = () => {
           <tbody>
             {filteredUsers.length == 0 ? (
               <tr>
-                <td colSpan="8" className="px-6 py-4 text-center">
+                <td colSpan="5" className="px-6 py-4 text-center">
                   No users found.
                 </td>
               </tr>
@@ -113,7 +115,7 @@ const UserList = () => {
               filteredUsers
                 .filter((user) => user.status === "Active")
                 .map((user, index) => (
-                  <tr key={user.id} className="border-b-[2px] bg-white">
+                  <tr key={index} className="border-b-[2px] bg-white text-base">
                     <th
                       scope="row"
                       className="whitespace-nowrap border-r-[1px] px-3 py-4 text-base font-semibold text-cyan-600"
@@ -136,15 +138,17 @@ const UserList = () => {
                         user.roles[0].trim() === "Manager" ? (
                           <button
                             onClick={showNotification}
-                            className={`rounded-md bg-slate-300 p-2 px-5 text-white`}
+                            className={`flex items-center gap-2 rounded-md bg-slate-300 p-2 px-5 text-white`}
                           >
+                            <GrUserManager />
                             Ban
                           </button>
                         ) : (
                           <button
                             onClick={() => handleBanUser(user.userId)}
-                            className={`rounded-md bg-red-400 p-2 px-5 text-white`}
+                            className={`flex items-center gap-2 rounded-md bg-red-400 p-2 px-5 text-white`}
                           >
+                            <FaBan />
                             Ban
                           </button>
                         )}

@@ -28,7 +28,6 @@ instance.interceptors.response.use(
     return response;
   },
   (error) => {
-    // console.log("Error response api");
     // console.log(error);
   },
 );

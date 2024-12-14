@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getAllUser, unbanUser } from "../../api/AdminAPI";
 import { IoIosSearch } from "react-icons/io";
+import { CiPickerEmpty } from "react-icons/ci";
 
 const BanList = () => {
   const [user, setUser] = useState([]);
@@ -42,7 +43,7 @@ const BanList = () => {
 
   return (
     <div className="max-w-screen min-h-screen bg-slate-100 pt-5">
-      <div className="flex justify-end pb-5 pr-10">
+      <div className="flex items-center justify-end pb-5 pr-10">
         <form onSubmit={handleSearch} className="relative inline-block">
           <input
             type="text"
@@ -65,27 +66,27 @@ const BanList = () => {
             setSearchValue("");
           }}
         >
-          Reset All
+          Reset Search
         </button>
       </div>
-      <div class="relative overflow-auto">
+      <div className="relative overflow-auto">
         <table className="max-w-screen mx-5 text-left text-sm text-black">
-          <thead className="border-b-[4px] border-slate-100 bg-white text-xs uppercase text-gray-700">
+          <thead className="border-b-[4px] border-slate-100 bg-white text-sm uppercase text-gray-700">
             <tr>
-              <th scope="col" class="w-20 px-3 py-2">
+              <th scope="col" className="w-20 px-3 py-3">
                 #
               </th>
-              <th scope="col" class="w-[200px] px-3 py-2">
+              <th scope="col" className="w-[200px] px-3 py-3">
                 FullName
               </th>
-              <th scope="col" class="w-[300px] px-3 py-2">
+              <th scope="col" className="w-[300px] px-3 py-3">
                 Username
               </th>
 
-              <th scope="col" class="w-[300px] px-3 py-2">
+              <th scope="col" className="w-[300px] px-3 py-3">
                 roles
               </th>
-              <th scope="col" class="w-[200px] px-3 py-2">
+              <th scope="col" className="w-[200px] px-3 py-3">
                 Action
               </th>
             </tr>
@@ -94,7 +95,7 @@ const BanList = () => {
             {filteredUsers.filter((user) => user.status === "Banned").length ===
             0 ? (
               <tr>
-                <td colSpan={6} className="px-6 py-4 text-center">
+                <td colSpan={5} className="px-6 py-4 text-center">
                   No users banded
                 </td>
               </tr>
@@ -102,25 +103,30 @@ const BanList = () => {
               filteredUsers
                 .filter((user) => user.status === "Banned")
                 .map((user, index) => (
-                  <tr key={user.id} className="border-b-[2px] bg-white">
+                  <tr key={index} className="border-b-[2px] bg-white text-base">
                     <th
                       scope="row"
                       className="whitespace-nowrap border-r-[1px] px-3 py-4 text-base font-semibold text-cyan-600"
                     >
                       {index + 1}
                     </th>
-                    <td class="border-r-[1px] px-6 py-4">{user.fullName}</td>
-                    <td class="border-r-[1px] px-6 py-4">{user.username}</td>
-                    <td class="border-r-[1px] px-6 py-4">
+                    <td className="border-r-[1px] px-6 py-4">
+                      {user.fullName}
+                    </td>
+                    <td className="border-r-[1px] px-6 py-4">
+                      {user.username}
+                    </td>
+                    <td className="border-r-[1px] px-6 py-4">
                       {" "}
                       {user.roles == "" ? "Customer" : user.roles}
                     </td>
-                    <td class="border-r-[1px] px-6 py-4">
+                    <td className="border-r-[1px] px-6 py-4">
                       <div className="flex gap-x-3">
                         <button
                           onClick={() => handleUnBanUser(user.userId)}
-                          className="rounded-md bg-green-400 p-2 px-3 text-white"
+                          className="flex items-center gap-2 rounded-md bg-green-400 p-2 px-3 text-white"
                         >
+                          <CiPickerEmpty />
                           Unban
                         </button>
                       </div>

@@ -2,17 +2,6 @@ import React from "react";
 import Chart from "react-apexcharts";
 
 const ChartBar = ({ data }) => {
-  // const [timeRange, setTimeRange] = useState("7days");
-
-  // const range = {
-  //   "7days": {
-
-  //   },
-  //   "30days": {
-
-  //   }
-  // }
-  // Chuyển đổi dữ liệu
   const chartData = {
     series: [
       {

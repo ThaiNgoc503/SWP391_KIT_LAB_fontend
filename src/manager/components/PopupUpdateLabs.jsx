@@ -22,14 +22,14 @@ const PopupUpdateLabs = ({ handleClosePopupUpdate, fetchLab, Lab }) => {
         .string()
         .required("Lab file URL is required")
         .matches(
-          /^https?:\/\/[^\s]+$/,
+          /^https?:\/\/[\S\s]+$/,
           "Please enter a valid URL (http or https)",
         ),
       labVideoUrl: yup
         .string()
         .required("Lab video URL is required")
         .matches(
-          /^https?:\/\/[^\s]+$/,
+          /^https?:\/\/[\S\s]+$/,
           "Please enter a valid URL (http or https)",
         ),
     }),
@@ -42,6 +42,7 @@ const PopupUpdateLabs = ({ handleClosePopupUpdate, fetchLab, Lab }) => {
         labFileUrl: values.labFileUrl,
         videoURL: values.labVideoUrl,
       };
+
       const response = await updateLabsAPI(id, value);
 
       if (response.success === true) {
@@ -49,6 +50,7 @@ const PopupUpdateLabs = ({ handleClosePopupUpdate, fetchLab, Lab }) => {
         setTimeout(() => {
           setNotification(false);
         }, 3000);
+
         setTimeout(() => {
           handleClosePopupUpdate();
           fetchLab();
@@ -59,14 +61,12 @@ const PopupUpdateLabs = ({ handleClosePopupUpdate, fetchLab, Lab }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-400 bg-opacity-55">
-      <div className="rounded-2xl bg-gradient-to-tr from-cyan-100 via-slate-200 to-slate-300 p-5 md:w-[38rem]">
+      <div className="rounded-2xl bg-white p-5 md:w-[38rem]">
         <div className="relative flex justify-center">
           <button onClick={handleClosePopupUpdate} className="absolute left-0">
             <MdOutlineCancel className="text-2xl" />
           </button>
-          <h1 className="inline-block bg-gradient-to-bl from-black via-yellow-500 to-blue-600 bg-clip-text pb-1 text-xl font-semibold text-transparent">
-            Update Lab
-          </h1>
+          <h1 className="pb-1 text-xl font-semibold text-black">Update Lab</h1>
         </div>
         <form className="space-y-4" onSubmit={formik.handleSubmit}>
           <div>

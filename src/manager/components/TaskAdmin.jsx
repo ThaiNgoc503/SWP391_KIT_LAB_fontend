@@ -1,29 +1,9 @@
-import { useEffect, useState } from "react";
 import logo from "../../assets/logo.svg";
 import { Link } from "react-router-dom";
-import Login from "../../customer/components/PopupLogin";
-import LogoutAdmin from "./LogoutAdmin";
 import { IoBookSharp } from "react-icons/io5";
 import { BiLogoProductHunt } from "react-icons/bi";
 import { MdDashboard, MdManageAccounts, MdNoAccounts } from "react-icons/md";
 const TaskAdmin = () => {
-  const [hasToken, setHasToken] = useState(false);
-
-  useEffect(() => {
-    isTest();
-  }, []);
-
-  const isTest = () => {
-    //liểm tra coi có token không hiểm thị login logout
-    const token = localStorage.getItem("jwt");
-    if (token) {
-      setHasToken(true);
-    } else {
-      setHasToken(false);
-    }
-    return hasToken;
-  };
-
   return (
     <div>
       <div className="flex h-screen w-[14rem] flex-col bg-cyan-600 pr-0 pt-5 text-white">

@@ -41,5 +41,5 @@ export const createProductAPI = async (data) => {
 
 export const deleteProductAPI = async (id) => {
   const response = await AxiosClient.delete(`${"Product"}/${id}`);
-  return response.data;
+  return response;
 };

@@ -4,13 +4,25 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { getAllLabs } from "../../api/LabAPI";
 import { getAllSubcategories } from "../../api/SubcategoriesAPI";
-import { createProductAPI, getProductAPI } from "../../api/ProductAPI";
+import { createProductAPI } from "../../api/ProductAPI";
 import Notification from "../../customer/components/Notification";
 
 const PopupAddNewProduct = ({ handleClosePopupAddNew, fetchProduct }) => {
-  const [labs, setLabs] = useState([]);
-  const [subCategories, setSubCategories] = useState([]);
-  const [noitification, setNoitification] = useState(false);
+  const [labs, setLabs] = useState([]); //để lấy lab
+  const [subCategories, setSubCategories] = useState([]); //lấy subcategory
+  const [notification, setNotification] = useState(false);
+
+  useEffect(() => {
+    fetchAPI();
+  }, []);
+
+  const fetchAPI = async () => {
+    const labs = await getAllLabs();
+    const subCategories = await getAllSubcategories();
+    setLabs(labs);
+    setSubCategories(subCategories);
+  };
+
   const formik = useFormik({
     initialValues: {
       productName: "",
@@ -61,7 +73,7 @@ const PopupAddNewProduct = ({ handleClosePopupAddNew, fetchProduct }) => {
       imagePath: yup
         .string()
         .required("image path is required")
-        .matches(/^https?:\/\/[^\s]+$/, "Enter correct http or https url"),
+        .matches(/^https?:\/\/[\S\s]+$/, "Enter correct http or https url"),
     }),
     onSubmit: async (values) => {
       const productData = {
@@ -72,12 +84,15 @@ const PopupAddNewProduct = ({ handleClosePopupAddNew, fetchProduct }) => {
         labId: Number.parseInt(values.labId),
         subcategoryId: Number.parseInt(values.subcategoryId),
       };
+
       const response = await createProductAPI(productData);
+
       if (response.success === true) {
-        setNoitification(true);
+        setNotification(true);
         setTimeout(() => {
-          setNoitification(false);
+          setNotification(false);
         }, 3000);
+
         setTimeout(async () => {
           handleClosePopupAddNew();
           fetchProduct();
@@ -86,25 +101,14 @@ const PopupAddNewProduct = ({ handleClosePopupAddNew, fetchProduct }) => {
     },
   });
 
-  useEffect(() => {
-    fetchAPI();
-  }, []);
-
-  const fetchAPI = async () => {
-    const labs = await getAllLabs();
-    const subCategories = await getAllSubcategories();
-    setLabs(labs);
-    setSubCategories(subCategories);
-  };
-
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-400 bg-opacity-45">
-      <div className="rounded-2xl bg-gradient-to-tr from-cyan-100 via-slate-200 to-slate-300 p-5 md:w-[38rem]">
+      <div className="rounded-2xl bg-white p-5 md:w-[38rem]">
         <div className="relative flex justify-center">
           <button onClick={handleClosePopupAddNew} className="absolute left-0">
             <MdOutlineCancel className="text-2xl" />
           </button>
-          <h1 className="inline-block bg-gradient-to-bl from-black via-yellow-500 to-blue-600 bg-clip-text pb-1 text-xl font-semibold text-transparent">
+          <h1 className="pb-1 text-xl font-semibold text-black">
             Add new product
           </h1>
         </div>
@@ -268,7 +272,7 @@ const PopupAddNewProduct = ({ handleClosePopupAddNew, fetchProduct }) => {
             Add new
           </button>
         </form>
-        {noitification && (
+        {notification && (
           <Notification notificationMessage={"Add new product successfully"} />
         )}
       </div>
