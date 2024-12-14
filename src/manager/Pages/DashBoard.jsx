@@ -64,27 +64,7 @@ const DashBoard = () => {
     return a.day - b.day;
   });
 
-  const sumOfProductInDay = orders.reduce((value, order1) => {
-    if (!value[order1.orderDate]) {
-      value[order1.orderDate] = {};
-    }
-    order1.orderDetails.forEach((order2) => {
-      if (value[order1.orderDate][order2.productName]) {
-        value[order1.orderDate][order2.productName] += order2.quantity;
-      } else {
-        value[order1.orderDate][order2.productName] = order2.quantity;
-      }
-    });
-    return value;
-  }, {});
 
-  const arraySumOfProductInDay = Object.entries(sumOfProductInDay).map(
-    ([orderDate, product]) => {
-      return { orderDate: orderDate, product: product };
-    },
-  );
-
-  console.log(arraySumOfProductInDay);
 
   const sumQuantityProduct = orders.reduce((result, order) => {
     order.orderDetails.forEach((detail) => {

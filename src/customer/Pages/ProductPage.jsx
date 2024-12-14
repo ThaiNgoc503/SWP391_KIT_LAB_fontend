@@ -34,8 +34,6 @@ const ProductPage = () => {
   };
 
   const filteredProducts = useMemo(() => {
-    //sử dụng để lọc các component cần thiết
-    if (age === 0 && money === 0) return product;
     return product.filter((product) => {
       let ageMatch = true;
       let moneyMatch = true;

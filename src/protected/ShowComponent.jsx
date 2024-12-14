@@ -14,9 +14,3 @@ export const ShowComponent = ({ roleRequired, children }) => {
   }
   return <>{children}</>;
 };
-export const NoitifiIfDifferent = ({ roleRequired }) => {
-  const userRole = getUserRole();
-  if (!roleRequired.includes(userRole)) {
-    return <Notification notificationMessage={"You need login to buy"} />;
-  }
-};

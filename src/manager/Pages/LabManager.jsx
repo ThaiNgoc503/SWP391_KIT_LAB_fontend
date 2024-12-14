@@ -8,7 +8,7 @@ import PopupAddNewLab from "../components/PopupAddNewLab";
 import PopupUpdateLabs from "../components/PopupUpdateLabs";
 import { FaPlus } from "react-icons/fa6";
 import { RiExchange2Line } from "react-icons/ri";
-import { IoIosRemoveCircleOutline } from "react-icons/io";
+import { IoIosRemoveCircleOutline, IoIosSearch } from "react-icons/io";
 import ResponsivePagination from "react-responsive-pagination";
 import "react-responsive-pagination/themes/classic.css";
 
@@ -20,7 +20,6 @@ const LabManager = () => {
   const [pageNumber, setPageNumber] = useState(1);
   const [LabLength, setLabLength] = useState();
   const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = LabLength;
 
   useEffect(() => {
     fetchData();
@@ -138,7 +137,7 @@ const LabManager = () => {
           <tbody>
             {labs.length === 0 ? (
               <tr>
-                <td colSpan="4" className="px-6 py-4 text-center">
+                <td colSpan="6" className="px-6 py-4 text-center">
                   No Lab found.
                 </td>
               </tr>
@@ -200,7 +199,7 @@ const LabManager = () => {
       <div className="p-10">
         <ResponsivePagination
           current={currentPage}
-          total={totalPages}
+          total={LabLength}
           onPageChange={(page) => {
             setCurrentPage(page);
             loadData(page);

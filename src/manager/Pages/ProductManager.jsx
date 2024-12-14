@@ -156,13 +156,13 @@ const ProductManager = () => {
               <th scope="col" className="px-3 py-3">
                 Support Instances
               </th>
-              <th scope="col" className="px-3 py-3">
+              <th scope="col" className="px-2 py-3">
                 Lab Name
               </th>
-              <th scope="col" className="px-3 py-3">
+              <th scope="col" className="px-2 py-3">
                 Subcategory Name
               </th>
-              <th scope="col" className="px-3 py-3">
+              <th scope="col" className="px-2 py-3">
                 Action
               </th>
             </tr>
@@ -207,25 +207,25 @@ const ProductManager = () => {
                   <td className="border-r-[1px] px-3 py-2">
                     {product.supportInstances}
                   </td>
-                  <td className="border-r-[1px] px-3 py-2">
+                  <td className="border-r-[1px] px-2 py-2">
                     {product.labName}
                   </td>
-                  <td className="border-r-[1px] px-3 py-2">
+                  <td className="border-r-[1px] px-2 py-2">
                     {product.subcategoryName}
                   </td>
 
-                  <td className="border-r-[1px] px-3 py-2">
+                  <td className="border-r-[1px] px-2 py-2">
                     <div className="flex flex-col gap-y-3">
                       <button
                         onClick={() => handleUpdate(product.productId)}
-                        className="flex items-center gap-2 rounded-md bg-green-400 p-2 px-3 text-white"
+                        className="flex items-center gap-2 rounded-md bg-green-400 p-1 px-2 text-white"
                       >
                         <RiExchange2Line />
                         Update
                       </button>
                       <button
                         onClick={() => handleDelete(product.productId)}
-                        className="flex items-center gap-2 rounded-md bg-red-400 p-2 px-3 text-white"
+                        className="flex items-center gap-2 rounded-md bg-red-400 p-1 px-2 text-white"
                       >
                         <IoIosRemoveCircleOutline />
                         Remove
