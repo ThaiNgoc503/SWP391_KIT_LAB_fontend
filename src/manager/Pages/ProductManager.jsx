@@ -10,6 +10,8 @@ import { FaPlus } from "react-icons/fa6";
 import { RiExchange2Line } from "react-icons/ri";
 import { IoIosRemoveCircleOutline } from "react-icons/io";
 import Notification from "../../customer/components/Notification";
+import ResponsivePagination from "react-responsive-pagination";
+import "react-responsive-pagination/themes/classic.css";
 
 const ProductManager = () => {
   const [product, setProduct] = useState([]);
@@ -20,7 +22,7 @@ const ProductManager = () => {
   const [productLength, setProductLength] = useState();
   const [notification, setNotification] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [searchValue, setSearchValue] = useState("");
+  const totalPages = productLength;
 
   useEffect(() => {
     fetchData();
@@ -83,28 +85,28 @@ const ProductManager = () => {
     }
   };
 
-  const renderPagination = () => {
-    const pages = Array.from(
-      { length: productLength },
-      (_, index) => index + 1,
-    );
-    return pages.map((page) => (
-      <button
-        key={page}
-        className={`mx-1 rounded px-2 py-1 ${
-          pageNumber === page
-            ? "bg-cyan-600 text-white"
-            : "bg-gray-200 text-cyan-600"
-        }`}
-        onClick={() => {
-          loadData(page);
-          setCurrentPage(page);
-        }}
-      >
-        {page}
-      </button>
-    ));
-  };
+  // const renderPagination = () => {
+  //   const pages = Array.from(
+  //     { length: productLength },
+  //     (_, index) => index + 1,
+  //   );
+  //   return pages.map((page) => (
+  //     <button
+  //       key={page}
+  //       className={`mx-1 rounded px-2 py-1 ${
+  //         pageNumber === page
+  //           ? "bg-cyan-600 text-white"
+  //           : "bg-gray-200 text-cyan-600"
+  //       }`}
+  //       onClick={() => {
+  //         loadData(page);
+  //         setCurrentPage(page);
+  //       }}
+  //     >
+  //       {page}
+  //     </button>
+  //   ));
+  // };
   return (
     <div className="bg-slate-100 pt-5">
       {/* ADD NEW */}
@@ -243,8 +245,17 @@ const ProductManager = () => {
           />
         )}
       </div>
+      <div className="p-10">
+        <ResponsivePagination
+          current={currentPage}
+          total={totalPages}
+          onPageChange={(page) => {
+            setCurrentPage(page);
+            loadData(page);
+          }}
+        />
+      </div>
 
-      <div className="flex justify-center p-10">{renderPagination()}</div>
       {notification && (
         <Notification
           notificationMessage={"The Product already sold at least once"}
