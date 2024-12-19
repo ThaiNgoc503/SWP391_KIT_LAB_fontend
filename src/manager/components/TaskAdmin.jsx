@@ -67,7 +67,7 @@ const TaskAdmin = () => {
           </li>
           <li className="text-nowrap">
             <Link
-              to="order"
+              to="orderAll"
               className="flex items-center gap-x-2 px-3 py-4 hover:bg-slate-50 hover:bg-opacity-25"
             >
               <div>
@@ -78,7 +78,7 @@ const TaskAdmin = () => {
           </li>
           <li className="text-nowrap">
             <Link
-              to="support"
+              to="support-all"
               className="flex items-center gap-x-2 px-3 py-4 hover:bg-slate-50 hover:bg-opacity-25"
             >
               <div>

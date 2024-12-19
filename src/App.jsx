@@ -21,6 +21,8 @@ import SupportPage from "./manager/Pages/SupportPage";
 import UserDetails from "./manager/Pages/UserDetails";
 import OrderDetails from "./manager/Pages/OrderDetails";
 import SupportSuccessfulPage from "./manager/Pages/SupportSuccessfull";
+import OrderAll from "./manager/Pages/OrderAll";
+import SupportAll from "./manager/Pages/SupportAll";
 
 function App() {
   return (
@@ -57,12 +59,13 @@ function App() {
           <Route path="product-manager" element={<ProductManager />} />
           <Route path="labs-manager" element={<LabManager />} />
           <Route path="dashboard" element={<DashBoard />} />
-          <Route path="orderAll" element={<Order />} />
+          <Route path="orderAll" element={<OrderAll />} />
           <Route path="order" element={<Order />} />
           <Route path="delivery" element={<OutForDeliveryPage />} />
           <Route path="delivery-success" element={<DeliverySuccessPage />} />
           <Route path="support" element={<SupportPage />} />
           <Route path="support-success" element={<SupportSuccessfulPage />} />
+          <Route path="support-all" element={<SupportAll />} />
           <Route path="user-details/:username" element={<UserDetails />} />
           <Route path="order-details/:id" element={<OrderDetails />} />
         </Route>

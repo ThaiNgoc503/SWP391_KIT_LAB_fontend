@@ -44,5 +44,5 @@ export const createLabsAPI = async (data) => {
 
 export const deleteLabAPI = async (id) => {
   const response = await AxiosClient.delete(`${"Labs"}/${id}`);
-  return response.data;
+  return response;
 };

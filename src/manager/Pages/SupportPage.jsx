@@ -5,6 +5,8 @@ import Notification from "../../customer/components/Notification";
 import { GrUpdate } from "react-icons/gr";
 import { getAllSupport, updateSupport } from "../../api/SupportAPI";
 import { IoIosSearch } from "react-icons/io";
+import { MdOutlineContactSupport } from "react-icons/md";
+import { TiTickOutline } from "react-icons/ti";
 
 const SupportPage = () => {
   const [support, setSupport] = useState([]);
@@ -80,11 +82,22 @@ const SupportPage = () => {
           </li>
           <li className="">
             <Link
-              to="/manager/support"
+              to="/manager/support-all"
               className="flex items-center gap-2 gap-x-2 rounded-md bg-green-300 px-3 py-2 hover:bg-opacity-90"
             >
               <div>
                 <FaFirstOrderAlt />
+              </div>
+              <p>All</p>
+            </Link>
+          </li>
+          <li className="">
+            <Link
+              to="/manager/support"
+              className="flex items-center gap-2 gap-x-2 rounded-md bg-orange-300 px-3 py-2 hover:bg-opacity-90"
+            >
+              <div>
+                <MdOutlineContactSupport />
               </div>
               <p>Support</p>
             </Link>
@@ -95,7 +108,7 @@ const SupportPage = () => {
               className="flex items-center gap-2 rounded-md bg-cyan-300 px-2 py-2 hover:bg-opacity-90"
             >
               <div>
-                <FaFirstOrderAlt />
+                <TiTickOutline />
               </div>
               <p>Support Successful</p>
             </Link>

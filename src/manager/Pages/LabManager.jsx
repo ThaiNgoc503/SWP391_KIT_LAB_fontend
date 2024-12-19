@@ -11,6 +11,7 @@ import { RiExchange2Line } from "react-icons/ri";
 import { IoIosRemoveCircleOutline, IoIosSearch } from "react-icons/io";
 import ResponsivePagination from "react-responsive-pagination";
 import "react-responsive-pagination/themes/classic.css";
+import Notification from "../../customer/components/Notification";
 
 const LabManager = () => {
   const [labs, setLab] = useState([]);
@@ -21,6 +22,7 @@ const LabManager = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchValue, setSearchValue] = useState("");
   const [filterLabs, setFilterLabs] = useState([]);
+  const [notificationDelete, setNotificationDelete] = useState(false);
 
   useEffect(() => {
     fetchData();
@@ -55,9 +57,16 @@ const LabManager = () => {
       const isConfirmed = confirm("Do you want to delete the labs?");
       if (isConfirmed) {
         const response = await deleteLabAPI(labFind.labId);
-        if (response.success === true) {
-          const updatedLabs = labs.filter((lab) => lab.labId !== currentId);
-          setFilterLabs(updatedLabs);
+        if (response) {
+          if (response.data.success === true) {
+            const updatedLabs = labs.filter((lab) => lab.labId !== currentId);
+            setFilterLabs(updatedLabs);
+          }
+        } else {
+          setNotificationDelete(true);
+          setTimeout(() => {
+            setNotificationDelete(false);
+          }, 3000);
         }
       }
     }
@@ -222,6 +231,14 @@ const LabManager = () => {
             )}
           </tbody>
         </table>
+        {notificationDelete && (
+          <Notification
+            notificationMessage={
+              "The lab is included in a product that has been sold at least once"
+            }
+          />
+        )}
+
         {openPopupUpdate && selectedLab && (
           <PopupUpdateLabs
             handleClosePopupUpdate={handleClosePopupUpdate}

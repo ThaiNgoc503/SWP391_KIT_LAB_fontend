@@ -5,10 +5,10 @@ import Notification from "../../customer/components/Notification";
 import { GrUpdate } from "react-icons/gr";
 import { getAllSupport, updateSupport } from "../../api/SupportAPI";
 import { IoIosSearch } from "react-icons/io";
-import { TiTick, TiTickOutline } from "react-icons/ti";
 import { MdOutlineContactSupport } from "react-icons/md";
+import { TiTick, TiTickOutline } from "react-icons/ti";
 
-const SupportSuccessfulPage = () => {
+const SupportAll = () => {
   const [support, setSupport] = useState([]);
   const [filteredSupport, setFilteredSupport] = useState([]);
   const [notification, setNotification] = useState(false);
@@ -61,7 +61,7 @@ const SupportSuccessfulPage = () => {
 
   return (
     <div className="flex min-h-screen flex-col gap-10 bg-slate-100 p-2 pb-10">
-      <div className="flex justify-end md:pr-[10rem]">
+      <div className="flex justify-end pr-[11rem]">
         <ul className="inline-flex justify-end gap-2 pt-10">
           <li>
             <form onSubmit={handleSearch} className="relative inline-block">
@@ -123,6 +123,7 @@ const SupportSuccessfulPage = () => {
                 <th scope="col" className="px-6 py-3">
                   #
                 </th>
+
                 <th scope="col" className="px-6 py-3">
                   ORDER ID
                 </th>
@@ -138,57 +139,60 @@ const SupportSuccessfulPage = () => {
               </tr>
             </thead>
             <tbody>
-              {filteredSupport.filter(
-                (support) => support.supportStatus === true,
-              ).length === 0 ? (
+              {filteredSupport.length === 0 ? (
                 <tr>
                   <td colSpan="6" className="px-6 py-4 text-center">
                     No support found.
                   </td>
                 </tr>
               ) : (
-                filteredSupport
-                  .filter((support) => support.supportStatus === true)
-                  .map((support, index) => (
-                    <tr key={index} className="border-b-[2px] bg-white">
-                      <th
-                        scope="row"
-                        className="whitespace-nowrap border-l-[1px] border-r-[1px] px-6 py-4 text-xl font-medium text-cyan-600"
-                      >
-                        {index + 1}
-                      </th>
+                filteredSupport.map((support, index) => (
+                  <tr key={index} className="border-b-[2px] bg-white">
+                    <th
+                      scope="row"
+                      className="whitespace-nowrap border-l-[1px] border-r-[1px] px-6 py-4 text-xl font-medium text-cyan-600"
+                    >
+                      {index + 1}
+                    </th>
 
-                      <td className="border-r-[1px] px-3 py-4">
-                        <Link to={`/manager/order-details/${support.orderId}`}>
-                          {support.orderId}
-                        </Link>
-                      </td>
-                      <td className="border-r-[1px] px-3 py-4">
-                        <Link to={`/manager/user-details/${support.username}`}>
-                          {support.username}
-                        </Link>
-                      </td>
-                      <td className="border-r-[1px] px-3 py-4">
-                        {support.supportDescription}
-                      </td>
-                      <td className="border-r-[1px] px-3 py-4">
-                        <div className="flex gap-x-3">
-                          <p>
-                            {support.supportStatus === false
-                              ? "Đang giải quyết"
-                              : "Đã giải quyết"}
-                          </p>
+                    <td className="border-r-[1px] px-3 py-4">
+                      <Link to={`/manager/order-details/${support.orderId}`}>
+                        {" "}
+                        {support.orderId}
+                      </Link>
+                    </td>
+                    <td className="border-r-[1px] px-3 py-4">
+                      <Link to={`/manager/user-details/${support.username}`}>
+                        {support.username}
+                      </Link>
+                    </td>
+                    <td className="border-r-[1px] px-3 py-4">
+                      {support.supportDescription}
+                    </td>
+                    <td className="border-r-[1px] px-3 py-4">
+                      <div className="flex gap-x-3">
+                        <p>
+                          {support.supportStatus === false
+                            ? "Đang giải quyết"
+                            : "Đã giải quyết"}
+                        </p>
+                        {support.supportStatus === false ? (
                           <button
                             onClick={() =>
                               handleUpdate(support.supportId, support.username)
                             }
                           >
-                            <TiTick className="text-xl" />
+                            <GrUpdate />
                           </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))
+                        ) : (
+                          <p className="text-xl">
+                            <TiTick />
+                          </p>
+                        )}
+                      </div>
+                    </td>
+                  </tr>
+                ))
               )}
             </tbody>
           </table>
@@ -201,4 +205,4 @@ const SupportSuccessfulPage = () => {
   );
 };
 
-export default SupportSuccessfulPage;
+export default SupportAll;

@@ -105,7 +105,7 @@ const DashBoard = () => {
   return (
     <div className="flex h-screen flex-wrap bg-slate-100">
       <div className="flex">
-        <div className="ml-20 mr-10 mt-5 flex h-[5rem] w-[13rem] items-center justify-center gap-x-2 rounded-md bg-white text-slate-600">
+        <div className="ml-32 mr-10 mt-5 flex h-[5rem] w-[13rem] items-center justify-center gap-x-2 rounded-md bg-white text-slate-600">
           <div>
             <h3 className="text-xl font-bold">
               {users.filter((user) => user.status === "Active").length}
