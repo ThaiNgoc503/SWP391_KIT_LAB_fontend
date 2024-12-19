@@ -29,8 +29,14 @@ const PopupUpdateProduct = ({
       imagePath: product.imagePath,
     },
     validationSchema: yup.object({
-      productName: yup.string().required("Product name is required"),
-      description: yup.string().required("Description is required"),
+      productName: yup
+        .string()
+        .required("Product name is required")
+        .min(6, "must be more than or equal 6 digits"),
+      description: yup
+        .string()
+        .required("Description is required")
+        .min(6, "must be more than or equal 6 digits"),
       price: yup
         .number()
         .required("Price is required")
@@ -58,11 +64,6 @@ const PopupUpdateProduct = ({
         .required("Subcategory is required")
         .notOneOf([0], "Please select a valid lab")
         .typeError("subcategoryId must be a number"),
-      supportInstances: yup
-        .number()
-        .required("Stock quantity is required")
-        .min(0, "the price is more than or equal 0")
-        .typeError("supportInstances must be a number"),
       imagePath: yup
         .string()
         .required("image path is required")
@@ -195,24 +196,9 @@ const PopupUpdateProduct = ({
               <p className="text-sm text-red-400">{formik.errors.ages}</p>
             )}
           </div>
+
           <div className="space-y-1 text-base">
-            <p className="font-medium">supportInstances:</p>
-            <input
-              id="supportInstances"
-              name="supportInstances"
-              type="text"
-              value={formik.values.supportInstances}
-              onChange={formik.handleChange}
-              className="h-[30px] w-full rounded-md border-2 border-solid border-slate-300 py-1 pl-2"
-            />
-            {formik.errors.supportInstances && (
-              <p className="text-sm text-red-400">
-                {formik.errors.supportInstances}
-              </p>
-            )}
-          </div>
-          <div className="space-y-1 text-base">
-            <p className="font-medium">labId:</p>
+            <p className="font-medium">Lab Name:</p>
             <select
               name="labId"
               id="labId"
@@ -232,7 +218,7 @@ const PopupUpdateProduct = ({
             )}
           </div>
           <div className="space-y-1 text-base">
-            <p className="font-medium">subcategoryId:</p>
+            <p className="font-medium">Subcategory Name:</p>
             <select
               name="subcategoryId"
               id="subcategoryId"

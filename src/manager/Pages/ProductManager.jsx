@@ -1,27 +1,24 @@
 import React, { useEffect, useState } from "react";
-import {
-  deleteProductAPI,
-  getProductAPI,
-  getProductPaginationAPI,
-} from "../../api/ProductAPI";
+import { deleteProductAPI, getProductAPI } from "../../api/ProductAPI";
 import PopupAddNewProduct from "../components/PopupAddNewProduct";
 import PopupUpdateProduct from "../components/PopupUpdateProduct";
 import { FaPlus } from "react-icons/fa6";
 import { RiExchange2Line } from "react-icons/ri";
-import { IoIosRemoveCircleOutline } from "react-icons/io";
+import { IoIosRemoveCircleOutline, IoIosSearch } from "react-icons/io";
 import Notification from "../../customer/components/Notification";
 import ResponsivePagination from "react-responsive-pagination";
 import "react-responsive-pagination/themes/classic.css";
 
 const ProductManager = () => {
   const [product, setProduct] = useState([]);
+  const [filterProduct, setFilterProduct] = useState([]);
   const [openPopupAddNew, setOpenPopupAddNew] = useState(false);
   const [openPopupUpdate, setOpenPopupUpdate] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const [pageNumber, setPageNumber] = useState(1);
   const [productLength, setProductLength] = useState();
   const [notification, setNotification] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchValue, setSearchValue] = useState("");
   const totalPages = productLength;
 
   useEffect(() => {
@@ -29,19 +26,11 @@ const ProductManager = () => {
   }, []);
 
   const fetchData = async () => {
-    const data = { PageNumber: pageNumber, PageSize: 10 }; //gồm số tang và độ dài của sản phẩm
-    const response = await getProductPaginationAPI(data);
-    setProduct(response);
     const getAllProducts = await getProductAPI(); //lấy độ dài mãng
+    setProduct(getAllProducts);
+    setFilterProduct(getAllProducts);
     const length = Math.ceil(getAllProducts.length / 10); //lấy số trang
     setProductLength(length);
-  };
-
-  const loadData = async (pageNumber) => {
-    const data = { PageNumber: pageNumber, PageSize: 10 };
-    const response = await getProductPaginationAPI(data);
-    setProduct(response); //lấy đc 12 sản phẩm để hiện
-    setPageNumber(pageNumber); //set lại số trang
   };
 
   const handleClosePopupAddNew = () => {
@@ -70,7 +59,7 @@ const ProductManager = () => {
             const update = product.filter(
               (product) => currentId != product.productId,
             );
-            setProduct(update);
+            setFilterProduct(update);
           } else {
             alert("Fail to Delete");
           }
@@ -85,46 +74,66 @@ const ProductManager = () => {
     }
   };
 
-  // const renderPagination = () => {
-  //   const pages = Array.from(
-  //     { length: productLength },
-  //     (_, index) => index + 1,
-  //   );
-  //   return pages.map((page) => (
-  //     <button
-  //       key={page}
-  //       className={`mx-1 rounded px-2 py-1 ${
-  //         pageNumber === page
-  //           ? "bg-cyan-600 text-white"
-  //           : "bg-gray-200 text-cyan-600"
-  //       }`}
-  //       onClick={() => {
-  //         loadData(page);
-  //         setCurrentPage(page);
-  //       }}
-  //     >
-  //       {page}
-  //     </button>
-  //   ));
-  // };
+  const handleSearch = (e) => {
+    e.preventDefault();
+
+    if (searchValue && searchValue.length > 0) {
+      setCurrentPage(1);
+      const data = product.filter((product) =>
+        product.productName.toLowerCase().includes(searchValue.toLowerCase()),
+      );
+      setFilterProduct(data);
+      const length = Math.ceil(data.length / 10);
+      setProductLength(length);
+    } else {
+      setFilterProduct(product);
+      const length = Math.ceil(product.length / 10);
+      setProductLength(length);
+    }
+  };
+
+  const pagination = () => {
+    const start = (currentPage - 1) * 10;
+    const end = start + 10;
+    return filterProduct.slice(start, end);
+  };
+
   return (
     <div className="bg-slate-100 pt-5">
       {/* ADD NEW */}
       {openPopupAddNew && (
         <PopupAddNewProduct
           handleClosePopupAddNew={handleClosePopupAddNew}
-          fetchProduct={() => loadData(currentPage)}
+          fetchProduct={() => fetchData()}
         />
       )}
       {/* ------ */}
-      <div className="flex justify-end pb-5">
-        <button
-          onClick={() => setOpenPopupAddNew(!openPopupAddNew)}
-          className="m-3 flex items-center gap-2 rounded-md bg-green-400 p-2 px-3 text-white"
-        >
-          <FaPlus />
-          Add new
-        </button>
+
+      <div className="flex items-center justify-end pb-5 pr-10">
+        <form onSubmit={handleSearch} className="relative inline-block">
+          <input
+            type="text"
+            placeholder="Enter user you want"
+            className="h-[2rem] w-[10rem] rounded-lg border-[1px] border-solid border-cyan-100 px-2 py-1 pr-5 text-sm sm:h-[2.5rem] sm:w-[14rem] md:h-[2.5rem] md:w-[16rem] md:text-base lg:h-10 lg:w-[20rem] lg:text-lg"
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+          />
+          <button
+            type="submit"
+            className="bg-primary absolute right-1 top-1 rounded-md bg-cyan-600 p-1 text-white sm:right-2 sm:top-1 md:right-1 md:top-1 md:p-2 xl:top-[4px] xl:p-2"
+          >
+            <IoIosSearch />
+          </button>
+        </form>
+        <div className="flex justify-end">
+          <button
+            onClick={() => setOpenPopupAddNew(!openPopupAddNew)}
+            className="m-3 flex items-center gap-2 rounded-md bg-green-400 p-2 px-3 text-white"
+          >
+            <FaPlus />
+            Add new
+          </button>
+        </div>
       </div>
 
       <div className="relative overflow-x-auto [&::-webkit-scrollbar]:hidden">
@@ -153,9 +162,6 @@ const ProductManager = () => {
               <th scope="col" className="px-3 py-3">
                 Ages
               </th>
-              <th scope="col" className="px-3 py-3">
-                Support Instances
-              </th>
               <th scope="col" className="px-2 py-3">
                 Lab Name
               </th>
@@ -168,20 +174,20 @@ const ProductManager = () => {
             </tr>
           </thead>
           <tbody>
-            {product.length === 0 ? (
+            {pagination().length === 0 ? (
               <tr>
                 <td colSpan="11" className="px-6 py-4 text-center">
                   No Product found.
                 </td>
               </tr>
             ) : (
-              product.map((product, index) => (
+              pagination().map((product, index) => (
                 <tr key={product.productId} className="border-b-[2px] bg-white">
                   <th
                     scope="row"
                     className="whitespace-nowrap border-r-[1px] px-6 py-4 text-xl font-medium text-cyan-600"
                   >
-                    {(pageNumber - 1) * 10 + index + 1}
+                    {(currentPage - 1) * 10 + index + 1}
                   </th>
                   <td className="border-r-[1px] px-3 py-2">
                     {product.productName}
@@ -204,9 +210,7 @@ const ProductManager = () => {
                     {product.stockQuantity}
                   </td>
                   <td className="border-r-[1px] px-3 py-2">{product.ages}</td>
-                  <td className="border-r-[1px] px-3 py-2">
-                    {product.supportInstances}
-                  </td>
+
                   <td className="border-r-[1px] px-2 py-2">
                     {product.labName}
                   </td>
@@ -241,7 +245,7 @@ const ProductManager = () => {
           <PopupUpdateProduct
             handleClosePopupUpdate={handleClosePopupUpdate}
             product={selectedProduct}
-            fetchProduct={() => loadData(currentPage)}
+            fetchProduct={() => fetchData()}
           />
         )}
       </div>
@@ -249,10 +253,7 @@ const ProductManager = () => {
         <ResponsivePagination
           current={currentPage}
           total={totalPages}
-          onPageChange={(page) => {
-            setCurrentPage(page);
-            loadData(page);
-          }}
+          onPageChange={setCurrentPage}
         />
       </div>
 

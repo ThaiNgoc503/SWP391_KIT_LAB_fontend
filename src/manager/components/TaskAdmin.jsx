@@ -2,11 +2,17 @@ import logo from "../../assets/logo.svg";
 import { Link } from "react-router-dom";
 import { IoBookSharp } from "react-icons/io5";
 import { BiLogoProductHunt } from "react-icons/bi";
-import { MdDashboard, MdManageAccounts, MdNoAccounts } from "react-icons/md";
+import {
+  MdDashboard,
+  MdManageAccounts,
+  MdNoAccounts,
+  MdSupportAgent,
+} from "react-icons/md";
+import { FaFirstOrderAlt } from "react-icons/fa";
 const TaskAdmin = () => {
   return (
     <div>
-      <div className="flex h-screen w-[14rem] flex-col bg-cyan-600 pr-0 pt-5 text-white">
+      <div className="flex min-h-screen w-[14rem] flex-col bg-cyan-600 pb-10 pr-0 pt-5 text-white">
         <Link
           to="/manager"
           className="flex items-center border-b-2 text-center text-sm"
@@ -39,17 +45,6 @@ const TaskAdmin = () => {
           </li>
           <li className="text-nowrap">
             <Link
-              to="ban-list"
-              className="flex items-center gap-x-2 px-3 py-4 hover:bg-slate-50 hover:bg-opacity-25"
-            >
-              <div>
-                <MdNoAccounts />
-              </div>
-              <p>Ban Account</p>
-            </Link>
-          </li>
-          <li className="text-nowrap">
-            <Link
               to="product-manager"
               className="flex items-center gap-x-2 px-3 py-4 hover:bg-slate-50 hover:bg-opacity-25"
             >
@@ -68,6 +63,28 @@ const TaskAdmin = () => {
                 <IoBookSharp />
               </div>
               <p>Labs</p>
+            </Link>
+          </li>
+          <li className="text-nowrap">
+            <Link
+              to="order"
+              className="flex items-center gap-x-2 px-3 py-4 hover:bg-slate-50 hover:bg-opacity-25"
+            >
+              <div>
+                <FaFirstOrderAlt />
+              </div>
+              <p>Order</p>
+            </Link>
+          </li>
+          <li className="text-nowrap">
+            <Link
+              to="support"
+              className="flex items-center gap-x-2 px-3 py-4 hover:bg-slate-50 hover:bg-opacity-25"
+            >
+              <div>
+                <MdSupportAgent />
+              </div>
+              <p>Support</p>
             </Link>
           </li>
         </ul>

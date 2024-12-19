@@ -45,12 +45,10 @@ const HomePage = () => {
               <ul className="p-2">
                 {subcategories.map((subcategories, index) => (
                   <Link
+                    key={index}
                     to={`subcategories/${subcategories.subcategoryName}/${subcategories.subcategoryId}`}
                   >
-                    <li
-                      key={index}
-                      className="from-slate-300 to-slate-200 p-1 hover:bg-gradient-to-r"
-                    >
+                    <li className="from-slate-300 to-slate-200 p-1 hover:bg-gradient-to-r">
                       {subcategories.subcategoryName}
                     </li>
                   </Link>

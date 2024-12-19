@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { getAllUser, unbanUser } from "../../api/AdminAPI";
 import { IoIosSearch } from "react-icons/io";
 import { CiPickerEmpty } from "react-icons/ci";
+import { MdManageAccounts } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 const BanList = () => {
   const [user, setUser] = useState([]);
@@ -59,14 +61,13 @@ const BanList = () => {
             <IoIosSearch />
           </button>
         </form>
-        <button
-          className="ml-3 h-8 rounded-md bg-green-400 px-2"
-          onClick={() => {
-            fetchAPI();
-            setSearchValue("");
-          }}
-        >
-          Reset Search
+        <button className="ml-3 h-8 rounded-md bg-green-400 px-2 hover:bg-opacity-80">
+          <Link to="/manager/user" className="flex items-center gap-x-2">
+            <div>
+              <MdManageAccounts />
+            </div>
+            <p>Account</p>
+          </Link>
         </button>
       </div>
       <div className="relative overflow-auto">

@@ -16,8 +16,14 @@ const PopupAddNewLab = ({ handleClosePopupAddNew, fetchLab }) => {
       labVideoUrl: "",
     },
     validationSchema: yup.object({
-      labName: yup.string().required("Lab name is required"),
-      description: yup.string().required("Description is required"),
+      labName: yup
+        .string()
+        .required("Lab name is required")
+        .min(6, "must be more than or equal 6 digits"),
+      description: yup
+        .string()
+        .required("Description is required")
+        .min(6, "must be more than or equal 6 digits"),
       labFileUrl: yup
         .string()
         .required("Lab file URL is required")

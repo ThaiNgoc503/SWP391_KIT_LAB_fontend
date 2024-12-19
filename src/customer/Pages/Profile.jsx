@@ -10,16 +10,20 @@ const Profile = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [notification, setNotification] = useState(false);
   const [notificationError, setNotificationError] = useState(false);
-
   useEffect(() => {
     fetchAPI();
   }, []);
 
   const fetchAPI = async () => {
-    const token = localStorage.getItem("jwt");
+    const jwt = localStorage.getItem("jwt");
+    const token = JSON.parse(jwt);
     if (token) {
-      const response = await getUserProfile();
-      setProfile(response);
+      const response = await getUserProfile(token.NAME);
+      if (response) {
+        if (response.data) {
+          setProfile(response.data.data);
+        }
+      }
     }
   };
 
@@ -43,12 +47,19 @@ const Profile = () => {
     onSubmit: async (values) => {
       setIsLoading(true);
       try {
-        await updateUserProfile(values);
+        const data = {
+          fullName: values.fullName,
+          username: values.username,
+          phone: values.phone,
+          address: values.address,
+        };
+        await updateUserProfile(values.username, data);
         setNotification(true);
         setTimeout(() => {
           setNotification(false);
         }, 3000);
       } catch (error) {
+        console.log("2");
         setNotificationError(true);
         setTimeout(() => {
           setNotificationError(false);

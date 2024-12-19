@@ -16,8 +16,14 @@ const PopupUpdateLabs = ({ handleClosePopupUpdate, fetchLab, Lab }) => {
       labVideoUrl: Lab.videoURL,
     },
     validationSchema: yup.object({
-      labName: yup.string().required("Lab name is required"),
-      description: yup.string().required("Description is required"),
+      labName: yup
+        .string()
+        .required("Lab name is required")
+        .min(6, "must be more than or equal 6 digits"),
+      description: yup
+        .string()
+        .required("Description is required")
+        .min(6, "must be more than or equal 6 digits"),
       labFileUrl: yup
         .string()
         .required("Lab file URL is required")
@@ -123,7 +129,9 @@ const PopupUpdateLabs = ({ handleClosePopupUpdate, fetchLab, Lab }) => {
               className="w-full rounded-md border border-slate-300 p-2"
             />
             {formik.errors.labVideoUrl && (
-              <p className="text-sm text-red-500">{formik.errors.labFileUrl}</p>
+              <p className="text-sm text-red-500">
+                {formik.errors.labVideoUrl}
+              </p>
             )}
           </div>
           <button

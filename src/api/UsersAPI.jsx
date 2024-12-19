@@ -5,14 +5,17 @@ const END_POINT = {
   UPDATE_PROFILE: "update-profile",
 };
 
-export const getUserProfile = async () => {
-  const response = await AxiosClient.get(`${"Users"}/${END_POINT.PROFILE}`);
-  return response.data.data;
+export const getUserProfile = async (username) => {
+  const response = await AxiosClient.get(
+    `${"Users"}/${END_POINT.PROFILE}/${username}`,
+  );
+  console.log(username);
+  return response;
 };
 
-export const updateUserProfile = async (values) => {
+export const updateUserProfile = async (username, values) => {
   const response = await AxiosClient.put(
-    `${"Users"}/${END_POINT.UPDATE_PROFILE}`,
+    `${"Users"}/${END_POINT.UPDATE_PROFILE}/${username}`,
     values,
   );
   return response.data;

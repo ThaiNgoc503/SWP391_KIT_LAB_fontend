@@ -4,6 +4,8 @@ import Notification from "../../customer/components/Notification";
 import { IoIosSearch } from "react-icons/io";
 import { FaBan } from "react-icons/fa6";
 import { GrUserManager } from "react-icons/gr";
+import { Link } from "react-router-dom";
+import { MdNoAccounts } from "react-icons/md";
 
 const UserList = () => {
   const [user, setUser] = useState([]);
@@ -72,14 +74,13 @@ const UserList = () => {
             <IoIosSearch />
           </button>
         </form>
-        <button
-          className="ml-3 h-8 rounded-md bg-green-400 px-2"
-          onClick={() => {
-            fetchAPI();
-            setSearchValue("");
-          }}
-        >
-          Reset Search
+        <button className="ml-3 h-8 rounded-md bg-green-400 px-2 hover:bg-opacity-80">
+          <Link to="/manager/ban-list" className="flex items-center gap-x-2">
+            <div>
+              <MdNoAccounts />
+            </div>
+            <p>Ban Account</p>
+          </Link>
         </button>
       </div>
       <div className="relative overflow-auto">

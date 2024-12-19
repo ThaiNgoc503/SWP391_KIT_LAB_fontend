@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getOrder } from "../../api/Orders";
+import { getAllOrder, getOrder } from "../../api/Orders";
 import ChartBar from "../components/ChartBar";
 import ChartLine from "../components/ChartLine";
 import { getAllUser } from "../../api/AdminAPI";
@@ -8,7 +8,6 @@ import { getProductAPI } from "../../api/ProductAPI";
 import { getAllLabs } from "../../api/LabAPI";
 import { FaMoneyCheckAlt } from "react-icons/fa";
 import { LuContainer } from "react-icons/lu";
-import { object } from "yup"
 
 const DashBoard = () => {
   const [orders, setOrder] = useState([]);
@@ -22,8 +21,7 @@ const DashBoard = () => {
   }, []);
 
   const fetch = async () => {
-    const data = { PageNumber: 1, PageSize: 100 };
-    const rs = await getOrder(data);
+    const rs = await getAllOrder();
     setOrder(rs);
   };
 
@@ -63,8 +61,6 @@ const DashBoard = () => {
     if (a.month !== b.month) return a.month - b.month;
     return a.day - b.day;
   });
-
-
 
   const sumQuantityProduct = orders.reduce((result, order) => {
     order.orderDetails.forEach((detail) => {
@@ -109,7 +105,7 @@ const DashBoard = () => {
   return (
     <div className="flex h-screen flex-wrap bg-slate-100">
       <div className="flex">
-        <div className="ml-3 mr-5 mt-5 flex h-[5rem] w-[13rem] items-center justify-center gap-x-2 rounded-md bg-white text-slate-600">
+        <div className="ml-20 mr-10 mt-5 flex h-[5rem] w-[13rem] items-center justify-center gap-x-2 rounded-md bg-white text-slate-600">
           <div>
             <h3 className="text-xl font-bold">
               {users.filter((user) => user.status === "Active").length}
@@ -136,15 +132,6 @@ const DashBoard = () => {
           </div>
           <div className="pl-10 text-2xl text-cyan-600">
             <FaBookmark />
-          </div>
-        </div>
-        <div className="mx-5 mt-5 flex h-[5rem] w-[14rem] items-center justify-center gap-x-2 rounded-md bg-cyan-600 text-white">
-          <div>
-            <h3 className="text-xl font-bold">{MoneyFormat(totalMoney)}</h3>
-            <p>income</p>
-          </div>
-          <div className="pl-10 text-2xl text-white">
-            <FaMoneyCheckAlt />
           </div>
         </div>
       </div>

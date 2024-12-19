@@ -13,13 +13,16 @@ const PopupAddNewProduct = ({ handleClosePopupAddNew, fetchProduct }) => {
   const [notification, setNotification] = useState(false);
 
   useEffect(() => {
-    fetchAPI();
+    fetchLabs();
+    fetchSubcategory();
   }, []);
 
-  const fetchAPI = async () => {
-    const labs = await getAllLabs();
+  const fetchLabs = async () => {
+    const lab = await getAllLabs();
+    setLabs(lab);
+  };
+  const fetchSubcategory = async () => {
     const subCategories = await getAllSubcategories();
-    setLabs(labs);
     setSubCategories(subCategories);
   };
 
@@ -30,14 +33,13 @@ const PopupAddNewProduct = ({ handleClosePopupAddNew, fetchProduct }) => {
       price: "",
       stockQuantity: "",
       ages: "",
-      supportInstances: "",
       labId: 0,
       subcategoryId: 0,
       imagePath: "",
     },
     validationSchema: yup.object({
-      productName: yup.string().required("Product name is required"),
-      description: yup.string().required("Description is required"),
+      productName: yup.string().required("Product name is required").min(6, "must be more than or equal 6 digits"),
+      description: yup.string().required("Description is required").min(6, "must be more than or equal 6 digits"),
       price: yup
         .number()
         .required("Price is required")
@@ -65,11 +67,6 @@ const PopupAddNewProduct = ({ handleClosePopupAddNew, fetchProduct }) => {
         .required("Subcategory is required")
         .notOneOf([0], "Please select a valid lab")
         .typeError("subcategoryId must be a number"),
-      supportInstances: yup
-        .number()
-        .required("Stock quantity is required")
-        .min(0, "the price is more than or equal 0")
-        .typeError("supportInstances must be a number"),
       imagePath: yup
         .string()
         .required("image path is required")
@@ -80,7 +77,6 @@ const PopupAddNewProduct = ({ handleClosePopupAddNew, fetchProduct }) => {
         ...values,
         price: Number.parseFloat(values.price),
         stockQuantity: Number.parseInt(values.stockQuantity),
-        supportInstances: Number.parseInt(values.supportInstances),
         labId: Number.parseInt(values.labId),
         subcategoryId: Number.parseInt(values.subcategoryId),
       };
@@ -191,23 +187,7 @@ const PopupAddNewProduct = ({ handleClosePopupAddNew, fetchProduct }) => {
             )}
           </div>
           <div className="space-y-1 text-base">
-            <p className="font-medium">supportInstances:</p>
-            <input
-              id="supportInstances"
-              name="supportInstances"
-              type="text"
-              value={formik.values.supportInstances}
-              onChange={formik.handleChange}
-              className="h-[30px] w-full rounded-md border-2 border-solid border-slate-300 py-1 pl-2"
-            />
-            {formik.errors.supportInstances && (
-              <p className="text-sm text-red-400">
-                {formik.errors.supportInstances}
-              </p>
-            )}
-          </div>
-          <div className="space-y-1 text-base">
-            <p className="font-medium">labId:</p>
+            <p className="font-medium">lab Name:</p>
             <select
               name="labId"
               id="labId"
@@ -227,7 +207,7 @@ const PopupAddNewProduct = ({ handleClosePopupAddNew, fetchProduct }) => {
             )}
           </div>
           <div className="space-y-1 text-base">
-            <p className="font-medium">subcategoryId:</p>
+            <p className="font-medium">subcategory Name:</p>
             <select
               name="subcategoryId"
               id="subcategoryId"

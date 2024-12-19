@@ -11,10 +11,16 @@ import UserList from "./manager/Pages/UserList";
 import BanList from "./manager/Pages/BanList";
 import HomePage from "./customer/Pages/HomePage";
 import SubcategoriesPage from "./customer/Pages/SubcategoriesPage";
-import ContactPage from "./customer/Pages/ContactPage";
 import SearchPage from "./customer/Pages/SearchPage";
 import LabManager from "./manager/Pages/LabManager";
 import DashBoard from "./manager/Pages/DashBoard";
+import Order from "./manager/Pages/Order";
+import OutForDeliveryPage from "./manager/Pages/Delivery";
+import DeliverySuccessPage from "./manager/Pages/DeliverySuccessPage";
+import SupportPage from "./manager/Pages/SupportPage";
+import UserDetails from "./manager/Pages/UserDetails";
+import OrderDetails from "./manager/Pages/OrderDetails";
+import SupportSuccessfulPage from "./manager/Pages/SupportSuccessfull";
 
 function App() {
   return (
@@ -51,6 +57,14 @@ function App() {
           <Route path="product-manager" element={<ProductManager />} />
           <Route path="labs-manager" element={<LabManager />} />
           <Route path="dashboard" element={<DashBoard />} />
+          <Route path="orderAll" element={<Order />} />
+          <Route path="order" element={<Order />} />
+          <Route path="delivery" element={<OutForDeliveryPage />} />
+          <Route path="delivery-success" element={<DeliverySuccessPage />} />
+          <Route path="support" element={<SupportPage />} />
+          <Route path="support-success" element={<SupportSuccessfulPage />} />
+          <Route path="user-details/:username" element={<UserDetails />} />
+          <Route path="order-details/:id" element={<OrderDetails />} />
         </Route>
       </Routes>
     </BrowserRouter>

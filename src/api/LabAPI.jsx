@@ -9,6 +9,9 @@ const END_POINTS = {
 
 export const getAllLabs = async () => {
   const response = await AxiosClient.get(`${"Labs"}/${END_POINTS.GET_ALL}`);
+  // console.log(response); // Log toàn bộ response
+  // console.log(response.data); // Log response.data
+  console.log(response.data?.data || []); // Log response.data
   return response.data.data;
 };
 

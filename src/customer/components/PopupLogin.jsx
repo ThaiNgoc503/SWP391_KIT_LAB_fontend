@@ -44,9 +44,8 @@ const PopupLogin = () => {
 
         if (response.data.message === "Login successful.") {
           const tokenData = {
-            TOKEN: response.data.token,
             ROLE: response.data.roles[0].trim(),
-            REFRESH_TOKEN: response.data.refreshToken,
+            NAME: values.username,
           };
 
           localStorage.setItem("jwt", JSON.stringify(tokenData));
